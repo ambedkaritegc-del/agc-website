@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>About — Ambedkarite Global Council</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#07090F;--bg2:#0D1117;
+  --blue:#3B82F6;--blue-d:#2563EB;
+  --gold:#F59E0B;--green:#10B981;--purple:#8B5CF6;
+  --card:rgba(255,255,255,0.04);--card-b:rgba(255,255,255,0.08);
+  --t1:#F0F4FF;--t2:rgba(240,244,255,0.6);--t3:rgba(240,244,255,0.32);
+}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--t1);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+h1,h2,h3,h4{font-family:'Sora',sans-serif}
+a{text-decoration:none;color:inherit}
+.wrap{max-width:1100px;margin:0 auto;padding:0 24px}
+
+/* NAV */
+nav{position:fixed;top:0;width:100%;z-index:100;background:rgba(7,9,15,.97);backdrop-filter:blur(20px);border-bottom:1px solid rgba(59,130,246,.1)}
+.nav-i{display:flex;align-items:center;justify-content:space-between;height:68px;max-width:1180px;margin:0 auto;padding:0 24px}
+.logo{display:flex;align-items:center;gap:10px}
+.logo-b{width:36px;height:36px;background:linear-gradient(135deg,var(--blue-d),#6366F1);border-radius:10px;display:grid;place-items:center;font-family:'Sora',sans-serif;font-weight:800;font-size:.72rem;color:#fff;box-shadow:0 0 16px rgba(37,99,235,.35)}
+.logo-t{font-family:'Sora',sans-serif;font-weight:700;font-size:.88rem}
+.nav-links{display:flex;align-items:center;gap:28px;list-style:none}
+.nav-links a{font-size:.82rem;color:var(--t2);transition:color .2s}
+.nav-links a:hover{color:var(--t1)}
+.nav-links a.active{color:var(--blue)}
+.nav-cta{background:linear-gradient(135deg,var(--blue-d),#4F46E5);color:#fff;padding:9px 20px;border-radius:10px;font-size:.82rem;font-weight:600;font-family:'Sora',sans-serif;transition:all .25s}
+.nav-cta:hover{box-shadow:0 0 22px rgba(59,130,246,.4);transform:translateY(-1px)}
+.ham{display:none;flex-direction:column;gap:5px;cursor:pointer}
+.ham span{display:block;width:22px;height:2px;background:var(--t1);border-radius:2px}
+.mob{display:none;position:fixed;top:68px;left:0;right:0;background:rgba(7,9,15,.98);backdrop-filter:blur(20px);padding:20px 24px;border-top:1px solid var(--card-b)}
+.mob.open{display:block}
+.mob ul{list-style:none;display:flex;flex-direction:column;gap:2px;margin-bottom:14px}
+.mob a{display:block;padding:11px 0;color:var(--t2);font-size:.9rem;border-bottom:1px solid var(--card-b)}
+
+/* HERO */
+.hero{padding:116px 0 80px;position:relative;overflow:hidden;text-align:center}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 50% 40%,rgba(37,99,235,.12) 0%,transparent 65%);pointer-events:none}
+.grid-bg{position:absolute;inset:0;background-image:linear-gradient(rgba(59,130,246,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(59,130,246,.025) 1px,transparent 1px);background-size:56px 56px}
+.hero-inner{position:relative;z-index:1;max-width:700px;margin:0 auto}
+.badge{display:inline-flex;align-items:center;gap:8px;background:rgba(59,130,246,.1);border:1px solid rgba(59,130,246,.22);border-radius:100px;padding:6px 16px;margin-bottom:20px}
+.bdot{width:6px;height:6px;background:var(--blue);border-radius:50%;box-shadow:0 0 8px var(--blue);animation:pulse 2s infinite}
+.badge span{font-size:.68rem;color:var(--t2);letter-spacing:.18em;text-transform:uppercase;font-weight:500}
+.hero h1{font-size:clamp(2.2rem,5vw,3.6rem);font-weight:800;line-height:1.05;letter-spacing:-.025em;margin-bottom:18px}
+.hero h1 .bl{color:var(--blue)}
+.hero h1 .go{color:var(--gold)}
+.hero p{font-size:1.05rem;color:var(--t2);line-height:1.8;max-width:560px;margin:0 auto 36px}
+.hero-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.btn-primary{background:linear-gradient(135deg,var(--blue-d),#4F46E5);color:#fff;padding:13px 28px;border-radius:12px;font-size:.92rem;font-weight:700;font-family:'Sora',sans-serif;transition:all .25s;display:inline-flex;align-items:center;gap:8px}
+.btn-primary:hover{box-shadow:0 8px 28px rgba(59,130,246,.35);transform:translateY(-1px)}
+.btn-outline{background:var(--card);border:1.5px solid var(--card-b);color:var(--t2);padding:13px 24px;border-radius:12px;font-size:.9rem;transition:all .25s;display:inline-flex;align-items:center;gap:8px}
+.btn-outline:hover{border-color:rgba(255,255,255,.2);color:var(--t1)}
+
+/* SECTION */
+section{padding:80px 0}
+section+section{border-top:1px solid var(--card-b)}
+.sec-label{font-size:.7rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--t3);margin-bottom:10px}
+.sec-head{font-size:clamp(1.6rem,3vw,2.4rem);font-weight:800;letter-spacing:-.02em;line-height:1.15;margin-bottom:14px}
+.sec-sub{font-size:.97rem;color:var(--t2);line-height:1.8;max-width:560px}
+
+/* MISSION */
+.mission-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+.mission-text .sec-head span{color:var(--blue)}
+.mission-visual{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.mv-card{background:var(--card);border:1px solid var(--card-b);border-radius:16px;padding:22px;transition:all .3s}
+.mv-card:hover{border-color:rgba(59,130,246,.25);transform:translateY(-3px)}
+.mv-ico{font-size:1.8rem;margin-bottom:10px}
+.mv-card h4{font-size:.92rem;font-weight:700;color:var(--t1);margin-bottom:4px}
+.mv-card p{font-size:.78rem;color:var(--t2);line-height:1.6}
+
+/* PHILOSOPHY */
+.phil-center{text-align:center;margin-bottom:56px}
+.phil-center .sec-head span{color:var(--gold)}
+.phil-center .sec-sub{margin:0 auto}
+.give-receive{display:grid;grid-template-columns:1fr auto 1fr;gap:24px;align-items:center;max-width:860px;margin:0 auto 48px}
+.gr-side{background:var(--card);border:1px solid var(--card-b);border-radius:20px;padding:28px 24px}
+.gr-give{border-color:rgba(245,158,11,.2);background:rgba(245,158,11,.04)}
+.gr-recv{border-color:rgba(59,130,246,.2);background:rgba(59,130,246,.04)}
+.gr-ico{font-size:2.2rem;margin-bottom:12px}
+.gr-side h3{font-size:1.1rem;font-weight:700;margin-bottom:10px}
+.gr-give h3{color:var(--gold)}
+.gr-recv h3{color:var(--blue)}
+.gr-list{display:flex;flex-direction:column;gap:6px}
+.gr-item{font-size:.8rem;color:var(--t2);display:flex;gap:7px;align-items:flex-start}
+.gr-item::before{content:'→';color:var(--t3);flex-shrink:0;margin-top:1px}
+.gr-arrow{display:flex;flex-direction:column;align-items:center;gap:8px;color:var(--t3)}
+.gr-arrow svg{width:28px;height:28px;color:var(--t3)}
+.gr-arrow span{font-size:.65rem;text-transform:uppercase;letter-spacing:.12em;color:var(--t3)}
+.everyone{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;max-width:860px;margin:0 auto}
+.ev-card{background:var(--card);border:1px solid var(--card-b);border-radius:14px;padding:20px;text-align:center;transition:all .3s}
+.ev-card:hover{border-color:rgba(59,130,246,.2);transform:translateY(-3px)}
+.ev-card .ico{font-size:1.5rem;margin-bottom:8px}
+.ev-card h4{font-size:.88rem;font-weight:700;color:var(--t1);margin-bottom:4px}
+.ev-card p{font-size:.75rem;color:var(--t2);line-height:1.55}
+
+/* HOW IT WORKS */
+.how-center{text-align:center;margin-bottom:52px}
+.how-center .sec-head span{color:var(--blue)}
+.steps-row{display:grid;grid-template-columns:repeat(4,1fr);gap:0;position:relative;max-width:900px;margin:0 auto}
+.steps-row::before{content:'';position:absolute;top:36px;left:12%;right:12%;height:1px;background:linear-gradient(90deg,var(--blue-d),var(--purple),var(--gold));opacity:.3}
+.hw-step{display:flex;flex-direction:column;align-items:center;text-align:center;padding:0 12px;position:relative}
+.hw-num{width:72px;height:72px;border-radius:50%;display:grid;place-items:center;font-size:1.5rem;margin-bottom:16px;position:relative;z-index:1;border:1.5px solid var(--card-b);background:var(--bg);transition:all .3s}
+.hw-step:hover .hw-num{transform:scale(1.08)}
+.hw-step:nth-child(1) .hw-num{background:rgba(37,99,235,.1);border-color:rgba(37,99,235,.3)}
+.hw-step:nth-child(2) .hw-num{background:rgba(139,92,246,.1);border-color:rgba(139,92,246,.3)}
+.hw-step:nth-child(3) .hw-num{background:rgba(245,158,11,.08);border-color:rgba(245,158,11,.25)}
+.hw-step:nth-child(4) .hw-num{background:rgba(16,185,129,.1);border-color:rgba(16,185,129,.3)}
+.hw-step h3{font-size:.95rem;font-weight:700;color:var(--t1);margin-bottom:6px}
+.hw-step p{font-size:.78rem;color:var(--t2);line-height:1.6}
+
+/* INSPIRED BY */
+.inspired-center{text-align:center;margin-bottom:52px}
+.inspired-center .sec-head span{color:var(--gold)}
+.figures{display:grid;grid-template-columns:repeat(5,1fr);gap:16px}
+.fig{background:var(--card);border:1px solid var(--card-b);border-radius:18px;overflow:hidden;transition:all .35s;cursor:default}
+.fig:hover{border-color:rgba(245,158,11,.3);transform:translateY(-5px);box-shadow:0 16px 40px rgba(0,0,0,.3)}
+.fig-img{height:160px;overflow:hidden;position:relative}
+.fig-img img{width:100%;height:100%;object-fit:cover;filter:grayscale(20%);transition:filter .35s}
+.fig:hover .fig-img img{filter:grayscale(0%)}
+.fig-img-placeholder{width:100%;height:100%;background:linear-gradient(135deg,rgba(37,99,235,.15),rgba(99,102,241,.08));display:grid;place-items:center;font-size:2.8rem}
+.fig-body{padding:16px}
+.fig-name{font-family:'Sora',sans-serif;font-size:.88rem;font-weight:700;color:var(--t1);margin-bottom:3px}
+.fig-years{font-size:.7rem;color:var(--t3);margin-bottom:6px}
+.fig-quote{font-size:.72rem;color:var(--t2);line-height:1.55;font-style:italic}
+
+/* FOCUS AREAS */
+.focus-center{text-align:center;margin-bottom:52px}
+.focus-center .sec-head span{color:var(--blue)}
+.focus-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.fc-card{border-radius:20px;padding:32px 28px;transition:all .35s;position:relative;overflow:hidden}
+.fc-edu{background:linear-gradient(135deg,rgba(37,99,235,.1),rgba(99,102,241,.06));border:1px solid rgba(59,130,246,.2)}
+.fc-car{background:linear-gradient(135deg,rgba(245,158,11,.08),rgba(249,115,22,.05));border:1px solid rgba(245,158,11,.2)}
+.fc-biz{background:linear-gradient(135deg,rgba(139,92,246,.08),rgba(236,72,153,.05));border:1px solid rgba(139,92,246,.2)}
+.fc-card:hover{transform:translateY(-4px)}
+.fc-ico{font-size:2.4rem;margin-bottom:14px}
+.fc-card h3{font-size:1.2rem;font-weight:700;margin-bottom:8px}
+.fc-edu h3{color:var(--blue)}
+.fc-car h3{color:var(--gold)}
+.fc-biz h3{color:#A78BFA}
+.fc-card p{font-size:.85rem;color:var(--t2);line-height:1.7;margin-bottom:16px}
+.fc-tags{display:flex;flex-wrap:wrap;gap:6px}
+.fc-tag{font-size:.7rem;color:var(--t2);background:rgba(255,255,255,.06);padding:4px 10px;border-radius:6px}
+
+/* VALUES */
+.values-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.val-card{background:var(--card);border:1px solid var(--card-b);border-radius:16px;padding:24px;transition:all .3s}
+.val-card:hover{border-color:rgba(59,130,246,.2);transform:translateY(-3px)}
+.val-ico{font-size:1.6rem;margin-bottom:10px}
+.val-card h4{font-size:.95rem;font-weight:700;color:var(--t1);margin-bottom:6px}
+.val-card p{font-size:.8rem;color:var(--t2);line-height:1.65}
+
+/* CTA */
+.cta-section{text-align:center;padding:80px 0}
+.cta-box{background:linear-gradient(135deg,rgba(37,99,235,.12),rgba(99,102,241,.08));border:1px solid rgba(59,130,246,.2);border-radius:24px;padding:60px 40px;position:relative;overflow:hidden}
+.cta-box::before{content:'';position:absolute;top:-80px;right:-80px;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(59,130,246,.1),transparent 65%)}
+.cta-box h2{font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:800;margin-bottom:12px;position:relative}
+.cta-box h2 span{color:var(--gold)}
+.cta-box p{font-size:.97rem;color:var(--t2);line-height:1.75;max-width:480px;margin:0 auto 32px;position:relative}
+.cta-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;position:relative}
+
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.8)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+.fu{opacity:0;animation:fadeUp .6s ease forwards}
+
+@media(max-width:960px){
+  .nav-links,.nav-cta{display:none}.ham{display:flex}
+  .mission-grid{grid-template-columns:1fr}
+  .give-receive{grid-template-columns:1fr;gap:16px}
+  .gr-arrow{display:none}
+  .steps-row{grid-template-columns:1fr 1fr;gap:28px}
+  .steps-row::before{display:none}
+  .figures{grid-template-columns:repeat(3,1fr)}
+  .focus-grid,.values-grid{grid-template-columns:1fr}
+  .everyone{grid-template-columns:1fr 1fr}
+}
+@media(max-width:560px){
+  .mission-visual{grid-template-columns:1fr}
+  .figures{grid-template-columns:1fr 1fr}
+  .everyone{grid-template-columns:1fr}
+  .steps-row{grid-template-columns:1fr}
+  .hero-btns{flex-direction:column;align-items:center}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-i">
+    <a href="index.html" class="logo"><div class="logo-b">AGC</div><span class="logo-t">Ambedkarite Global Council</span></a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="members.html">Members</a></li>
+      <li><a href="events.html">Events</a></li>
+      <li><a href="about.html" class="active">About</a></li>
+    </ul>
+    <a href="register.html" class="nav-cta">Join AGC</a>
+    <div class="ham" id="ham"><span></span><span></span><span></span></div>
+  </div>
+  <div class="mob" id="mob">
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="members.html">Members</a></li>
+      <li><a href="events.html">Events</a></li>
+      <li><a href="about.html">About</a></li>
+    </ul>
+    <a href="register.html" class="nav-cta" style="display:block;text-align:center;margin-top:8px">Join AGC</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="grid-bg"></div>
+  <div class="hero-inner">
+    <div class="badge"><div class="bdot"></div><span>About AGC</span></div>
+    <h1 class="fu">A Community Built on<br/><span class="bl">Mutual Support</span><br/>and <span class="go">Shared Progress</span></h1>
+    <p class="fu" style="animation-delay:.1s">The Ambedkarite Global Council is a non-political community inspired by the vision of Dr. B.R. Ambedkar — connecting students, professionals, and entrepreneurs worldwide.</p>
+    <div class="hero-btns fu" style="animation-delay:.2s">
+      <a href="register.html" class="btn-primary">Join the Community →</a>
+      <a href="members.html" class="btn-outline">Meet the Members</a>
+    </div>
+  </div>
+</div>
+
+<!-- MISSION -->
+<section>
+  <div class="wrap">
+    <div class="mission-grid">
+      <div class="mission-text fu">
+        <div class="sec-label">Our Mission</div>
+        <h2 class="sec-head">Building Pathways for <span>Global Success</span></h2>
+        <p class="sec-sub" style="margin-bottom:20px">AGC connects Ambedkarites worldwide to help each other access education, grow careers, and build businesses. We believe that collective action is the most powerful force for social progress.</p>
+        <p class="sec-sub">Founded on the philosophy of Dr. B.R. Ambedkar, Jyotirao Phule, Savitribai Phule, and Shahu Maharaj — we turn inspiration into action through community.</p>
+      </div>
+      <div class="mission-visual fu" style="animation-delay:.1s">
+        <div class="mv-card"><div class="mv-ico">🌍</div><h4>Global Network</h4><p>Members across India, Germany, UK, USA, Australia and growing</p></div>
+        <div class="mv-card"><div class="mv-ico">🤝</div><h4>Mutual Support</h4><p>Every member both gives and receives help</p></div>
+        <div class="mv-card"><div class="mv-ico">📚</div><h4>Education First</h4><p>Scholarships, guidance, and study abroad support</p></div>
+        <div class="mv-card"><div class="mv-ico">🚀</div><h4>Non-Political</h4><p>Focused only on education, career, and community uplift</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PHILOSOPHY -->
+<section>
+  <div class="wrap">
+    <div class="phil-center fu">
+      <div class="sec-label">Core Philosophy</div>
+      <h2 class="sec-head">Everyone <span>Gives</span> &amp; Everyone <span>Receives</span></h2>
+      <p class="sec-sub">AGC is not a charity and not a job board. It is a mutual support network. Every person who joins brings something — and gets something in return.</p>
+    </div>
+    <div class="give-receive fu" style="animation-delay:.1s">
+      <div class="gr-side gr-give">
+        <div class="gr-ico">🎁</div>
+        <h3>What Members Give</h3>
+        <div class="gr-list">
+          <div class="gr-item">Job referrals and professional introductions</div>
+          <div class="gr-item">Study abroad guidance and scholarship info</div>
+          <div class="gr-item">Mentoring in their field or profession</div>
+          <div class="gr-item">Business advice and startup support</div>
+          <div class="gr-item">Legal, financial, and technical knowledge</div>
+          <div class="gr-item">Community events and workshops</div>
+        </div>
+      </div>
+      <div class="gr-arrow">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        <span>and</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="transform:rotate(180deg)"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </div>
+      <div class="gr-side gr-recv">
+        <div class="gr-ico">🤲</div>
+        <h3>What Members Receive</h3>
+        <div class="gr-list">
+          <div class="gr-item">Access to a trusted global network</div>
+          <div class="gr-item">Career guidance and job opportunities</div>
+          <div class="gr-item">Study and scholarship support</div>
+          <div class="gr-item">Business mentors and co-founders</div>
+          <div class="gr-item">Connections to diaspora communities abroad</div>
+          <div class="gr-item">Community events and learning sessions</div>
+        </div>
+      </div>
+    </div>
+    <div class="everyone fu" style="animation-delay:.15s">
+      <div class="ev-card"><div class="ico">🎓</div><h4>Students</h4><p>Find scholarships, mentors, and peers for study abroad</p></div>
+      <div class="ev-card"><div class="ico">💼</div><h4>Professionals</h4><p>Get referrals, grow your network, mentor others</p></div>
+      <div class="ev-card"><div class="ico">🌍</div><h4>Diaspora / NRIs</h4><p>Help newcomers settle and give back to the community</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section>
+  <div class="wrap">
+    <div class="how-center fu">
+      <div class="sec-label">How It Works</div>
+      <h2 class="sec-head">Simple. <span>Powerful.</span> Community-driven.</h2>
+      <p class="sec-sub" style="margin:0 auto">Joining and contributing to AGC is straightforward — designed to be easy for everyone.</p>
+    </div>
+    <div class="steps-row fu" style="animation-delay:.1s">
+      <div class="hw-step"><div class="hw-num">🙋</div><h3>1. Join</h3><p>Create your profile. Share what you offer and what you need.</p></div>
+      <div class="hw-step"><div class="hw-num">🔍</div><h3>2. Discover</h3><p>Browse members, events, and opportunities near you.</p></div>
+      <div class="hw-step"><div class="hw-num">🤝</div><h3>3. Connect</h3><p>Reach out to members, attend events, offer your help.</p></div>
+      <div class="hw-step"><div class="hw-num">📈</div><h3>4. Grow</h3><p>Build your career, education, and network globally.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- INSPIRED BY -->
+<section>
+  <div class="wrap">
+    <div class="inspired-center fu">
+      <div class="sec-label">Inspired By</div>
+      <h2 class="sec-head">Shoulders of <span>Giants</span></h2>
+      <p class="sec-sub" style="margin:0 auto">AGC is built on the legacy of thinkers who fought for education, equality, and social dignity for all people.</p>
+    </div>
+    <div class="figures fu" style="animation-delay:.1s">
+      <div class="fig">
+        <div class="fig-img"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/Dr._Bhimrao_Ambedkar.jpg/400px-Dr._Bhimrao_Ambedkar.jpg" alt="Dr. B.R. Ambedkar" loading="lazy" onerror="this.parentNode.innerHTML='<div class=fig-img-placeholder>🎓</div>'"/></div>
+        <div class="fig-body"><div class="fig-name">Dr. B.R. Ambedkar</div><div class="fig-years">1891 – 1956</div><div class="fig-quote">"Education is the most powerful weapon to change the world."</div></div>
+      </div>
+      <div class="fig">
+        <div class="fig-img"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/Jyotirao_Phule.jpg/400px-Jyotirao_Phule.jpg" alt="Jyotirao Phule" loading="lazy" onerror="this.parentNode.innerHTML='<div class=fig-img-placeholder>✊</div>'"/></div>
+        <div class="fig-body"><div class="fig-name">Jyotirao Phule</div><div class="fig-years">1827 – 1890</div><div class="fig-quote">"Without knowledge there is no morality, without morality there is no progress."</div></div>
+      </div>
+      <div class="fig">
+        <div class="fig-img"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Savitribai_Phule.jpg/400px-Savitribai_Phule.jpg" alt="Savitribai Phule" loading="lazy" onerror="this.parentNode.innerHTML='<div class=fig-img-placeholder>📚</div>'"/></div>
+        <div class="fig-body"><div class="fig-name">Savitribai Phule</div><div class="fig-years">1831 – 1897</div><div class="fig-quote">"Go, get education, be self-reliant, be industrious."</div></div>
+      </div>
+      <div class="fig">
+        <div class="fig-img"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Raja_Shahu_Chhatrapati.jpg/400px-Raja_Shahu_Chhatrapati.jpg" alt="Shahu Maharaj" loading="lazy" onerror="this.parentNode.innerHTML='<div class=fig-img-placeholder>👑</div>'"/></div>
+        <div class="fig-body"><div class="fig-name">Shahu Maharaj</div><div class="fig-years">1874 – 1922</div><div class="fig-quote">"Education and equality are the foundations of a just society."</div></div>
+      </div>
+      <div class="fig">
+        <div class="fig-img"><div class="fig-img-placeholder">☸️</div></div>
+        <div class="fig-body"><div class="fig-name">Gautama Buddha</div><div class="fig-years">563 BCE – 483 BCE</div><div class="fig-quote">"Peace comes from within. Do not seek it without."</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOCUS AREAS -->
+<section>
+  <div class="wrap">
+    <div class="focus-center fu">
+      <div class="sec-label">What We Focus On</div>
+      <h2 class="sec-head">Three Pillars of <span>Community Growth</span></h2>
+    </div>
+    <div class="focus-grid fu" style="animation-delay:.1s">
+      <div class="fc-card fc-edu">
+        <div class="fc-ico">📚</div>
+        <h3>Education</h3>
+        <p>Helping members access quality education, study abroad opportunities, scholarships, and academic mentorship at every level.</p>
+        <div class="fc-tags">
+          <span class="fc-tag">Scholarships</span><span class="fc-tag">Study Abroad</span>
+          <span class="fc-tag">PhD Guidance</span><span class="fc-tag">UPSC / Competitive Exams</span>
+          <span class="fc-tag">Peer Learning</span>
+        </div>
+      </div>
+      <div class="fc-card fc-car">
+        <div class="fc-ico">💼</div>
+        <h3>Careers</h3>
+        <p>Connecting job seekers with referrals, interview preparation, resume reviews, and professional mentors across industries globally.</p>
+        <div class="fc-tags">
+          <span class="fc-tag">Job Referrals</span><span class="fc-tag">Resume Reviews</span>
+          <span class="fc-tag">Career Mentoring</span><span class="fc-tag">Interview Prep</span>
+          <span class="fc-tag">International Jobs</span>
+        </div>
+      </div>
+      <div class="fc-card fc-biz">
+        <div class="fc-ico">🚀</div>
+        <h3>Business</h3>
+        <p>Supporting entrepreneurs with mentorship, co-founder matching, startup advice, funding connections, and business networking.</p>
+        <div class="fc-tags">
+          <span class="fc-tag">Startup Mentoring</span><span class="fc-tag">Co-founder Matching</span>
+          <span class="fc-tag">Fundraising</span><span class="fc-tag">Business Networks</span>
+          <span class="fc-tag">E-Commerce</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VALUES -->
+<section>
+  <div class="wrap">
+    <div class="fu" style="text-align:center;margin-bottom:48px">
+      <div class="sec-label">Our Values</div>
+      <h2 class="sec-head">What We Stand For</h2>
+    </div>
+    <div class="values-grid fu" style="animation-delay:.1s">
+      <div class="val-card"><div class="val-ico">⚖️</div><h4>Equality</h4><p>Every member is equal regardless of profession, income, or location. We do not discriminate.</p></div>
+      <div class="val-card"><div class="val-ico">🤝</div><h4>Mutual Support</h4><p>We believe in reciprocal help. No one is just a giver or just a receiver — everyone is both.</p></div>
+      <div class="val-card"><div class="val-ico">📚</div><h4>Education First</h4><p>We see education as the most important tool for lasting social change and individual progress.</p></div>
+      <div class="val-card"><div class="val-ico">🌍</div><h4>Global Thinking</h4><p>Our community is borderless. We connect people across India, Europe, America, and beyond.</p></div>
+      <div class="val-card"><div class="val-ico">🚫</div><h4>Non-Political</h4><p>AGC does not align with any political party. We are a community platform, not a political movement.</p></div>
+      <div class="val-card"><div class="val-ico">🔓</div><h4>Open Community</h4><p>Anyone who shares our values of education, mutual respect, and uplift is welcome to join.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<div class="cta-section">
+  <div class="wrap">
+    <div class="cta-box fu">
+      <h2>Ready to <span>Join AGC?</span></h2>
+      <p>Become part of a global community that lifts each other up — through education, careers, and meaningful connections.</p>
+      <div class="cta-btns">
+        <a href="register.html" class="btn-primary">Join AGC — It's Free →</a>
+        <a href="members.html" class="btn-outline">Meet the Community</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+document.getElementById('ham').addEventListener('click', () => document.getElementById('mob').classList.toggle('open'));
+
+// Scroll-triggered fade-up
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.style.animationPlayState='running'; obs.unobserve(e.target); } });
+}, {threshold:0.1});
+document.querySelectorAll('.fu').forEach(el => { el.style.animationPlayState='paused'; obs.observe(el); });
+</script>
+
+<!-- FOOTER -->
+<footer style="background:#0D1117;border-top:1px solid rgba(255,255,255,.08);padding:40px 0 24px;margin-top:auto">
+  <div style="max-width:1180px;margin:0 auto;padding:0 24px">
+    <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:20px;margin-bottom:28px">
+      <div style="display:flex;align-items:center;gap:10px">
+        <div style="width:34px;height:34px;background:linear-gradient(135deg,#2563EB,#6366F1);border-radius:9px;display:grid;place-items:center;font-family:Sora,sans-serif;font-weight:800;font-size:.7rem;color:#fff">AGC</div>
+        <span style="font-family:Sora,sans-serif;font-weight:700;font-size:.88rem;color:#F0F4FF">Ambedkarite Global Council</span>
+      </div>
+      <div style="display:flex;gap:20px;flex-wrap:wrap">
+        <a href="index.html" style="font-size:.8rem;color:rgba(240,244,255,.45);text-decoration:none;transition:color .2s" onmouseover="this.style.color='#F0F4FF'" onmouseout="this.style.color='rgba(240,244,255,.45)'">Home</a>
+        <a href="members.html" style="font-size:.8rem;color:rgba(240,244,255,.45);text-decoration:none;transition:color .2s" onmouseover="this.style.color='#F0F4FF'" onmouseout="this.style.color='rgba(240,244,255,.45)'">Members</a>
+        <a href="events.html" style="font-size:.8rem;color:rgba(240,244,255,.45);text-decoration:none;transition:color .2s" onmouseover="this.style.color='#F0F4FF'" onmouseout="this.style.color='rgba(240,244,255,.45)'">Events</a>
+        <a href="about.html" style="font-size:.8rem;color:rgba(240,244,255,.45);text-decoration:none;transition:color .2s" onmouseover="this.style.color='#F0F4FF'" onmouseout="this.style.color='rgba(240,244,255,.45)'">About</a>
+        <a href="register.html" style="font-size:.8rem;color:rgba(240,244,255,.45);text-decoration:none;transition:color .2s" onmouseover="this.style.color='#F0F4FF'" onmouseout="this.style.color='rgba(240,244,255,.45)'">Join AGC</a>
+      </div>
+    </div>
+    <div style="height:1px;background:rgba(255,255,255,.06);margin-bottom:20px"></div>
+    <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px">
+      <p style="font-size:.72rem;color:rgba(240,244,255,.28)">© 2025 Ambedkarite Global Council. Inspired by Dr. B.R. Ambedkar.</p>
+      <p style="font-size:.72rem;color:rgba(240,244,255,.28)">Non-political · Free to join · Global community</p>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Member Directory — Ambedkarite Global Council</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#07090F;--bg2:#0D1117;--bg3:#111827;
+  --blue:#3B82F6;--blue-d:#2563EB;
+  --gold:#F59E0B;--green:#10B981;--purple:#8B5CF6;
+  --card:rgba(255,255,255,0.04);--card-b:rgba(255,255,255,0.08);
+  --t1:#F0F4FF;--t2:rgba(240,244,255,0.6);--t3:rgba(240,244,255,0.32);
+}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--t1);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+h1,h2,h3,h4{font-family:'Sora',sans-serif}
+a{text-decoration:none;color:inherit}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+
+/* NAV */
+nav{position:fixed;top:0;width:100%;z-index:100;background:rgba(7,9,15,.97);backdrop-filter:blur(20px);border-bottom:1px solid rgba(59,130,246,.1)}
+.nav-i{display:flex;align-items:center;justify-content:space-between;height:68px;max-width:1180px;margin:0 auto;padding:0 24px}
+.logo{display:flex;align-items:center;gap:10px}
+.logo-b{width:36px;height:36px;background:linear-gradient(135deg,var(--blue-d),#6366F1);border-radius:10px;display:grid;place-items:center;font-family:'Sora',sans-serif;font-weight:800;font-size:.72rem;color:#fff;box-shadow:0 0 16px rgba(37,99,235,.35)}
+.logo-t{font-family:'Sora',sans-serif;font-weight:700;font-size:.88rem;color:var(--t1)}
+.nav-links{display:flex;align-items:center;gap:28px;list-style:none}
+.nav-links a{font-size:.82rem;color:var(--t2);transition:color .2s}
+.nav-links a:hover,.nav-links a.active{color:var(--t1)}
+.nav-links a.active{color:var(--blue)}
+.nav-cta{background:linear-gradient(135deg,var(--blue-d),#4F46E5);color:#fff;padding:9px 20px;border-radius:10px;font-size:.82rem;font-weight:600;font-family:'Sora',sans-serif;transition:all .25s}
+.nav-cta:hover{box-shadow:0 0 22px rgba(59,130,246,.4);transform:translateY(-1px)}
+.ham{display:none;flex-direction:column;gap:5px;cursor:pointer}
+.ham span{display:block;width:22px;height:2px;background:var(--t1);border-radius:2px}
+.mob{display:none;position:fixed;top:68px;left:0;right:0;background:rgba(7,9,15,.98);backdrop-filter:blur(20px);padding:20px 24px;border-top:1px solid var(--card-b)}
+.mob.open{display:block}
+.mob ul{list-style:none;display:flex;flex-direction:column;gap:2px;margin-bottom:14px}
+.mob a{display:block;padding:11px 0;color:var(--t2);font-size:.9rem;border-bottom:1px solid var(--card-b)}
+
+/* PAGE HEADER */
+.page-header{padding:108px 0 48px;background:var(--bg);position:relative;overflow:hidden}
+.page-header::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 80% at 20% 50%,rgba(37,99,235,.1) 0%,transparent 65%);pointer-events:none}
+.grid-bg{position:absolute;inset:0;background-image:linear-gradient(rgba(59,130,246,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(59,130,246,.025) 1px,transparent 1px);background-size:56px 56px}
+.ph-inner{position:relative;z-index:1;display:flex;align-items:flex-end;justify-content:space-between;gap:32px;flex-wrap:wrap}
+.ph-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(59,130,246,.1);border:1px solid rgba(59,130,246,.22);border-radius:100px;padding:6px 14px;margin-bottom:14px}
+.bdot{width:6px;height:6px;background:var(--blue);border-radius:50%;box-shadow:0 0 8px var(--blue);animation:pulse 2s infinite}
+.ph-badge span{font-size:.68rem;color:var(--t2);letter-spacing:.18em;text-transform:uppercase;font-weight:500}
+.ph-inner h1{font-size:clamp(2rem,4vw,3rem);font-weight:800;line-height:1.08;letter-spacing:-.02em;margin-bottom:8px}
+.ph-inner h1 span{color:var(--blue)}
+.ph-inner p{font-size:.97rem;color:var(--t2);line-height:1.7;max-width:480px}
+.ph-stats{display:flex;gap:24px;flex-wrap:wrap}
+.pstat{text-align:center}
+.pstat-n{font-family:'Sora',sans-serif;font-size:1.6rem;font-weight:800;color:var(--blue);display:block}
+.pstat-l{font-size:.72rem;color:var(--t3);letter-spacing:.1em;text-transform:uppercase}
+
+/* SEARCH + FILTERS */
+.filters-bar{background:var(--bg2);border-bottom:1px solid var(--card-b);padding:20px 0;position:sticky;top:68px;z-index:50}
+.fb-inner{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.search-box{flex:1;min-width:220px;position:relative}
+.search-box input{width:100%;background:rgba(255,255,255,.05);border:1.5px solid var(--card-b);border-radius:11px;padding:11px 16px 11px 42px;font-size:.88rem;color:var(--t1);font-family:'DM Sans',sans-serif;outline:none;transition:all .25s}
+.search-box input::placeholder{color:var(--t3)}
+.search-box input:focus{border-color:var(--blue);background:rgba(59,130,246,.05);box-shadow:0 0 0 3px rgba(59,130,246,.1)}
+.search-icon{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--t3);font-size:.95rem;pointer-events:none}
+.filter-group{display:flex;gap:8px;flex-wrap:wrap}
+.fchip{background:var(--card);border:1.5px solid var(--card-b);color:var(--t3);font-size:.78rem;padding:8px 14px;border-radius:100px;cursor:pointer;transition:all .2s;user-select:none;white-space:nowrap}
+.fchip:hover{border-color:rgba(59,130,246,.4);color:var(--t2)}
+.fchip.active{background:rgba(59,130,246,.12);border-color:var(--blue);color:var(--t1)}
+.fchip.ac-gold{background:rgba(245,158,11,.1);border-color:var(--gold);color:var(--gold)}
+.results-count{font-size:.78rem;color:var(--t3);white-space:nowrap;margin-left:auto}
+
+/* MAIN LAYOUT */
+.main{padding:36px 0 80px}
+.main-inner{display:grid;grid-template-columns:240px 1fr;gap:28px;align-items:start}
+
+/* SIDEBAR */
+.sidebar{background:var(--bg2);border:1px solid var(--card-b);border-radius:16px;padding:20px;position:sticky;top:138px}
+.sb-title{font-size:.7rem;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--t3);margin-bottom:12px;margin-top:4px}
+.sb-title:not(:first-child){margin-top:20px}
+.sb-options{display:flex;flex-direction:column;gap:2px}
+.sb-opt{display:flex;align-items:center;gap:9px;padding:9px 10px;border-radius:9px;cursor:pointer;transition:all .2s;font-size:.84rem;color:var(--t2)}
+.sb-opt:hover{background:rgba(255,255,255,.04);color:var(--t1)}
+.sb-opt.sel{background:rgba(59,130,246,.1);color:var(--t1)}
+.sb-opt .sb-ico{width:24px;height:24px;border-radius:7px;display:grid;place-items:center;font-size:.82rem;flex-shrink:0;background:rgba(255,255,255,.06)}
+.sb-opt.sel .sb-ico{background:rgba(59,130,246,.15)}
+.sb-count{margin-left:auto;font-size:.7rem;color:var(--t3);background:rgba(255,255,255,.06);padding:2px 8px;border-radius:100px}
+.sb-divider{height:1px;background:var(--card-b);margin:16px 0}
+
+/* GRID */
+.members-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px}
+
+/* MEMBER CARD */
+.mcard{background:var(--card);border:1px solid var(--card-b);border-radius:18px;padding:22px 20px;transition:all .35s;cursor:pointer;position:relative;overflow:hidden}
+.mcard::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--stripe,var(--blue));transform:scaleX(0);transform-origin:left;transition:transform .35s}
+.mcard:hover{border-color:rgba(59,130,246,.3);transform:translateY(-4px);box-shadow:0 16px 40px rgba(0,0,0,.25)}
+.mcard:hover::before{transform:scaleX(1)}
+.mcard-top{display:flex;align-items:flex-start;gap:13px;margin-bottom:14px}
+.mavatar{width:46px;height:46px;border-radius:13px;display:grid;place-items:center;font-family:'Sora',sans-serif;font-weight:800;font-size:.95rem;color:#fff;flex-shrink:0;position:relative}
+.mavatar .flag{position:absolute;bottom:-4px;right:-4px;font-size:.75rem;background:var(--bg2);border-radius:50%;width:18px;height:18px;display:grid;place-items:center;border:1.5px solid var(--card-b)}
+.mcard-info{flex:1;min-width:0}
+.mcard-name{font-family:'Sora',sans-serif;font-size:.95rem;font-weight:700;color:var(--t1);margin-bottom:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mcard-role{font-size:.78rem;color:var(--t2);margin-bottom:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mcard-loc{font-size:.72rem;color:var(--t3);display:flex;align-items:center;gap:4px}
+.mcard-badges{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:13px}
+.mbadge{font-size:.64rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:3px 9px;border-radius:100px}
+.mb-edu{background:rgba(59,130,246,.1);color:var(--blue);border:1px solid rgba(59,130,246,.18)}
+.mb-car{background:rgba(245,158,11,.08);color:var(--gold);border:1px solid rgba(245,158,11,.18)}
+.mb-biz{background:rgba(139,92,246,.08);color:#A78BFA;border:1px solid rgba(139,92,246,.18)}
+.mb-abroad{background:rgba(16,185,129,.08);color:var(--green);border:1px solid rgba(16,185,129,.18)}
+.mcard-section{margin-bottom:10px}
+.ms-label{font-size:.65rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--t3);margin-bottom:5px;display:flex;align-items:center;gap:5px}
+.ms-label.give{color:rgba(245,158,11,.7)}
+.ms-label.recv{color:rgba(59,130,246,.7)}
+.ms-tags{display:flex;flex-wrap:wrap;gap:4px}
+.ms-tag{font-size:.7rem;color:var(--t2);background:rgba(255,255,255,.05);padding:3px 8px;border-radius:6px}
+.mcard-footer{display:flex;align-items:center;justify-content:space-between;padding-top:12px;border-top:1px solid var(--card-b);margin-top:4px}
+.mcard-joined{font-size:.68rem;color:var(--t3)}
+.mcard-connect{background:rgba(59,130,246,.1);border:1px solid rgba(59,130,246,.2);color:var(--blue);padding:6px 14px;border-radius:8px;font-size:.76rem;font-weight:600;font-family:'Sora',sans-serif;transition:all .25s;cursor:pointer}
+.mcard-connect:hover{background:var(--blue-d);color:#fff;border-color:var(--blue-d)}
+
+/* NO RESULTS */
+.no-results{text-align:center;padding:60px 20px;color:var(--t3)}
+.no-results h3{font-size:1.1rem;color:var(--t2);margin-bottom:8px}
+.no-results p{font-size:.88rem}
+
+/* LOAD MORE */
+.load-more{text-align:center;margin-top:32px}
+.load-more button{background:var(--card);border:1.5px solid var(--card-b);color:var(--t2);padding:12px 28px;border-radius:11px;font-size:.88rem;cursor:pointer;transition:all .25s;font-family:'DM Sans',sans-serif}
+.load-more button:hover{border-color:rgba(59,130,246,.3);color:var(--t1)}
+
+/* MODAL */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);backdrop-filter:blur(8px);z-index:200;display:none;align-items:center;justify-content:center;padding:20px}
+.modal-overlay.open{display:flex}
+.modal{background:#0D1117;border:1px solid rgba(59,130,246,.2);border-radius:20px;width:100%;max-width:520px;max-height:90vh;overflow-y:auto;padding:32px;position:relative}
+.modal-close{position:absolute;top:16px;right:16px;background:rgba(255,255,255,.06);border:none;color:var(--t2);width:32px;height:32px;border-radius:8px;cursor:pointer;font-size:1rem;display:grid;place-items:center;transition:all .2s}
+.modal-close:hover{background:rgba(255,255,255,.1);color:var(--t1)}
+.modal-av{width:64px;height:64px;border-radius:16px;display:grid;place-items:center;font-family:'Sora',sans-serif;font-weight:800;font-size:1.4rem;color:#fff;margin-bottom:16px}
+.modal h2{font-size:1.5rem;font-weight:700;margin-bottom:4px}
+.modal-sub{font-size:.88rem;color:var(--t2);margin-bottom:6px}
+.modal-loc{font-size:.8rem;color:var(--t3);margin-bottom:20px}
+.modal-section{margin-bottom:18px}
+.modal-section h4{font-size:.7rem;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--t3);margin-bottom:8px;display:flex;align-items:center;gap:6px}
+.modal-section h4.give{color:rgba(245,158,11,.7)}
+.modal-section h4.recv{color:rgba(59,130,246,.7)}
+.modal-tags{display:flex;flex-wrap:wrap;gap:6px}
+.modal-tag{font-size:.78rem;color:var(--t2);background:rgba(255,255,255,.06);padding:5px 11px;border-radius:8px}
+.modal-divider{height:1px;background:var(--card-b);margin:18px 0}
+.modal-actions{display:flex;gap:10px}
+.btn-connect{flex:1;background:linear-gradient(135deg,var(--blue-d),#4F46E5);color:#fff;padding:12px;border-radius:11px;font-size:.9rem;font-weight:700;font-family:'Sora',sans-serif;border:none;cursor:pointer;transition:all .25s;text-align:center}
+.btn-connect:hover{box-shadow:0 8px 24px rgba(59,130,246,.3)}
+.btn-close-modal{background:var(--card);border:1.5px solid var(--card-b);color:var(--t2);padding:12px 20px;border-radius:11px;font-size:.88rem;cursor:pointer;transition:all .2s;font-family:'DM Sans',sans-serif}
+.btn-close-modal:hover{border-color:rgba(255,255,255,.2);color:var(--t1)}
+
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.8)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.fu{opacity:0;animation:fadeUp .5s ease forwards}
+
+@media(max-width:960px){
+  .nav-links,.nav-cta{display:none}.ham{display:flex}
+  .main-inner{grid-template-columns:1fr}
+  .sidebar{display:none}
+  .ph-inner{flex-direction:column;align-items:flex-start}
+}
+@media(max-width:560px){
+  .members-grid{grid-template-columns:1fr}
+  .fb-inner{flex-direction:column}
+  .search-box{min-width:100%}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-i">
+    <a href="index.html" class="logo"><div class="logo-b">AGC</div><span class="logo-t">Ambedkarite Global Council</span></a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="members.html" class="active">Members</a></li>
+      <li><a href="events.html">Events</a></li>
+      <li><a href="about.html">About</a></li>
+    </ul>
+    <a href="register.html" class="nav-cta">Join AGC</a>
+    <div class="ham" id="ham"><span></span><span></span><span></span></div>
+  </div>
+  <div class="mob" id="mob">
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="members.html">Members</a></li>
+      <li><a href="events.html">Events</a></li>
+      <li><a href="about.html">About</a></li>
+    </ul>
+    <a href="register.html" class="nav-cta" style="display:block;text-align:center;margin-top:8px">Join AGC</a>
+  </div>
+</nav>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <div class="grid-bg"></div>
+  <div class="wrap">
+    <div class="ph-inner">
+      <div>
+        <div class="ph-badge"><div class="bdot"></div><span>Community</span></div>
+        <h1>Find &amp; Connect with<br/><span>AGC Members</span></h1>
+        <p>Browse members by country, profession, or what they offer. Every member gives and receives.</p>
+      </div>
+      <div class="ph-stats">
+        <div class="pstat"><span class="pstat-n" id="totalCount">24</span><span class="pstat-l">Members</span></div>
+        <div class="pstat"><span class="pstat-n">6+</span><span class="pstat-l">Countries</span></div>
+        <div class="pstat"><span class="pstat-n">3</span><span class="pstat-l">Focus Areas</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FILTER BAR -->
+<div class="filters-bar">
+  <div class="wrap">
+    <div class="fb-inner">
+      <div class="search-box">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="searchInput" placeholder="Search by name, profession, skill, country..."/>
+      </div>
+      <div class="filter-group" id="filterChips">
+        <span class="fchip active" data-filter="all">All Members</span>
+        <span class="fchip" data-filter="student">🎓 Students</span>
+        <span class="fchip" data-filter="professional">💼 Professionals</span>
+        <span class="fchip" data-filter="entrepreneur">🚀 Entrepreneurs</span>
+        <span class="fchip" data-filter="abroad">🌍 Abroad</span>
+      </div>
+      <span class="results-count" id="resultsCount">Showing 24 members</span>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+  <div class="wrap">
+    <div class="main-inner">
+
+      <!-- SIDEBAR -->
+      <div class="sidebar">
+        <div class="sb-title">By Country</div>
+        <div class="sb-options" id="countryFilter">
+          <div class="sb-opt sel" onclick="filterCountry(this,'all')"><div class="sb-ico">🌍</div>All Countries<span class="sb-count" id="cc-all">24</span></div>
+          <div class="sb-opt" onclick="filterCountry(this,'India')"><div class="sb-ico">🇮🇳</div>India<span class="sb-count" id="cc-India">14</span></div>
+          <div class="sb-opt" onclick="filterCountry(this,'Germany')"><div class="sb-ico">🇩🇪</div>Germany<span class="sb-count" id="cc-Germany">4</span></div>
+          <div class="sb-opt" onclick="filterCountry(this,'United States')"><div class="sb-ico">🇺🇸</div>USA<span class="sb-count" id="cc-UnitedStates">3</span></div>
+          <div class="sb-opt" onclick="filterCountry(this,'United Kingdom')"><div class="sb-ico">🇬🇧</div>UK<span class="sb-count" id="cc-UnitedKingdom">2</span></div>
+          <div class="sb-opt" onclick="filterCountry(this,'Australia')"><div class="sb-ico">🇦🇺</div>Australia<span class="sb-count" id="cc-Australia">1</span></div>
+        </div>
+        <div class="sb-divider"></div>
+        <div class="sb-title">By Focus</div>
+        <div class="sb-options" id="focusFilter">
+          <div class="sb-opt sel" onclick="filterFocus(this,'all')"><div class="sb-ico">✨</div>All Areas</div>
+          <div class="sb-opt" onclick="filterFocus(this,'education')"><div class="sb-ico">📚</div>Education</div>
+          <div class="sb-opt" onclick="filterFocus(this,'career')"><div class="sb-ico">💼</div>Careers</div>
+          <div class="sb-opt" onclick="filterFocus(this,'business')"><div class="sb-ico">🚀</div>Business</div>
+        </div>
+      </div>
+
+      <!-- GRID -->
+      <div>
+        <div class="members-grid" id="membersGrid"></div>
+        <div class="no-results" id="noResults" style="display:none">
+          <h3>No members found</h3>
+          <p>Try adjusting your search or filters.</p>
+        </div>
+        <div class="load-more" id="loadMoreWrap" style="display:none">
+          <button onclick="loadMore()">Load More Members</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- MEMBER MODAL -->
+<div class="modal-overlay" id="modal" onclick="closeModal(event)">
+  <div class="modal" id="modalBox">
+    <button class="modal-close" onclick="closeModalDirect()">✕</button>
+    <div id="modalContent"></div>
+  </div>
+</div>
+
+<script>
+// ── MEMBER DATA ──
+const MEMBERS = [
+  { id:1, name:'Rahul Kamble', role:'Software Engineer', country:'Germany', city:'Berlin', type:'professional', abroad:true, focus:['career'], avatar:'RK', color:'linear-gradient(135deg,#2563EB,#7C3AED)', flag:'🇩🇪', joined:'Jan 2025',
+    offers:['Job Referrals','Tech Mentoring','Germany Visa Help'], needs:['Startup Partners','Legal Advice'], skills:['Programming','Tech'] },
+  { id:2, name:'Priya Jadhav', role:'MSc Student', country:'India', city:'Pune', type:'student', abroad:false, focus:['education'], avatar:'PJ', color:'linear-gradient(135deg,#F59E0B,#EF4444)', flag:'🇮🇳', joined:'Feb 2025',
+    offers:['Study Group','Scholarship Tips','Notes Sharing'], needs:['Study Abroad Guidance','Career Mentor'], skills:['Research'] },
+  { id:3, name:'Amit Sonawane', role:'Product Manager', country:'India', city:'Bangalore', type:'professional', abroad:false, focus:['career','business'], avatar:'AS', color:'linear-gradient(135deg,#10B981,#2563EB)', flag:'🇮🇳', joined:'Jan 2025',
+    offers:['Resume Review','Career Guidance','Product Mentoring'], needs:['Business Partner','Investor Connections'], skills:['Marketing','Tech'] },
+  { id:4, name:'Sunita Rathod', role:'Lawyer', country:'United Kingdom', city:'London', type:'professional', abroad:true, focus:['career'], avatar:'SR', color:'linear-gradient(135deg,#8B5CF6,#EC4899)', flag:'🇬🇧', joined:'Feb 2025',
+    offers:['Legal Guidance','UK Visa Help','Advocacy Support'], needs:['Community Network','Events'], skills:['Law'] },
+  { id:5, name:'Vijay Meshram', role:'Founder & CEO', country:'India', city:'Mumbai', type:'entrepreneur', abroad:false, focus:['business'], avatar:'VM', color:'linear-gradient(135deg,#F59E0B,#10B981)', flag:'🇮🇳', joined:'Mar 2025',
+    offers:['Startup Mentoring','Business Networking','Fundraising Advice'], needs:['Tech Co-founder','Legal Help'], skills:['Finance','Marketing'] },
+  { id:6, name:'Deepa Gaikwad', role:'PhD Researcher', country:'Germany', city:'Munich', type:'student', abroad:true, focus:['education'], avatar:'DG', color:'linear-gradient(135deg,#2563EB,#10B981)', flag:'🇩🇪', joined:'Jan 2025',
+    offers:['Scholarship Guidance','PhD Application Help','Germany Tips'], needs:['Career Mentor','Networking'], skills:['Research','Science'] },
+  { id:7, name:'Rohan Bhagat', role:'Civil Engineer', country:'India', city:'Nagpur', type:'professional', abroad:false, focus:['career'], avatar:'RB', color:'linear-gradient(135deg,#7C3AED,#2563EB)', flag:'🇮🇳', joined:'Feb 2025',
+    offers:['Engineering Guidance','Government Job Tips'], needs:['Business Partner','Study Abroad'], skills:['Engineering'] },
+  { id:8, name:'Meena Chavhan', role:'UPSC Aspirant', country:'India', city:'Delhi', type:'student', abroad:false, focus:['education'], avatar:'MC', color:'linear-gradient(135deg,#EC4899,#8B5CF6)', flag:'🇮🇳', joined:'Mar 2025',
+    offers:['Study Notes','UPSC Strategy Sessions','Peer Support'], needs:['Mentorship','Study Group'], skills:['Research','Writing'] },
+  { id:9, name:'Kiran Waghmare', role:'Data Scientist', country:'United States', city:'San Francisco', type:'professional', abroad:true, focus:['career'], avatar:'KW', color:'linear-gradient(135deg,#2563EB,#F59E0B)', flag:'🇺🇸', joined:'Jan 2025',
+    offers:['Job Referrals in US','Data Science Mentoring','LinkedIn Reviews'], needs:['India Network','Startup Advice'], skills:['Programming','Research'] },
+  { id:10, name:'Sanjay Dongre', role:'MBA Student', country:'India', city:'Hyderabad', type:'student', abroad:false, focus:['education','business'], avatar:'SD', color:'linear-gradient(135deg,#10B981,#F59E0B)', flag:'🇮🇳', joined:'Feb 2025',
+    offers:['MBA Guidance','CAT Prep Help','Business Case Studies'], needs:['Job Referrals','Startup Idea Partners'], skills:['Finance','Marketing'] },
+  { id:11, name:'Anita Pawar', role:'School Teacher', country:'India', city:'Aurangabad', type:'professional', abroad:false, focus:['education'], avatar:'AP', color:'linear-gradient(135deg,#8B5CF6,#F59E0B)', flag:'🇮🇳', joined:'Mar 2025',
+    offers:['Teaching Methods','Education Policy Insights','Student Mentoring'], needs:['Career Opportunities','Online Teaching Tools'], skills:['Teaching'] },
+  { id:12, name:'Nitin Shinde', role:'Software Developer', country:'Germany', city:'Hamburg', type:'professional', abroad:true, focus:['career'], avatar:'NS', color:'linear-gradient(135deg,#2563EB,#EC4899)', flag:'🇩🇪', joined:'Jan 2025',
+    offers:['Tech Job Referrals','Germany Work Permit Help','React/Node Mentoring'], needs:['Startup Collaborators','Business Advice'], skills:['Programming'] },
+  { id:13, name:'Pooja Kamble', role:'Graphic Designer', country:'India', city:'Pune', type:'professional', abroad:false, focus:['career','business'], avatar:'PK', color:'linear-gradient(135deg,#EC4899,#2563EB)', flag:'🇮🇳', joined:'Feb 2025',
+    offers:['Design Mentoring','Portfolio Reviews','Freelance Tips'], needs:['Business Partner','Marketing Help'], skills:['Design'] },
+  { id:14, name:'Akash Mane', role:'Medical Student', country:'India', city:'Mumbai', type:'student', abroad:false, focus:['education'], avatar:'AM', color:'linear-gradient(135deg,#10B981,#8B5CF6)', flag:'🇮🇳', joined:'Mar 2025',
+    offers:['NEET Guidance','Medical Peer Support','Study Notes'], needs:['Scholarship Info','Career Mentoring'], skills:['Medicine'] },
+  { id:15, name:'Rashmi Tekade', role:'HR Manager', country:'India', city:'Chennai', type:'professional', abroad:false, focus:['career'], avatar:'RT', color:'linear-gradient(135deg,#F59E0B,#8B5CF6)', flag:'🇮🇳', joined:'Jan 2025',
+    offers:['Job Referrals','Interview Coaching','Resume Help'], needs:['Business Networking','Leadership Mentoring'], skills:['Marketing'] },
+  { id:16, name:'Suresh Salve', role:'Startup Founder', country:'United States', city:'New York', type:'entrepreneur', abroad:true, focus:['business'], avatar:'SS', color:'linear-gradient(135deg,#7C3AED,#10B981)', flag:'🇺🇸', joined:'Feb 2025',
+    offers:['Startup Mentoring','US Market Insights','Fundraising Tips'], needs:['Tech Team','India Operations Partner'], skills:['Finance','Marketing'] },
+  { id:17, name:'Lata Bansode', role:'Social Worker', country:'India', city:'Nashik', type:'professional', abroad:false, focus:['education'], avatar:'LB', color:'linear-gradient(135deg,#10B981,#EC4899)', flag:'🇮🇳', joined:'Mar 2025',
+    offers:['Community Organizing','NGO Guidance','Social Impact Advice'], needs:['Funding Help','Tech Partner'], skills:['Writing'] },
+  { id:18, name:'Arun Khobragade', role:'IIT Student', country:'India', city:'Kanpur', type:'student', abroad:false, focus:['education','career'], avatar:'AK', color:'linear-gradient(135deg,#2563EB,#8B5CF6)', flag:'🇮🇳', joined:'Jan 2025',
+    offers:['JEE/IIT Guidance','Engineering Study Help','Peer Tutoring'], needs:['Internship Opportunities','Career Mentor'], skills:['Programming','Engineering'] },
+  { id:19, name:'Nisha Fulzele', role:'Journalist', country:'India', city:'Mumbai', type:'professional', abroad:false, focus:['career'], avatar:'NF', color:'linear-gradient(135deg,#F59E0B,#2563EB)', flag:'🇮🇳', joined:'Feb 2025',
+    offers:['Writing Coaching','Media Connections','Story Pitching Help'], needs:['Platform to Publish','Collaborators'], skills:['Writing','Marketing'] },
+  { id:20, name:'Prakash Gopal', role:'Finance Analyst', country:'United Kingdom', city:'Manchester', type:'professional', abroad:true, focus:['career','business'], avatar:'PG', color:'linear-gradient(135deg,#8B5CF6,#2563EB)', flag:'🇬🇧', joined:'Mar 2025',
+    offers:['UK Job Referrals','Finance Career Guidance','Investment Tips'], needs:['Community Network','Business Partners'], skills:['Finance'] },
+  { id:21, name:'Kavita Wankhede', role:'E-Commerce Entrepreneur', country:'India', city:'Pune', type:'entrepreneur', abroad:false, focus:['business'], avatar:'KV', color:'linear-gradient(135deg,#EC4899,#F59E0B)', flag:'🇮🇳', joined:'Jan 2025',
+    offers:['E-Commerce Tips','Dropshipping Guidance','Digital Marketing'], needs:['Tech Partner','Investor Connections'], skills:['Marketing','Finance'] },
+  { id:22, name:'Mahesh Tupe', role:'Civil Services Officer', country:'India', city:'Pune', type:'professional', abroad:false, focus:['education','career'], avatar:'MT', color:'linear-gradient(135deg,#2563EB,#F59E0B)', flag:'🇮🇳', joined:'Feb 2025',
+    offers:['UPSC Mentoring','IAS Strategy Sessions','Public Policy Insights'], needs:['Leadership Network','Writing Coach'], skills:['Writing','Research'] },
+  { id:23, name:'Shobha Nimkar', role:'Nursing Professional', country:'Australia', city:'Melbourne', type:'professional', abroad:true, focus:['career'], avatar:'SN', color:'linear-gradient(135deg,#10B981,#7C3AED)', flag:'🇦🇺', joined:'Mar 2025',
+    offers:['Australia Healthcare Jobs','Nursing Career Guidance','PR Process Help'], needs:['Community Network','Cultural Support'], skills:['Medicine'] },
+  { id:24, name:'Tejas Jagtap', role:'Open Source Developer', country:'Germany', city:'Berlin', type:'professional', abroad:true, focus:['career','business'], avatar:'TJ', color:'linear-gradient(135deg,#7C3AED,#F59E0B)', flag:'🇩🇪', joined:'Jan 2025',
+    offers:['Open Source Mentoring','GitHub Portfolio Reviews','Tech Startup Advice'], needs:['Business Co-founder','Funding Guidance'], skills:['Programming','Tech'] },
+];
+
+// ── STATE ──
+let filtered = [...MEMBERS];
+let activeType = 'all';
+let activeCountry = 'all';
+let activeFocus = 'all';
+let searchQ = '';
+let displayCount = 12;
+
+const STRIPES = {
+  student: '#3B82F6', professional: '#F59E0B', entrepreneur: '#8B5CF6', abroad: '#10B981'
+};
+
+// ── RENDER ──
+function renderCards() {
+  const grid = document.getElementById('membersGrid');
+  const noRes = document.getElementById('noResults');
+  const lmWrap = document.getElementById('loadMoreWrap');
+
+  const visible = filtered.slice(0, displayCount);
+  document.getElementById('resultsCount').textContent = `Showing ${Math.min(displayCount, filtered.length)} of ${filtered.length} members`;
+
+  if (!filtered.length) {
+    grid.innerHTML = '';
+    noRes.style.display = 'block';
+    lmWrap.style.display = 'none';
+    return;
+  }
+
+  noRes.style.display = 'none';
+  lmWrap.style.display = filtered.length > displayCount ? 'block' : 'none';
+
+  grid.innerHTML = visible.map((m, i) => {
+    const stripe = m.abroad ? STRIPES.abroad : STRIPES[m.type] || STRIPES.professional;
+    const badge = m.abroad
+      ? `<span class="mbadge mb-abroad">🌍 Abroad</span>`
+      : m.type === 'student' ? `<span class="mbadge mb-edu">🎓 Student</span>`
+      : m.type === 'entrepreneur' ? `<span class="mbadge mb-biz">🚀 Entrepreneur</span>`
+      : `<span class="mbadge mb-car">💼 Professional</span>`;
+
+    return `
+    <div class="mcard fu" style="--stripe:${stripe};animation-delay:${i*0.04}s" onclick="openModal(${m.id})">
+      <div class="mcard-top">
+        <div class="mavatar" style="background:${m.color}">
+          ${m.avatar}
+          <span class="flag">${m.flag}</span>
+        </div>
+        <div class="mcard-info">
+          <div class="mcard-name">${m.name}</div>
+          <div class="mcard-role">${m.role}</div>
+          <div class="mcard-loc">📍 ${m.city}, ${m.country}</div>
+        </div>
+      </div>
+      <div class="mcard-badges">${badge}</div>
+      <div class="mcard-section">
+        <div class="ms-label give">🎁 Offers</div>
+        <div class="ms-tags">${m.offers.slice(0,3).map(o=>`<span class="ms-tag">${o}</span>`).join('')}</div>
+      </div>
+      <div class="mcard-section">
+        <div class="ms-label recv">🤲 Looking For</div>
+        <div class="ms-tags">${m.needs.slice(0,2).map(n=>`<span class="ms-tag">${n}</span>`).join('')}</div>
+      </div>
+      <div class="mcard-footer">
+        <span class="mcard-joined">Joined ${m.joined}</span>
+        <span class="mcard-connect" onclick="event.stopPropagation();window.location='register.html'">Connect</span>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+// ── FILTER ENGINE ──
+function applyFilters() {
+  displayCount = 12;
+  filtered = MEMBERS.filter(m => {
+    const q = searchQ.toLowerCase();
+    const matchSearch = !q ||
+      m.name.toLowerCase().includes(q) ||
+      m.role.toLowerCase().includes(q) ||
+      m.country.toLowerCase().includes(q) ||
+      m.city.toLowerCase().includes(q) ||
+      m.skills.some(s => s.toLowerCase().includes(q)) ||
+      m.offers.some(o => o.toLowerCase().includes(q)) ||
+      m.needs.some(n => n.toLowerCase().includes(q));
+
+    const matchType = activeType === 'all' ||
+      (activeType === 'abroad' && m.abroad) ||
+      m.type === activeType;
+
+    const matchCountry = activeCountry === 'all' || m.country === activeCountry;
+
+    const matchFocus = activeFocus === 'all' || m.focus.includes(activeFocus);
+
+    return matchSearch && matchType && matchCountry && matchFocus;
+  });
+  renderCards();
+}
+
+// ── SEARCH ──
+document.getElementById('searchInput').addEventListener('input', e => {
+  searchQ = e.target.value;
+  applyFilters();
+});
+
+// ── TYPE CHIPS ──
+document.getElementById('filterChips').addEventListener('click', e => {
+  const chip = e.target.closest('.fchip');
+  if (!chip) return;
+  document.querySelectorAll('.fchip').forEach(c => c.classList.remove('active','ac-gold'));
+  chip.classList.add('active');
+  activeType = chip.dataset.filter;
+  applyFilters();
+});
+
+// ── COUNTRY SIDEBAR ──
+function filterCountry(el, val) {
+  document.querySelectorAll('#countryFilter .sb-opt').forEach(o => o.classList.remove('sel'));
+  el.classList.add('sel');
+  activeCountry = val;
+  applyFilters();
+}
+
+// ── FOCUS SIDEBAR ──
+function filterFocus(el, val) {
+  document.querySelectorAll('#focusFilter .sb-opt').forEach(o => o.classList.remove('sel'));
+  el.classList.add('sel');
+  activeFocus = val;
+  applyFilters();
+}
+
+// ── LOAD MORE ──
+function loadMore() {
+  displayCount += 12;
+  renderCards();
+}
+
+// ── MODAL ──
+function openModal(id) {
+  const m = MEMBERS.find(x => x.id === id);
+  if (!m) return;
+  document.getElementById('modalContent').innerHTML = `
+    <div class="modal-av" style="background:${m.color}">${m.avatar}</div>
+    <h2>${m.name} ${m.flag}</h2>
+    <div class="modal-sub">${m.role} · ${m.city}, ${m.country}</div>
+    <div class="modal-loc">Joined ${m.joined} · ${m.abroad ? 'Living Abroad' : 'Based in India'}</div>
+    <div class="modal-divider"></div>
+    <div class="modal-section">
+      <h4 class="give">🎁 What ${m.name.split(' ')[0]} Offers</h4>
+      <div class="modal-tags">${m.offers.map(o=>`<span class="modal-tag">${o}</span>`).join('')}</div>
+    </div>
+    <div class="modal-section">
+      <h4 class="recv">🤲 What ${m.name.split(' ')[0]} Needs</h4>
+      <div class="modal-tags">${m.needs.map(n=>`<span class="modal-tag">${n}</span>`).join('')}</div>
+    </div>
+    <div class="modal-section">
+      <h4>💡 Skills</h4>
+      <div class="modal-tags">${m.skills.map(s=>`<span class="modal-tag">${s}</span>`).join('')}</div>
+    </div>
+    <div class="modal-divider"></div>
+    <div class="modal-actions">
+      <a href="register.html" class="btn-connect">Join AGC to Connect</a>
+      <button class="btn-close-modal" onclick="closeModalDirect()">Close</button>
+    </div>`;
+  document.getElementById('modal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal(e) {
+  if (e.target === document.getElementById('modal')) closeModalDirect();
+}
+function closeModalDirect() {
+  document.getElementById('modal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModalDirect(); });
+
+// ── NAV ──
+document.getElementById('ham').addEventListener('click', () => document.getElementById('mob').classList.toggle('open'));
+
+// ── DYNAMIC COUNTS ──
+function updateCounts() {
+  document.getElementById('totalCount').textContent = MEMBERS.length;
+  [['India','India'],['Germany','Germany'],['United States','UnitedStates'],['United Kingdom','UnitedKingdom'],['Australia','Australia']].forEach(([c,cid]) => {
+    const el = document.getElementById('cc-' + c.replace(/ /g,''));
+    if (el) el.textContent = MEMBERS.filter(m => m.country === c).length;
+  });
+  const allEl = document.getElementById('cc-all');
+  if (allEl) allEl.textContent = MEMBERS.length;
+}
+
+// ── INIT ──
+updateCounts();
+renderCards();
+</script>
+
+<!-- FOOTER -->
+<footer style="background:#0D1117;border-top:1px solid rgba(255,255,255,.08);padding:40px 0 24px;margin-top:auto">
+  <div style="max-width:1180px;margin:0 auto;padding:0 24px">
+    <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:20px;margin-bottom:28px">
+      <div style="display:flex;align-items:center;gap:10px">
+        <div style="width:34px;height:34px;background:linear-gradient(135deg,#2563EB,#6366F1);border-radius:9px;display:grid;place-items:center;font-family:Sora,sans-serif;font-weight:800;font-size:.7rem;color:#fff">AGC</div>
+        <span style="font-family:Sora,sans-serif;font-weight:700;font-size:.88rem;color:#F0F4FF">Ambedkarite Global Council</span>
+      </div>
+      <div style="display:flex;gap:20px;flex-wrap:wrap">
+        <a href="index.html" style="font-size:.8rem;color:rgba(240,244,255,.45);text-decoration:none;transition:color .2s" onmouseover="this.style.color='#F0F4FF'" onmouseout="this.style.color='rgba(240,244,255,.45)'">Home</a>
+        <a href="members.html" style="font-size:.8rem;color:rgba(240,244,255,.45);text-decoration:none;transition:color .2s" onmouseover="this.style.color='#F0F4FF'" onmouseout="this.style.color='rgba(240,244,255,.45)'">Members</a>
+        <a href="events.html" style="font-size:.8rem;color:rgba(240,244,255,.45);text-decoration:none;transition:color .2s" onmouseover="this.style.color='#F0F4FF'" onmouseout="this.style.color='rgba(240,244,255,.45)'">Events</a>
+        <a href="about.html" style="font-size:.8rem;color:rgba(240,244,255,.45);text-decoration:none;transition:color .2s" onmouseover="this.style.color='#F0F4FF'" onmouseout="this.style.color='rgba(240,244,255,.45)'">About</a>
+        <a href="register.html" style="font-size:.8rem;color:rgba(240,244,255,.45);text-decoration:none;transition:color .2s" onmouseover="this.style.color='#F0F4FF'" onmouseout="this.style.color='rgba(240,244,255,.45)'">Join AGC</a>
+      </div>
+    </div>
+    <div style="height:1px;background:rgba(255,255,255,.06);margin-bottom:20px"></div>
+    <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px">
+      <p style="font-size:.72rem;color:rgba(240,244,255,.28)">© 2025 Ambedkarite Global Council. Inspired by Dr. B.R. Ambedkar.</p>
+      <p style="font-size:.72rem;color:rgba(240,244,255,.28)">Non-political · Free to join · Global community</p>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

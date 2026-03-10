@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Submit an Event — Ambedkarite Global Council</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#07090F;--bg2:#0D1117;--bg3:#111827;
+  --blue:#3B82F6;--blue-d:#2563EB;
+  --gold:#F59E0B;--green:#10B981;--orange:#F97316;
+  --card:rgba(255,255,255,0.04);--card-b:rgba(255,255,255,0.08);
+  --t1:#F0F4FF;--t2:rgba(240,244,255,0.6);--t3:rgba(240,244,255,0.32);
+}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--t1);-webkit-font-smoothing:antialiased;min-height:100vh}
+h1,h2,h3,h4{font-family:'Sora',sans-serif}
+a{text-decoration:none;color:inherit}
+
+/* NAV */
+nav{position:fixed;top:0;width:100%;z-index:100;background:rgba(7,9,15,.97);backdrop-filter:blur(20px);border-bottom:1px solid rgba(59,130,246,.1)}
+.nav-i{display:flex;align-items:center;justify-content:space-between;height:68px;max-width:1180px;margin:0 auto;padding:0 24px}
+.logo{display:flex;align-items:center;gap:10px}
+.logo-b{width:36px;height:36px;background:linear-gradient(135deg,var(--blue-d),#6366F1);border-radius:10px;display:grid;place-items:center;font-family:'Sora',sans-serif;font-weight:800;font-size:.72rem;color:#fff;box-shadow:0 0 16px rgba(37,99,235,.35)}
+.logo-t{font-family:'Sora',sans-serif;font-weight:700;font-size:.88rem}
+.nav-back{display:flex;align-items:center;gap:6px;font-size:.82rem;color:var(--t2);border:1px solid var(--card-b);padding:8px 16px;border-radius:9px;transition:all .2s}
+.nav-back:hover{color:var(--t1);border-color:rgba(255,255,255,.2)}
+
+/* LAYOUT */
+.page{display:grid;grid-template-columns:1fr 1fr;min-height:100vh;padding-top:68px}
+
+/* LEFT */
+.left{background:var(--bg2);padding:56px 48px;display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden;border-right:1px solid var(--card-b)}
+.lo1{position:absolute;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(37,99,235,.1) 0%,transparent 65%);top:-100px;left:-100px;pointer-events:none}
+.lo2{position:absolute;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(245,158,11,.06) 0%,transparent 65%);bottom:-50px;right:-50px;pointer-events:none}
+.left-inner{position:relative;z-index:1;max-width:400px}
+.left-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.25);border-radius:100px;padding:6px 14px;margin-bottom:24px}
+.left-badge span{font-size:.68rem;color:var(--gold);letter-spacing:.18em;text-transform:uppercase;font-weight:600}
+.left h1{font-size:2.2rem;font-weight:800;line-height:1.1;letter-spacing:-.02em;margin-bottom:14px}
+.left h1 span{color:var(--gold)}
+.left-sub{font-size:.92rem;color:var(--t2);line-height:1.75;margin-bottom:32px}
+
+/* FLOW */
+.flow{display:flex;flex-direction:column;gap:0;margin-bottom:32px}
+.flow-step{display:flex;gap:14px;position:relative;padding-bottom:20px}
+.flow-step:last-child{padding-bottom:0}
+.flow-step:not(:last-child)::after{content:'';position:absolute;left:17px;top:36px;bottom:0;width:1.5px;background:var(--card-b)}
+.fs-dot{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;font-size:.85rem;flex-shrink:0;position:relative;z-index:1}
+.fs-1{background:rgba(59,130,246,.12);border:1.5px solid rgba(59,130,246,.3)}
+.fs-2{background:rgba(245,158,11,.1);border:1.5px solid rgba(245,158,11,.25)}
+.fs-3{background:rgba(139,92,246,.1);border:1.5px solid rgba(139,92,246,.25)}
+.fs-4{background:rgba(16,185,129,.1);border:1.5px solid rgba(16,185,129,.25)}
+.fs-body h4{font-size:.88rem;font-weight:700;color:var(--t1);margin-bottom:2px;padding-top:6px}
+.fs-body p{font-size:.76rem;color:var(--t3);line-height:1.5}
+
+.rules{background:rgba(245,158,11,.06);border:1px solid rgba(245,158,11,.18);border-radius:12px;padding:16px}
+.rules h4{font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
+.rules ul{list-style:none;display:flex;flex-direction:column;gap:6px}
+.rules li{font-size:.78rem;color:var(--t2);display:flex;gap:8px}
+.rules li::before{content:'•';color:var(--gold)}
+
+/* RIGHT */
+.right{padding:48px 48px;overflow-y:auto}
+.right-inner{max-width:460px;margin:0 auto;width:100%}
+
+/* STEPS */
+.steps-bar{display:flex;align-items:center;margin-bottom:28px}
+.step-dot{display:flex;flex-direction:column;align-items:center;gap:4px;flex:1;position:relative}
+.step-dot:not(:last-child)::after{content:'';position:absolute;top:14px;left:calc(50% + 14px);right:calc(-50% + 14px);height:1px;background:var(--card-b);z-index:0}
+.step-dot.active:not(:last-child)::after,.step-dot.done:not(:last-child)::after{background:var(--gold)}
+.sdot{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;font-size:.72rem;font-family:'Sora',sans-serif;font-weight:700;border:1.5px solid var(--card-b);color:var(--t3);background:var(--bg);position:relative;z-index:1;transition:all .3s}
+.step-dot.active .sdot{border-color:var(--gold);color:#000;background:var(--gold)}
+.step-dot.done .sdot{border-color:var(--green);color:#fff;background:var(--green)}
+.sdot-n{display:block}.step-dot.done .sdot-n{display:none}
+.sdot-c{display:none}.step-dot.done .sdot-c{display:block;font-size:.75rem}
+.step-lbl{font-size:.63rem;color:var(--t3);letter-spacing:.08em;text-transform:uppercase;white-space:nowrap}
+.step-dot.active .step-lbl{color:var(--gold)}
+.step-dot.done .step-lbl{color:var(--green)}
+
+.progress-bar{height:3px;background:var(--card-b);border-radius:2px;margin-bottom:32px;overflow:hidden}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--gold),#F97316);border-radius:2px;transition:width .4s ease}
+
+/* PANELS */
+.form-panel{display:none}
+.form-panel.active{display:block}
+.panel-title h2{font-size:1.45rem;font-weight:700;color:var(--t1);margin-bottom:4px}
+.panel-title p{font-size:.84rem;color:var(--t2);line-height:1.6;margin-bottom:26px}
+
+/* FIELDS */
+.field{margin-bottom:18px}
+.field label{display:block;font-size:.78rem;font-weight:600;color:var(--t2);letter-spacing:.05em;margin-bottom:7px}
+.req{color:var(--gold);margin-left:2px}
+.opt{font-size:.68rem;color:var(--t3);font-weight:400;margin-left:6px}
+.field input,.field select,.field textarea{width:100%;background:rgba(255,255,255,.04);border:1.5px solid rgba(255,255,255,.1);border-radius:10px;padding:12px 16px;font-size:.9rem;color:var(--t1);font-family:'DM Sans',sans-serif;transition:all .25s;outline:none;appearance:none}
+.field input::placeholder,.field textarea::placeholder{color:var(--t3)}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--gold);background:rgba(245,158,11,.04);box-shadow:0 0 0 3px rgba(245,158,11,.1)}
+.field select{cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='rgba(240,244,255,0.4)' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center}
+.field select option{background:#0D1117;color:var(--t1)}
+.field textarea{resize:vertical;min-height:90px;line-height:1.6}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.field-hint{font-size:.72rem;color:var(--t3);margin-top:5px;line-height:1.5}
+
+/* TYPE CARDS */
+.type-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.type-card{background:var(--card);border:1.5px solid var(--card-b);border-radius:12px;padding:16px;cursor:pointer;transition:all .25s;display:flex;align-items:center;gap:10px}
+.type-card:hover{border-color:rgba(245,158,11,.3)}
+.type-card.sel{background:rgba(245,158,11,.08);border-color:var(--gold)}
+.type-ico{width:36px;height:36px;border-radius:9px;display:grid;place-items:center;font-size:1.1rem;flex-shrink:0;background:rgba(255,255,255,.06)}
+.type-card.sel .type-ico{background:rgba(245,158,11,.15)}
+.type-text h4{font-size:.84rem;font-weight:600;color:var(--t1)}
+.type-text p{font-size:.7rem;color:var(--t3)}
+
+/* ONLINE TOGGLE */
+.toggle-row{display:flex;align-items:center;gap:12px;background:var(--card);border:1.5px solid var(--card-b);border-radius:11px;padding:14px 16px;cursor:pointer;transition:all .25s}
+.toggle-row:hover{border-color:rgba(245,158,11,.3)}
+.toggle-row.on{background:rgba(245,158,11,.06);border-color:var(--gold)}
+.toggle-ico{font-size:1.2rem}
+.toggle-text h4{font-size:.86rem;font-weight:600;color:var(--t1)}
+.toggle-text p{font-size:.73rem;color:var(--t3)}
+.toggle-sw{margin-left:auto;width:40px;height:22px;background:var(--card-b);border-radius:100px;position:relative;transition:background .2s;flex-shrink:0}
+.toggle-sw::after{content:'';position:absolute;width:16px;height:16px;background:#fff;border-radius:50%;top:3px;left:3px;transition:transform .2s}
+.toggle-row.on .toggle-sw{background:var(--gold)}
+.toggle-row.on .toggle-sw::after{transform:translateX(18px)}
+
+/* AGENDA BUILDER */
+.agenda-list{display:flex;flex-direction:column;gap:8px;margin-bottom:10px}
+.agenda-item{display:flex;gap:8px;align-items:center}
+.agenda-item input{flex:1;background:rgba(255,255,255,.04);border:1.5px solid rgba(255,255,255,.1);border-radius:9px;padding:10px 14px;font-size:.85rem;color:var(--t1);font-family:'DM Sans',sans-serif;outline:none;transition:all .25s}
+.agenda-item input:focus{border-color:var(--gold);background:rgba(245,158,11,.04)}
+.agenda-item input::placeholder{color:var(--t3)}
+.agenda-rm{width:30px;height:30px;background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.2);color:#F87171;border-radius:7px;display:grid;place-items:center;cursor:pointer;font-size:.85rem;transition:all .2s;flex-shrink:0}
+.agenda-rm:hover{background:rgba(239,68,68,.2)}
+.btn-add-agenda{background:var(--card);border:1.5px dashed var(--card-b);color:var(--t3);font-size:.8rem;padding:9px;border-radius:9px;cursor:pointer;width:100%;transition:all .2s;font-family:'DM Sans',sans-serif}
+.btn-add-agenda:hover{border-color:rgba(245,158,11,.3);color:var(--gold)}
+
+/* PREVIEW CARD */
+.preview-card{background:linear-gradient(135deg,rgba(37,99,235,.08),rgba(99,102,241,.05));border:1px solid rgba(59,130,246,.2);border-radius:16px;padding:22px;margin-bottom:20px}
+.preview-card h4{font-size:.7rem;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--t3);margin-bottom:14px}
+.preview-title{font-family:'Sora',sans-serif;font-size:1.1rem;font-weight:700;color:var(--t1);margin-bottom:6px}
+.preview-meta{display:flex;flex-direction:column;gap:4px}
+.preview-row{font-size:.8rem;color:var(--t2);display:flex;gap:6px;align-items:center}
+.status-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.25);border-radius:100px;padding:4px 12px;font-size:.7rem;font-weight:600;color:var(--gold);margin-top:12px}
+.status-dot{width:6px;height:6px;border-radius:50%;background:var(--gold);animation:pulse 2s infinite}
+
+/* BUTTONS */
+.form-btns{display:flex;gap:10px;margin-top:26px}
+.btn-next{flex:1;background:linear-gradient(135deg,#D97706,var(--gold));color:#000;padding:13px 24px;border-radius:11px;font-size:.9rem;font-weight:700;font-family:'Sora',sans-serif;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:all .25s}
+.btn-next:hover{box-shadow:0 8px 28px rgba(245,158,11,.3);transform:translateY(-1px)}
+.btn-prev{background:var(--card);border:1.5px solid var(--card-b);color:var(--t2);padding:13px 20px;border-radius:11px;cursor:pointer;transition:all .2s;font-family:'DM Sans',sans-serif;font-size:.88rem}
+.btn-prev:hover{border-color:rgba(255,255,255,.2);color:var(--t1)}
+.btn-submit{flex:1;background:linear-gradient(135deg,var(--green),#059669);color:#fff;padding:14px 24px;border-radius:11px;font-size:.9rem;font-weight:700;font-family:'Sora',sans-serif;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:all .25s}
+.btn-submit:hover{box-shadow:0 8px 28px rgba(16,185,129,.3);transform:translateY(-1px)}
+
+/* ERROR */
+.field input.err,.field select.err,.field textarea.err{border-color:rgba(239,68,68,.4)!important;background:rgba(239,68,68,.04)!important}
+.err-msg{font-size:.72rem;color:#F87171;margin-top:5px}
+
+/* SUCCESS */
+#success{display:none;padding:20px 0;text-align:center}
+.success-icon{width:72px;height:72px;border-radius:50%;background:rgba(245,158,11,.1);border:1.5px solid rgba(245,158,11,.3);display:grid;place-items:center;font-size:2rem;margin:0 auto 20px;box-shadow:0 0 32px rgba(245,158,11,.15)}
+#success h2{font-size:1.7rem;font-weight:700;margin-bottom:8px}
+#success h2 span{color:var(--gold)}
+#success .sub{font-size:.92rem;color:var(--t2);line-height:1.75;max-width:340px;margin:0 auto 24px}
+.timeline{display:flex;flex-direction:column;gap:10px;margin-bottom:24px;text-align:left}
+.tl-item{display:flex;align-items:center;gap:12px;background:var(--card);border:1px solid var(--card-b);border-radius:11px;padding:12px 16px}
+.tl-dot{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;font-size:.8rem;flex-shrink:0}
+.tl-1{background:rgba(16,185,129,.12);border:1px solid rgba(16,185,129,.3)}
+.tl-2{background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.25)}
+.tl-3{background:rgba(59,130,246,.1);border:1px solid rgba(59,130,246,.2)}
+.tl-text h4{font-size:.84rem;font-weight:600;color:var(--t1)}
+.tl-text p{font-size:.72rem;color:var(--t3)}
+.btn-home{background:linear-gradient(135deg,var(--blue-d),#4F46E5);color:#fff;padding:12px 24px;border-radius:11px;font-size:.88rem;font-weight:700;font-family:'Sora',sans-serif;display:inline-block;margin-top:4px;transition:all .25s}
+.btn-home:hover{box-shadow:0 8px 24px rgba(59,130,246,.3)}
+
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.8)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.panel-in{animation:fadeUp .35s ease forwards}
+
+@media(max-width:860px){
+  .page{grid-template-columns:1fr}.left{display:none}
+  .right{padding:100px 24px 48px}.right-inner{max-width:100%}
+  .type-grid{grid-template-columns:1fr}
+}
+@media(max-width:480px){.field-row{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-i">
+    <a href="index.html" class="logo"><div class="logo-b">AGC</div><span class="logo-t">Ambedkarite Global Council</span></a>
+    <ul class="nav-links" style="display:flex;align-items:center;gap:28px;list-style:none">
+      <li><a href="index.html" style="font-size:.82rem;color:var(--t2);text-decoration:none;transition:color .2s">Home</a></li>
+      <li><a href="members.html" style="font-size:.82rem;color:var(--t2);text-decoration:none;transition:color .2s">Members</a></li>
+      <li><a href="events.html" style="font-size:.82rem;color:var(--t2);text-decoration:none;transition:color .2s">Events</a></li>
+      <li><a href="about.html" style="font-size:.82rem;color:var(--t2);text-decoration:none;transition:color .2s">About</a></li>
+    </ul>
+    <a href="events.html" class="nav-back"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg> Back to Events</a>
+    <a href="register.html" class="nav-cta">Join AGC</a>
+    <div class="ham" id="ham"><span></span><span></span><span></span></div>
+  </div>
+  <div class="mob" id="mob">
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="members.html">Members</a></li>
+      <li><a href="events.html">Events</a></li>
+      <li><a href="about.html">About</a></li>
+    </ul>
+    <a href="register.html" class="nav-cta" style="display:block;text-align:center;margin-top:8px">Join AGC</a>
+  </div>
+</nav>
+
+<div class="page">
+  <!-- LEFT -->
+  <div class="left">
+    <div class="lo1"></div><div class="lo2"></div>
+    <div class="left-inner">
+      <div class="left-badge"><span>📅 Host an Event</span></div>
+      <h1>Share Your<br/><span>Knowledge</span><br/>With AGC</h1>
+      <p class="left-sub">Any member can propose an event. All submissions are reviewed and approved by the AGC team before publishing.</p>
+      <div class="flow">
+        <div class="flow-step"><div class="fs-dot fs-1">✍️</div><div class="fs-body"><h4>Submit your event</h4><p>Fill in the details, format, and agenda</p></div></div>
+        <div class="flow-step"><div class="fs-dot fs-2">⏳</div><div class="fs-body"><h4>Admin review</h4><p>AGC team reviews within 48 hours</p></div></div>
+        <div class="flow-step"><div class="fs-dot fs-3">✅</div><div class="fs-body"><h4>Get approved</h4><p>Approved events go live on the Events page</p></div></div>
+        <div class="flow-step"><div class="fs-dot fs-4">🎤</div><div class="fs-body"><h4>Host & connect</h4><p>Members register and you connect with the community</p></div></div>
+      </div>
+      <div class="rules">
+        <h4>Event Guidelines</h4>
+        <ul>
+          <li>Must be free for AGC members</li>
+          <li>Related to education, career, or business</li>
+          <li>Hosted by a registered AGC member</li>
+          <li>Must align with AGC community values</li>
+          <li>No commercial or promotional content</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT -->
+  <div class="right">
+    <div class="right-inner">
+
+      <div style="display:flex;justify-content:flex-end;margin-bottom:6px"><span id="stepCounter" style="font-size:.75rem;color:var(--t3)">Step 1 of 4</span></div>
+      <div class="steps-bar" id="stepsBar">
+        <div class="step-dot active" id="s1"><div class="sdot"><span class="sdot-n">1</span><span class="sdot-c">✓</span></div><span class="step-lbl">Basics</span></div>
+        <div class="step-dot" id="s2"><div class="sdot"><span class="sdot-n">2</span><span class="sdot-c">✓</span></div><span class="step-lbl">Details</span></div>
+        <div class="step-dot" id="s3"><div class="sdot"><span class="sdot-n">3</span><span class="sdot-c">✓</span></div><span class="step-lbl">Agenda</span></div>
+        <div class="step-dot" id="s4"><div class="sdot"><span class="sdot-n">4</span><span class="sdot-c">✓</span></div><span class="step-lbl">Preview</span></div>
+      </div>
+      <div class="progress-bar"><div class="progress-fill" id="progFill" style="width:25%"></div></div>
+
+      <form id="evForm" novalidate>
+        <input type="hidden" id="fisOnline" value="false"/>
+        <input type="hidden" id="feventType"/>
+
+        <!-- STEP 1: BASICS -->
+        <div class="form-panel active panel-in" id="p1">
+          <div class="panel-title"><h2>Event Basics 📅</h2><p>Start with the core information about your event.</p></div>
+          <div class="field">
+            <label>Event Title <span class="req">*</span></label>
+            <input type="text" id="ftitle" placeholder="e.g. Career Guidance for Engineering Students"/>
+          </div>
+          <div class="field">
+            <label>Event Category <span class="req">*</span></label>
+            <div class="type-grid" id="typeGrid">
+              <div class="type-card" onclick="pickType(this,'education')"><div class="type-ico">📚</div><div class="type-text"><h4>Education</h4><p>Scholarships, admissions, study</p></div></div>
+              <div class="type-card" onclick="pickType(this,'career')"><div class="type-ico">💼</div><div class="type-text"><h4>Career</h4><p>Jobs, mentoring, networking</p></div></div>
+              <div class="type-card" onclick="pickType(this,'business')"><div class="type-ico">🚀</div><div class="type-text"><h4>Business</h4><p>Startups, entrepreneurship</p></div></div>
+              <div class="type-card" onclick="pickType(this,'community')"><div class="type-ico">🤝</div><div class="type-text"><h4>Community</h4><p>Culture, celebration, social</p></div></div>
+            </div>
+          </div>
+          <div class="field">
+            <label>Short Description <span class="req">*</span></label>
+            <textarea id="fdesc" placeholder="Describe what this event is about and who it is for..."></textarea>
+          </div>
+          <div class="field">
+            <label>Who Should Attend? <span class="opt">select all that apply</span></label>
+            <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:2px" id="audienceGrid">
+              <div class="type-card" style="flex:none;padding:10px 16px" onclick="toggleAudience(this,'Students')"><span>🎓</span> <span style="font-size:.84rem;font-weight:600">Students</span></div>
+              <div class="type-card" style="flex:none;padding:10px 16px" onclick="toggleAudience(this,'Professionals')"><span>💼</span> <span style="font-size:.84rem;font-weight:600">Professionals</span></div>
+              <div class="type-card" style="flex:none;padding:10px 16px" onclick="toggleAudience(this,'Entrepreneurs')"><span>🚀</span> <span style="font-size:.84rem;font-weight:600">Entrepreneurs</span></div>
+              <div class="type-card" style="flex:none;padding:10px 16px" onclick="toggleAudience(this,'Everyone')"><span>🌍</span> <span style="font-size:.84rem;font-weight:600">Everyone</span></div>
+            </div>
+            <input type="hidden" id="faudience"/>
+          </div>
+          <div class="form-btns">
+            <button type="button" class="btn-next" onclick="goStep(2)">Continue <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+          </div>
+        </div>
+
+        <!-- STEP 2: DETAILS -->
+        <div class="form-panel" id="p2">
+          <div class="panel-title"><h2>Event Details 📍</h2><p>When, where, and how many people can attend.</p></div>
+          <div class="field-row">
+            <div class="field">
+              <label>Date <span class="req">*</span></label>
+              <input type="date" id="fdate" min=""/>
+            </div>
+            <div class="field">
+              <label>Time <span class="req">*</span></label>
+              <input type="time" id="ftime"/>
+            </div>
+          </div>
+          <div class="field">
+            <label>Duration</label>
+            <select id="fduration">
+              <option value="">Select duration</option>
+              <option>1 hour</option><option>1.5 hours</option>
+              <option>2 hours</option><option>3 hours</option>
+              <option>Half day (4 hours)</option><option>Full day</option>
+            </select>
+          </div>
+          <div class="field">
+            <div class="toggle-row" id="onlineToggle" onclick="toggleOnline()">
+              <span class="toggle-ico">🌐</span>
+              <div class="toggle-text"><h4>Online Event</h4><p>This event will be held via Zoom, Meet, or similar</p></div>
+              <div class="toggle-sw" id="toggleSw"></div>
+            </div>
+          </div>
+          <div id="locationFields">
+            <div class="field-row">
+              <div class="field">
+                <label>Country <span class="req">*</span></label>
+                <input type="text" id="fcountry" placeholder="e.g. India, Germany, UK"/>
+              </div>
+              <div class="field">
+                <label>City <span class="req">*</span></label>
+                <input type="text" id="fcity" placeholder="e.g. Mumbai, Berlin, London"/>
+              </div>
+            </div>
+            <div class="field">
+              <label>Venue / Address <span class="opt">optional</span></label>
+              <input type="text" id="fvenue" placeholder="e.g. Ambedkar Bhawan, Dadar"/>
+            </div>
+          </div>
+          <div id="onlineFields" style="display:none">
+            <div class="field">
+              <label>Platform <span class="req">*</span></label>
+              <select id="fplatform">
+                <option value="">Select platform</option>
+                <option>Zoom</option><option>Google Meet</option>
+                <option>Microsoft Teams</option><option>YouTube Live</option><option>Other</option>
+              </select>
+            </div>
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label>Max Attendees <span class="req">*</span></label>
+              <input type="number" id="fspots" placeholder="e.g. 50" min="5" max="500"/>
+            </div>
+            <div class="field">
+              <label>Language</label>
+              <select id="flang">
+                <option>English</option><option>Hindi</option><option>Marathi</option>
+                <option>English + Hindi</option><option>English + Marathi</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-btns">
+            <button type="button" class="btn-prev" onclick="goStep(1)">Back</button>
+            <button type="button" class="btn-next" onclick="goStep(3)">Continue <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+          </div>
+        </div>
+
+        <!-- STEP 3: AGENDA -->
+        <div class="form-panel" id="p3">
+          <div class="panel-title"><h2>Agenda &amp; Host Info 🎤</h2><p>Help attendees know what to expect and who is hosting.</p></div>
+          <div class="field">
+            <label>Your Name <span class="req">*</span></label>
+            <input type="text" id="fhostname" placeholder="Your full name"/>
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label>Your Role / Profession <span class="req">*</span></label>
+              <input type="text" id="fhostrole" placeholder="e.g. Software Engineer, PhD Student"/>
+            </div>
+            <div class="field">
+              <label>Your Email <span class="req">*</span></label>
+              <input type="email" id="fhostemail" placeholder="your@email.com"/>
+            </div>
+          </div>
+          <div class="field">
+            <label>Brief Bio <span class="opt">optional — helps attendees know you</span></label>
+            <div class="field">
+              <label>WhatsApp / Phone <span class="opt">optional — for attendee contact</span></label>
+              <input type="tel" id="fhostwhatsapp" placeholder="+91 98765 43210"/>
+            </div>
+            <textarea id="fhostbio" placeholder="A few lines about your background and why you're hosting this event..." style="min-height:70px"></textarea>
+          </div>
+          <div class="field" style="margin-top:6px">
+            <label>Event Agenda <span class="opt">optional but recommended</span></label>
+            <div class="agenda-list" id="agendaList">
+              <div class="agenda-item"><input type="text" placeholder="e.g. 3:00 PM – Welcome &amp; introductions"/></div>
+              <div class="agenda-item"><input type="text" placeholder="e.g. 3:15 PM – Main talk / session"/></div>
+              <div class="agenda-item"><input type="text" placeholder="e.g. 4:00 PM – Q&amp;A and networking"/></div>
+            </div>
+            <button type="button" class="btn-add-agenda" onclick="addAgendaItem()">+ Add agenda item</button>
+          </div>
+          <div class="field">
+            <label>Additional Notes <span class="opt">optional</span></label>
+            <textarea id="fnotes" placeholder="Anything else you'd like to tell the AGC team or attendees..." style="min-height:60px"></textarea>
+          </div>
+          <div class="form-btns">
+            <button type="button" class="btn-prev" onclick="goStep(2)">Back</button>
+            <button type="button" class="btn-next" onclick="goStep(4)">Preview Event <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+          </div>
+        </div>
+
+        <!-- STEP 4: PREVIEW -->
+        <div class="form-panel" id="p4">
+          <div class="panel-title"><h2>Review &amp; Submit ✅</h2><p>This is how your event will look once approved. Review before submitting.</p></div>
+          <div class="preview-card" id="previewCard">
+            <h4>Event Preview</h4>
+            <div class="preview-title" id="previewTitle">—</div>
+            <div class="preview-meta" id="previewMeta"></div>
+            <div class="status-badge"><div class="status-dot"></div>Pending Admin Approval</div>
+          </div>
+          <div class="field">
+            <label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer">
+              <input type="checkbox" id="fterms" style="width:16px;height:16px;margin-top:2px;flex-shrink:0;accent-color:var(--gold)"/>
+              <span style="font-size:.82rem;color:var(--t2);line-height:1.6">I confirm this event is free for AGC members, aligns with community values, and I am a registered AGC member.</span>
+            </label>
+          </div>
+          <div class="form-btns">
+            <button type="button" class="btn-prev" onclick="goStep(3)">Back</button>
+            <button type="button" class="btn-submit" id="submitBtn" onclick="submitEvent()">Submit for Review ✓</button>
+          </div>
+        </div>
+      </form>
+
+      <!-- SUCCESS -->
+      <div id="success">
+        <div class="success-icon">🎉</div>
+        <h2>Event <span>Submitted!</span></h2>
+        <p class="sub">Your event has been submitted for review. The AGC team will review it within 48 hours.</p>
+        <div class="timeline">
+          <div class="tl-item"><div class="tl-dot tl-1">✓</div><div class="tl-text"><h4>Submitted</h4><p>Your event is now in review queue</p></div></div>
+          <div class="tl-item"><div class="tl-dot tl-2">⏳</div><div class="tl-text"><h4>Admin Review (within 48 hrs)</h4><p>AGC team reviews your event details</p></div></div>
+          <div class="tl-item"><div class="tl-dot tl-3">📧</div><div class="tl-text"><h4>You'll be notified</h4><p>Approved or feedback via email</p></div></div>
+        </div>
+        <a href="events.html" class="btn-home">View All Events →</a>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+let currentStep = 1;
+const progress = {1:25,2:50,3:75,4:100};
+
+// Set min date to today
+document.getElementById('fdate').min = new Date().toISOString().split('T')[0];
+
+function goStep(n) {
+  if (n > currentStep && !validate(currentStep)) return;
+  if (n === 4) buildPreview();
+
+  for (let i=1;i<=4;i++) {
+    const d = document.getElementById('s'+i);
+    d.className = 'step-dot';
+    if (i < n) d.classList.add('done');
+    else if (i === n) d.classList.add('active');
+  }
+  document.querySelectorAll('.form-panel').forEach(p => p.classList.remove('active','panel-in'));
+  const panel = document.getElementById('p'+n);
+  panel.classList.add('active');
+  setTimeout(() => panel.classList.add('panel-in'), 10);
+  document.getElementById('progFill').style.width = progress[n]+'%';
+  document.getElementById('stepCounter').textContent = 'Step '+n+' of 4';
+  currentStep = n;
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function validate(step) {
+  let ok = true;
+  document.querySelectorAll('.err').forEach(e => e.classList.remove('err'));
+  document.querySelectorAll('.err-msg').forEach(e => e.remove());
+
+  function showErr(id, msg) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.classList.add('err');
+    const em = document.createElement('p');
+    em.className='err-msg'; em.textContent=msg;
+    el.parentNode.appendChild(em);
+    ok = false;
+  }
+
+  if (step===1) {
+    if (!document.getElementById('ftitle').value.trim()) showErr('ftitle','Please enter an event title');
+    if (!document.getElementById('feventType').value) {
+      const em = document.createElement('p'); em.className='err-msg'; em.textContent='Please select an event category';
+      document.getElementById('typeGrid').parentNode.appendChild(em); ok=false;
+    }
+    if (!document.getElementById('fdesc').value.trim()) showErr('fdesc','Please add a description');
+  }
+
+  if (step===2) {
+    if (!document.getElementById('fdate').value) showErr('fdate','Please select a date');
+    if (!document.getElementById('ftime').value) showErr('ftime','Please select a time');
+    const isOnline = document.getElementById('fisOnline').value === 'true';
+    if (!isOnline && !document.getElementById('fcountry').value.trim()) showErr('fcountry','Please enter a country');
+    if (!isOnline && !document.getElementById('fcity').value.trim()) showErr('fcity','Please enter a city');
+    if (isOnline && !document.getElementById('fplatform').value) showErr('fplatform','Please select a platform');
+    if (!document.getElementById('fspots').value) showErr('fspots','Please enter max attendees');
+  }
+
+  if (step===3) {
+    if (!document.getElementById('fhostname').value.trim()) showErr('fhostname','Please enter your name');
+    if (!document.getElementById('fhostrole').value.trim()) showErr('fhostrole','Please enter your role');
+    const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRe.test(document.getElementById('fhostemail').value.trim())) showErr('fhostemail','Please enter a valid email');
+  }
+
+  return ok;
+}
+
+function pickType(el, type) {
+  document.querySelectorAll('.type-card').forEach(c => c.classList.remove('sel'));
+  el.classList.add('sel');
+  document.getElementById('feventType').value = type;
+}
+
+function toggleOnline() {
+  const row = document.getElementById('onlineToggle');
+  const isOn = row.classList.toggle('on');
+  document.getElementById('fisOnline').value = isOn ? 'true' : 'false';
+  document.getElementById('locationFields').style.display = isOn ? 'none' : 'block';
+  document.getElementById('onlineFields').style.display = isOn ? 'block' : 'none';
+}
+
+function addAgendaItem() {
+  const list = document.getElementById('agendaList');
+  const item = document.createElement('div');
+  item.className = 'agenda-item';
+  item.innerHTML = `<input type="text" placeholder="e.g. Time – Activity"/><button type="button" class="agenda-rm" onclick="this.parentNode.remove()">✕</button>`;
+  list.appendChild(item);
+}
+
+function buildPreview() {
+  const title = document.getElementById('ftitle').value || '—';
+  const type = document.getElementById('feventType').value;
+  const date = document.getElementById('fdate').value;
+  const time = document.getElementById('ftime').value;
+  const isOnline = document.getElementById('fisOnline').value === 'true';
+  const country = document.getElementById('fcountry') ? document.getElementById('fcountry').value : '';
+  const city = isOnline ? 'Online' : ((document.getElementById('fcity').value || '—') + (country ? ', '+country : ''));
+  const spots = document.getElementById('fspots').value || '—';
+  const host = document.getElementById('fhostname').value || '—';
+
+  document.getElementById('previewTitle').textContent = title;
+  document.getElementById('previewMeta').innerHTML = `
+    <div class="preview-row">📅 ${date ? new Date(date).toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'}) : '—'} at ${time || '—'}</div>
+    <div class="preview-row">${isOnline?'🌐':'📍'} ${city}</div>
+    <div class="preview-row">🎟 ${spots} spots · Free</div>
+    <div class="preview-row">🎤 Hosted by ${host}</div>
+    <div class="preview-row" style="text-transform:capitalize">🏷 ${type || '—'}</div>`;
+}
+
+function toggleAudience(el, val) {
+  el.classList.toggle('sel');
+  const selected = [...document.querySelectorAll('#audienceGrid .type-card.sel')].map(c => c.querySelector('span:last-child').textContent).join(', ');
+  document.getElementById('faudience').value = selected;
+}
+
+function submitEvent() {
+  if (!document.getElementById('fterms').checked) {
+    const el = document.getElementById('fterms');
+    el.parentNode.style.color='#F87171';
+    setTimeout(() => el.parentNode.style.color='', 2500);
+    return;
+  }
+  const btn = document.getElementById('submitBtn');
+  btn.disabled = true; btn.textContent = 'Submitting...'; btn.style.opacity = '.7';
+  setTimeout(() => {
+    document.getElementById('evForm').style.display='none';
+    document.getElementById('stepsBar').style.display='none';
+    document.querySelector('.progress-bar').style.display='none';
+    const s = document.getElementById('success');
+    s.style.display='block';
+    s.style.animation='fadeUp .5s ease forwards';
+  }, 900);
+}
+document.getElementById('ham').addEventListener('click', () => document.getElementById('mob').classList.toggle('open'));
+</script>
+
+<!-- FOOTER -->
+<footer style="background:#0D1117;border-top:1px solid rgba(255,255,255,.08);padding:40px 0 24px;margin-top:auto">
+  <div style="max-width:1180px;margin:0 auto;padding:0 24px">
+    <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:20px;margin-bottom:28px">
+      <div style="display:flex;align-items:center;gap:10px">
+        <div style="width:34px;height:34px;background:linear-gradient(135deg,#2563EB,#6366F1);border-radius:9px;display:grid;place-items:center;font-family:Sora,sans-serif;font-weight:800;font-size:.7rem;color:#fff">AGC</div>
+        <span style="font-family:Sora,sans-serif;font-weight:700;font-size:.88rem;color:#F0F4FF">Ambedkarite Global Council</span>
+      </div>
+      <div style="display:flex;gap:20px;flex-wrap:wrap">
+        <a href="index.html" style="font-size:.8rem;color:rgba(240,244,255,.45);text-decoration:none;transition:color .2s" onmouseover="this.style.color='#F0F4FF'" onmouseout="this.style.color='rgba(240,244,255,.45)'">Home</a>
+        <a href="members.html" style="font-size:.8rem;color:rgba(240,244,255,.45);text-decoration:none;transition:color .2s" onmouseover="this.style.color='#F0F4FF'" onmouseout="this.style.color='rgba(240,244,255,.45)'">Members</a>
+        <a href="events.html" style="font-size:.8rem;color:rgba(240,244,255,.45);text-decoration:none;transition:color .2s" onmouseover="this.style.color='#F0F4FF'" onmouseout="this.style.color='rgba(240,244,255,.45)'">Events</a>
+        <a href="about.html" style="font-size:.8rem;color:rgba(240,244,255,.45);text-decoration:none;transition:color .2s" onmouseover="this.style.color='#F0F4FF'" onmouseout="this.style.color='rgba(240,244,255,.45)'">About</a>
+        <a href="register.html" style="font-size:.8rem;color:rgba(240,244,255,.45);text-decoration:none;transition:color .2s" onmouseover="this.style.color='#F0F4FF'" onmouseout="this.style.color='rgba(240,244,255,.45)'">Join AGC</a>
+      </div>
+    </div>
+    <div style="height:1px;background:rgba(255,255,255,.06);margin-bottom:20px"></div>
+    <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px">
+      <p style="font-size:.72rem;color:rgba(240,244,255,.28)">© 2025 Ambedkarite Global Council. Inspired by Dr. B.R. Ambedkar.</p>
+      <p style="font-size:.72rem;color:rgba(240,244,255,.28)">Non-political · Free to join · Global community</p>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
