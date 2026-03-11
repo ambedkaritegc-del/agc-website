@@ -308,7 +308,12 @@ a{text-decoration:none;color:inherit}
   </div>
 </div>
 
-<script>
+<script>// ── SUPABASE CONFIG ──
+// 👉 Replace these after creating your Supabase project
+const SUPABASE_URL = 'https://tvkphfmbeliqnkpmoamb.supabase.co';
+const SUPABASE_ANON_KEY = 'sb_publishable_QdkB2Ig1Wi9yLPCqM3KA2Q_ImP2HdC-';
+
+
 // ── MEMBER DATA ──
 const MEMBERS = [
   { id:1, name:'Rahul Kamble', role:'Software Engineer', country:'Germany', city:'Berlin', type:'professional', abroad:true, focus:['career'], avatar:'RK', color:'linear-gradient(135deg,#2563EB,#7C3AED)', flag:'🇩🇪', joined:'Jan 2025',
@@ -635,9 +640,67 @@ function updateCounts() {
   if (allEl) allEl.textContent = MEMBERS.length;
 }
 
-// ── INIT ──
-updateCounts();
-renderCards();
+// ── INIT — load from Supabase, fall back to dummy data ──
+async function loadMembers() {
+  if (SUPABASE_URL === 'YOUR_SUPABASE_URL') {
+    // Not configured yet — show hardcoded demo members
+    filtered = [...MEMBERS];
+    updateCounts();
+    renderCards();
+    return;
+  }
+  // Show a subtle loading state
+  document.getElementById('membersGrid').innerHTML =
+    '<div style="color:#6B7280;font-size:.9rem;padding:40px;text-align:center;grid-column:1/-1">Loading members...</div>';
+  try {
+    const res = await fetch(
+      `${SUPABASE_URL}/rest/v1/members?status=eq.active&order=created_at.desc`,
+      { headers: {
+          'apikey': SUPABASE_ANON_KEY,
+          'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
+      }}
+    );
+    if (!res.ok) throw new Error('fetch failed');
+    const rows = await res.json();
+    if (!rows || !rows.length) {
+      // No real members yet — fall back to demo data
+      filtered = [...MEMBERS];
+      updateCounts();
+      renderCards();
+      return;
+    }
+    // Map Supabase columns → members.html data shape
+    const live = rows.map((r, i) => ({
+      id:      r.id     || (1000 + i),
+      name:    r.name   || 'AGC Member',
+      role:    r.profession || r.role || 'Member',
+      country: r.country || 'India',
+      city:    r.city   || '',
+      type:    r.type   || 'professional',
+      abroad:  r.abroad || false,
+      focus:   Array.isArray(r.interests) ? r.interests : ['career'],
+      avatar:  r.avatar || (r.name||'M').split(' ').filter(Boolean).map(w=>w[0]).join('').slice(0,2).toUpperCase(),
+      color:   r.color  || 'linear-gradient(135deg,#2563EB,#7C3AED)',
+      flag:    r.flag   || '🌍',
+      joined:  r.joined || new Date(r.created_at||Date.now()).toLocaleDateString('en-US',{month:'short',year:'numeric'}),
+      offers:  Array.isArray(r.offers) ? r.offers : String(r.offers||'').split(',').map(s=>s.trim()).filter(Boolean),
+      needs:   Array.isArray(r.needs)  ? r.needs  : String(r.needs ||'').split(',').map(s=>s.trim()).filter(Boolean),
+      skills:  Array.isArray(r.skills) ? r.skills : String(r.skills||'').split(',').map(s=>s.trim()).filter(Boolean),
+    }));
+    // Replace global MEMBERS so filters and counts work correctly
+    MEMBERS.length = 0;
+    live.forEach(m => MEMBERS.push(m));
+    filtered = [...MEMBERS];
+    updateCounts();
+    renderCards();
+  } catch(err) {
+    console.warn('Supabase load failed, using demo data:', err);
+    filtered = [...MEMBERS];
+    updateCounts();
+    renderCards();
+  }
+}
+loadMembers();
 
 // ── CARD CLICK DELEGATION ──
 document.getElementById('membersGrid').addEventListener('click', function(e) {

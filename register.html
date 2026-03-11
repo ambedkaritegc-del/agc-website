@@ -501,7 +501,12 @@ a{text-decoration:none;color:inherit}
   </div>
 </div>
 
-<script>
+<script>// ── SUPABASE CONFIG ──
+// 👉 Replace these two values after you create your Supabase project
+const SUPABASE_URL = 'https://tvkphfmbeliqnkpmoamb.supabase.co';
+const SUPABASE_ANON_KEY = 'sb_publishable_QdkB2Ig1Wi9yLPCqM3KA2Q_ImP2HdC-';
+
+
 // ── COUNTRIES ──
 const COUNTRIES = [
   "Afghanistan","Albania","Algeria","Andorra","Angola","Antigua and Barbuda","Argentina","Armenia","Australia","Austria",
@@ -813,6 +818,66 @@ function submitForm() {
   // 👉 Replace YOUR_FORM_ID below with your ID from formspree.io
   const FORMSPREE_ID = 'mqeyqylo';
 
+  // ── HELPER: derive avatar initials, color, flag, type from form data ──
+  function getInitials(n){ return n.split(' ').map(w=>w[0]).join('').toUpperCase().slice(0,2); }
+  const COLORS = [
+    'linear-gradient(135deg,#2563EB,#7C3AED)',
+    'linear-gradient(135deg,#F59E0B,#EF4444)',
+    'linear-gradient(135deg,#10B981,#3B82F6)',
+    'linear-gradient(135deg,#8B5CF6,#EC4899)',
+    'linear-gradient(135deg,#F97316,#EAB308)',
+    'linear-gradient(135deg,#06B6D4,#6366F1)',
+  ];
+  const memberColor = COLORS[Math.floor(Math.random() * COLORS.length)];
+  const FLAGS = {
+    'India':'🇮🇳','Germany':'🇩🇪','United States':'🇺🇸','United Kingdom':'🇬🇧',
+    'Australia':'🇦🇺','Canada':'🇨🇦','France':'🇫🇷','Netherlands':'🇳🇱',
+    'Singapore':'🇸🇬','UAE':'🇦🇪','United Arab Emirates':'🇦🇪','South Africa':'🇿🇦',
+    'New Zealand':'🇳🇿','Sweden':'🇸🇪','Norway':'🇳🇴','Denmark':'🇩🇰',
+    'Japan':'🇯🇵','Malaysia':'🇲🇾','Ireland':'🇮🇪','Switzerland':'🇨🇭',
+  };
+  const memberFlag = FLAGS[country] || '🌍';
+  const memberType = role === 'student' ? 'student'
+    : role === 'entrepreneur' ? 'entrepreneur'
+    : 'professional';
+  const memberAbroad = country !== 'India';
+  const memberFocus = interests ? interests.toLowerCase().split(',').map(i=>i.trim())
+    .filter(i=>['education','career','business','migration','leadership','community'].includes(i))
+    : ['career'];
+  const offersArr = offerTags ? offerTags.split(',').map(t=>t.trim()).filter(Boolean) : [];
+  const needsArr  = needTags  ? needTags.split(',').map(t=>t.trim()).filter(Boolean)  : [];
+  const skillsArr = skills    ? skills.split(',').map(t=>t.trim()).filter(Boolean)    : [];
+
+  // ── SEND TO SUPABASE ──
+  const supabasePayload = {
+    name, email, phone, country, city,
+    role, profession: prof, education: edu, experience: exp,
+    skills: skillsArr, interests: memberFocus,
+    offers: offersArr, needs: needsArr,
+    linkedin, twitter, website,
+    heard_via: hear, message: msg,
+    avatar: getInitials(name),
+    color: memberColor,
+    flag: memberFlag,
+    type: memberType,
+    abroad: memberAbroad,
+    joined: new Date().toLocaleDateString('en-US', {month:'short', year:'numeric'}),
+    status: 'active'
+  };
+
+  const supabasePromise = SUPABASE_URL !== 'YOUR_SUPABASE_URL'
+    ? fetch(`${SUPABASE_URL}/rest/v1/members`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'apikey': SUPABASE_ANON_KEY,
+          'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+          'Prefer': 'return=minimal'
+        },
+        body: JSON.stringify(supabasePayload)
+      })
+    : Promise.resolve({ ok: true, status: 200 }); // skip if not configured yet
+
   fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
     method: 'POST',
     headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
@@ -842,6 +907,8 @@ function submitForm() {
   })
   .then(res => res.json())
   .then(data => {
+    // Also send to Supabase in background
+    supabasePromise.catch(e => console.warn('Supabase error (non-blocking):', e));
     if (data.ok) {
       // ── SHOW SUCCESS SCREEN ──
       document.getElementById('successDetail').innerHTML =
@@ -954,6 +1021,58 @@ document.addEventListener('keydown', function(e) {
     e.preventDefault();
     FIELD_FLOW[id]();
   }
+});
+
+
+// ── ENTER KEY NAVIGATION ──
+// Step 1: fname → femail → fphone → fcountrySearch → fcity → goStep(2)
+// Step 2: fprof → flinkedin → ftwitter → fwebsite → goStep(3)
+// Step 3: foffer → fneed → goStep(4)
+// Step 4: fmsg → submitForm()
+
+const ENTER_MAP = {
+  // Step 1
+  'fname':         () => document.getElementById('femail').focus(),
+  'femail':        () => document.getElementById('fphone').focus(),
+  'fphone':        () => document.getElementById('fcountrySearch').focus(),
+  'fcountrySearch':() => document.getElementById('fcity').focus(),
+  'fcity':         () => goStep(2),
+  // Step 2
+  'fprof':         () => document.getElementById('flinkedin').focus(),
+  'flinkedin':     () => document.getElementById('ftwitter').focus(),
+  'ftwitter':      () => document.getElementById('fwebsite').focus(),
+  'fwebsite':      () => goStep(3),
+  // Step 3
+  'foffer':        () => document.getElementById('fneed').focus(),
+  'fneed':         () => goStep(4),
+  // Step 4
+  'fmsg':          () => submitForm(),
+};
+
+document.addEventListener('keydown', function(e) {
+  if (e.key !== 'Enter') return;
+  const id = document.activeElement && document.activeElement.id;
+  if (!id || !ENTER_MAP[id]) return;
+  // Allow Enter inside textarea only if Shift is held (normal newline)
+  if (document.activeElement.tagName === 'TEXTAREA' && !e.shiftKey) {
+    e.preventDefault();
+    ENTER_MAP[id]();
+  } else if (document.activeElement.tagName !== 'TEXTAREA') {
+    e.preventDefault();
+    ENTER_MAP[id]();
+  }
+});
+
+// Also: Enter on select fields (fedu, fexp, fhear) — advance on change
+['fedu','fexp'].forEach(id => {
+  const el = document.getElementById(id);
+  if (el) el.addEventListener('change', () => {
+    if (id === 'fedu') document.getElementById('fexp').focus();
+    if (id === 'fexp') document.getElementById('flinkedin').focus();
+  });
+});
+document.getElementById('fhear') && document.getElementById('fhear').addEventListener('change', () => {
+  document.getElementById('fmsg').focus();
 });
 
 window.addEventListener('scroll',()=>{
