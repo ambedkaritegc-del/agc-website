@@ -40,7 +40,7 @@ h1,h2,h3,h4{font-family:'Sora',sans-serif}
 a{text-decoration:none;color:inherit}
 
 .nav-back:hover{color:var(--t1);border-color:rgba(255,255,255,.2)}
-@media(max-width:960px){.nav-links,.nav-back,}
+
 
 .page{display:grid;grid-template-columns:1fr 1fr;min-height:100vh;padding-top:68px}
 
@@ -116,7 +116,7 @@ a{text-decoration:none;color:inherit}
 .country-wrap input{width:100%;background:rgba(255,255,255,.04);border:1.5px solid rgba(255,255,255,.1);border-radius:10px;padding:12px 16px;font-size:.9rem;color:var(--t1);font-family:'DM Sans',sans-serif;transition:all .25s;outline:none}
 .country-wrap input:focus{border-color:var(--blue);background:rgba(59,130,246,.05);box-shadow:0 0 0 3px rgba(59,130,246,.1)}
 .country-wrap input::placeholder{color:var(--t3)}
-.country-drop{position:absolute;top:calc(100% + 4px);left:0;right:0;background:#111827;border:1px solid rgba(255,255,255,.1);border-radius:10px;max-height:200px;overflow-y:auto;z-index:50;display:none;box-shadow:0 8px 32px rgba(0,0,0,.4)}
+.country-drop{position:absolute;background:#111827;border:1px solid rgba(255,255,255,.1);border-radius:10px;max-height:200px;overflow-y:auto;z-index:9999;display:none;box-shadow:0 8px 32px rgba(0,0,0,.4)}
 .country-drop.open{display:block}
 .country-opt{padding:10px 16px;font-size:.88rem;color:var(--t2);cursor:pointer;transition:background .15s}
 .country-opt:hover,.country-opt.hl{background:rgba(59,130,246,.1);color:var(--t1)}
@@ -539,13 +539,30 @@ function buildDrop(list) {
 function filterCountries(val) {
   const q = val.toLowerCase();
   filteredCountries = q ? COUNTRIES.filter(c => c.toLowerCase().includes(q)) : [...COUNTRIES];
+  // Auto-set hidden field if exact match
+  const exact = COUNTRIES.find(c => c.toLowerCase() === q);
+  if (exact) {
+    document.getElementById('fcountry').value = exact;
+  } else if (!val.trim()) {
+    document.getElementById('fcountry').value = '';
+  }
   buildDrop(filteredCountries);
-  openDrop();
+  if (val) openDrop();
 }
 
 function openDrop() {
-  if (!filteredCountries.length) buildDrop(COUNTRIES);
-  document.getElementById('countryDrop').classList.add('open');
+  buildDrop(filteredCountries.length ? filteredCountries : COUNTRIES);
+  const input = document.getElementById('fcountrySearch');
+  const rect = input.getBoundingClientRect();
+  const drop = document.getElementById('countryDrop');
+  // Move to body if not already there (escapes all overflow/scroll containers)
+  if (drop.parentElement !== document.body) {
+    document.body.appendChild(drop);
+  }
+  drop.style.top    = (rect.bottom + window.scrollY + 4) + 'px';
+  drop.style.left   = (rect.left + window.scrollX) + 'px';
+  drop.style.width  = rect.width + 'px';
+  drop.classList.add('open');
   dropOpen = true;
 }
 
@@ -561,7 +578,9 @@ function pickCountry(name) {
 }
 
 // init country list
-buildDrop(COUNTRIES);
+document.addEventListener("DOMContentLoaded", function() {
+  buildDrop(COUNTRIES);
+});
 
 // ── STEP NAVIGATION ──
 let currentStep = 1;
@@ -605,9 +624,42 @@ function validate(step) {
 
   if (step === 1) {
     if (!document.getElementById('fname').value.trim()) showErr('fname','Please enter your full name');
-    const em = document.getElementById('femail').value.trim();
+
+    // ── EMAIL VALIDATION ──
+    const em = document.getElementById('femail').value.trim().toLowerCase();
     const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!em || !emailRe.test(em)) showErr('femail','Please enter a valid email address');
+    // Common typo domains
+    const typoMap = {
+      'gamil.com':'gmail.com','gmai.com':'gmail.com','gmial.com':'gmail.com',
+      'gmal.com':'gmail.com','gmil.com':'gmail.com','gmaill.com':'gmail.com',
+      'gmaol.com':'gmail.com','gmaul.com':'gmail.com','gnail.com':'gmail.com',
+      'gmail.co':'gmail.com','gmail.cm':'gmail.com','gmail.om':'gmail.com',
+      'hotmai.com':'hotmail.com','hotmial.com':'hotmail.com','hotmil.com':'hotmail.com',
+      'hotmail.co':'hotmail.com','homail.com':'hotmail.com',
+      'yahooo.com':'yahoo.com','yaho.com':'yahoo.com','yahoo.co':'yahoo.com',
+      'outlok.com':'outlook.com','outloo.com':'outlook.com','outlookk.com':'outlook.com'
+    };
+    if (!em || !emailRe.test(em)) {
+      showErr('femail','Please enter a valid email address');
+    } else {
+      const domain = em.split('@')[1];
+      if (typoMap[domain]) {
+        showErr('femail', `Did you mean @${typoMap[domain]}? Please correct your email.`);
+      }
+    }
+
+    // ── PHONE VALIDATION ──
+    const ph = document.getElementById('fphone').value.trim();
+    if (ph) {
+      // Strip spaces, dashes, brackets for counting digits
+      const digits = ph.replace(/[\s\-().+]/g,'');
+      if (!/^\d+$/.test(digits)) {
+        showErr('fphone','Phone number should contain only digits, spaces, + or dashes');
+      } else if (digits.length < 7 || digits.length > 15) {
+        showErr('fphone','Please enter a valid phone number (7–15 digits)');
+      }
+    }
+
     if (!document.getElementById('fcountry').value) {
       document.getElementById('fcountrySearch').classList.add('err');
       addErrMsg(document.getElementById('fcountrySearch').parentNode,'Please select your country');
@@ -652,6 +704,13 @@ function validate(step) {
     }
   }
 
+  if (step === 4) {
+    const interests = document.querySelectorAll('.int-card.sel');
+    if (interests.length === 0) {
+      addErrMsg(document.querySelector('.interest-grid').parentNode, 'Please select at least one area of interest');
+      ok = false;
+    }
+  }
   return ok;
 }
 
@@ -714,7 +773,7 @@ function submitForm() {
   document.getElementById('fskills').value = skills;
 
   // Save interests (ensure up to date)
-  const interests = [...document.querySelectorAll('.int-card.sel')].map(c=>c.querySelector('h4').textContent).join(', ');
+  // dup removed: interests = [...document.querySelectorAll('.int-card.sel')].map(c=>c.querySelector('h4').textContent).join(', ');
   let inp = document.getElementById('finterests');
   if (!inp) { inp = document.createElement('input'); inp.type='hidden'; inp.id='finterests'; document.getElementById('regForm').appendChild(inp); }
   inp.value = interests;
@@ -740,8 +799,8 @@ function submitForm() {
   const website  = document.getElementById('fwebsite').value.trim();
   const hear     = document.getElementById('fhear').value;
   const msg      = document.getElementById('fmsg').value.trim();
-  const skills   = document.getElementById('fskills').value;
-  const interests = document.getElementById('finterests').value;
+  // skills already collected above
+  // dup removed: interests = document.getElementById('finterests').value;
 
   const offerTags = [...document.querySelectorAll('#offerTags .on-tag.sel-give')].map(t=>t.textContent.trim()).join(', ');
   const needTags  = [...document.querySelectorAll('#needTags .on-tag.sel-recv')].map(t=>t.textContent.trim()).join(', ');
@@ -776,6 +835,8 @@ function submitForm() {
       '16_Website':     website,
       '17_Heard_Via':   hear,
       '18_Message':     msg,
+      '_gotcha':        '',
+      '_replyto':       email,
       '_subject':       `New AGC Member: ${name} from ${country}`
     })
   })
@@ -822,13 +883,32 @@ window.addEventListener('scroll',()=>{
   document.getElementById('nav').classList.toggle('solid',window.scrollY>20);
 });
 // Ham toggle
+window.addEventListener('scroll', () => {
+  document.getElementById('nav').classList.toggle('solid', window.scrollY > 20);
+  if (dropOpen) {
+    const input = document.getElementById('fcountrySearch');
+    const rect = input.getBoundingClientRect();
+    const drop = document.getElementById('countryDrop');
+    drop.style.top  = (rect.bottom + window.scrollY + 4) + 'px';
+    drop.style.left = (rect.left + window.scrollX) + 'px';
+  }
+});
+window.addEventListener('resize', () => {
+  if (dropOpen) {
+    const input = document.getElementById('fcountrySearch');
+    const rect = input.getBoundingClientRect();
+    const drop = document.getElementById('countryDrop');
+    drop.style.top  = (rect.bottom + window.scrollY + 4) + 'px';
+    drop.style.left = (rect.left + window.scrollX) + 'px';
+    drop.style.width = rect.width + 'px';
+  }
+});
 document.getElementById('ham').addEventListener('click',()=>{
   document.getElementById('mob').classList.toggle('open');
 });
 </script>
 
-<!-- FOOTER -->
-<footer style="background:#0D1117;border-top:1px solid rgba(255,255,255,.08);padding:40px 0 24px;margin-top:auto">
+"background:#0D1117;border-top:1px solid rgba(255,255,255,.08);padding:40px 0 24px;margin-top:auto">
   <div style="max-width:1180px;margin:0 auto;padding:0 24px">
     <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:20px;margin-bottom:28px">
       <div style="display:flex;align-items:center;gap:10px">
