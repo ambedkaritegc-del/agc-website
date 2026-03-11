@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>AGC Global Mixer — Online Town Hall — AGC Event</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>nav{position:fixed;top:0;width:100%;z-index:100;transition:background .3s,border .3s}
+nav.solid{background:rgba(7,9,15,.97);backdrop-filter:blur(20px);border-bottom:1px solid rgba(59,130,246,.1)}
+.nav-i{max-width:1200px;margin:0 auto;padding:0 32px;display:flex;align-items:center;justify-content:space-between;height:68px}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.logo-b{width:36px;height:36px;background:linear-gradient(135deg,#2563EB,#6366F1);border-radius:10px;display:grid;place-items:center;font-family:'Sora',sans-serif;font-weight:800;font-size:.72rem;color:#fff;box-shadow:0 0 18px rgba(37,99,235,.4);flex-shrink:0}
+.logo-t{font-family:'Sora',sans-serif;font-weight:700;font-size:.88rem;color:#F1F5F9}
+.nav-links{display:flex;align-items:center;gap:28px;list-style:none}
+.nav-links a{font-size:.85rem;color:#94A3B8;text-decoration:none;transition:color .2s;font-family:'DM Sans',sans-serif}
+.nav-links a:hover,.nav-links a.active{color:#F1F5F9}
+.nav-cta{background:linear-gradient(135deg,#2563EB,#4F46E5);color:#fff;padding:9px 20px;border-radius:10px;font-size:.82rem;font-weight:600;font-family:'Sora',sans-serif;text-decoration:none;transition:all .25s;white-space:nowrap}
+.nav-cta:hover{box-shadow:0 0 24px rgba(37,99,235,.5);transform:translateY(-1px)}
+.ham{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px}
+.ham span{display:block;width:22px;height:2px;background:#F1F5F9;border-radius:2px}
+.mob{display:none;position:fixed;top:68px;left:0;right:0;background:rgba(7,9,15,.98);backdrop-filter:blur(20px);padding:20px 24px;border-top:1px solid rgba(255,255,255,.08);z-index:99}
+.mob.open{display:block}
+.mob ul{list-style:none;display:flex;flex-direction:column;gap:2px;margin-bottom:14px}
+.mob ul li a{display:block;padding:11px 0;color:#94A3B8;font-size:.9rem;border-bottom:1px solid rgba(255,255,255,.06);text-decoration:none;font-family:'DM Sans',sans-serif;transition:color .2s}
+.mob ul li a:hover{color:#F1F5F9}
+.mob .nav-cta{display:block;text-align:center;margin-top:8px}
+.mob-close{display:none}
+@media(max-width:960px){.nav-links,.nav-cta{display:none}.ham{display:flex}}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#07090F;--bg2:#0D1117;--blue:#3B82F6;--blue-d:#2563EB;--blue-glow:rgba(59,130,246,.35);--gold:#F59E0B;--card:rgba(255,255,255,.04);--card-b:rgba(255,255,255,.08);--t1:#F0F4FF;--t2:rgba(240,244,255,.6);--t3:rgba(240,244,255,.32)}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--t1);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+h1,h2,h3,h4{font-family:'Sora',sans-serif}
+a{text-decoration:none;color:inherit}
+.wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+.hero{padding:100px 0 56px;background:var(--bg2);border-bottom:1px solid var(--card-b);position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 55% 75% at 80% 50%,rgba(16,185,129,.1) 0%,transparent 65%);pointer-events:none}
+.breadcrumb{display:flex;align-items:center;gap:8px;font-size:.72rem;color:var(--t3);margin-bottom:24px}
+.breadcrumb a:hover{color:var(--t1)}
+.event-top{display:grid;grid-template-columns:1fr auto;gap:40px;align-items:start;position:relative;z-index:1}
+.event-emoji{font-size:3.5rem;line-height:1;margin-bottom:16px}
+.cat-badge{display:inline-flex;align-items:center;gap:6px;font-size:.65rem;font-weight:600;letter-spacing:.15em;text-transform:uppercase;padding:4px 12px;border-radius:100px;margin-bottom:14px;background:rgba(16,185,129,.1);color:#6EE7B7;border:1px solid rgba(16,185,129,.2)}
+.event-title{font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:800;line-height:1.08;margin-bottom:14px}
+.event-meta{display:flex;flex-wrap:wrap;gap:14px;margin-bottom:20px}
+.emeta{display:flex;align-items:center;gap:7px;font-size:.83rem;color:var(--t2)}
+.emeta-ico{font-size:1rem}
+.status-badge{display:inline-flex;align-items:center;gap:7px;font-size:.72rem;font-weight:600;padding:5px 14px;border-radius:100px}
+.status-open{background:rgba(16,185,129,.1);color:#6EE7B7;border:1px solid rgba(16,185,129,.2)}
+.status-full{background:rgba(245,158,11,.1);color:var(--gold);border:1px solid rgba(245,158,11,.2)}
+.reg-card{background:var(--card);border:1px solid var(--card-b);border-radius:18px;padding:24px;width:280px;flex-shrink:0}
+.reg-bar-wrap{margin:12px 0}
+.reg-bar-bg{background:rgba(255,255,255,.06);border-radius:100px;height:6px}
+.reg-bar-fill{height:6px;border-radius:100px;background:linear-gradient(90deg,var(--blue-d),#6366F1)}
+.reg-pct{font-size:.75rem;color:var(--t3);margin-top:5px}
+.btn-g{background:linear-gradient(135deg,var(--blue-d),#4F46E5);color:#fff;padding:12px 22px;border-radius:10px;font-size:.88rem;font-weight:700;font-family:'Sora',sans-serif;display:inline-flex;align-items:center;justify-content:center;gap:7px;transition:all .25s;width:100%;margin-top:12px}
+.btn-g:hover{transform:translateY(-2px);box-shadow:0 8px 28px var(--blue-glow)}
+.btn-o{border:1px solid rgba(255,255,255,.14);color:var(--t2);padding:12px 22px;border-radius:10px;font-size:.88rem;display:inline-flex;align-items:center;justify-content:center;gap:7px;transition:all .25s;width:100%;margin-top:8px}
+.btn-o:hover{border-color:rgba(255,255,255,.3);color:var(--t1)}
+.free-badge{text-align:center;font-size:.72rem;color:var(--t3);margin-top:8px}
+.main{padding:56px 0;display:grid;grid-template-columns:2fr 1fr;gap:32px;align-items:start}
+.section{background:var(--card);border:1px solid var(--card-b);border-radius:18px;padding:28px 30px;margin-bottom:20px}
+.stitle{font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;color:var(--t3);margin-bottom:16px;font-weight:600}
+.about-text{font-size:.95rem;color:var(--t2);line-height:1.8}
+.agenda-list{list-style:none;display:flex;flex-direction:column;gap:0}
+.agenda-item{display:flex;gap:14px;align-items:flex-start;padding:13px 0;border-bottom:1px solid var(--card-b)}
+.agenda-item:last-child{border-bottom:none}
+.ag-num{width:28px;height:28px;border-radius:8px;background:rgba(59,130,246,.1);border:1px solid rgba(59,130,246,.18);display:grid;place-items:center;font-family:'Sora',sans-serif;font-size:.72rem;font-weight:700;color:var(--blue);flex-shrink:0;margin-top:1px}
+.ag-text{font-size:.88rem;color:var(--t2);line-height:1.5}
+.host-card{display:flex;gap:14px;align-items:center}
+.hav{width:48px;height:48px;border-radius:13px;display:grid;place-items:center;font-family:'Sora',sans-serif;font-weight:800;font-size:.9rem;color:#fff;flex-shrink:0}
+.hname{font-size:.95rem;font-weight:600;color:var(--t1);margin-bottom:3px}
+.hrole{font-size:.78rem;color:var(--t3)}
+.sidebar-card{background:var(--card);border:1px solid var(--card-b);border-radius:16px;padding:22px;margin-bottom:16px}
+.sidebar-card h4{font-size:.65rem;letter-spacing:.18em;text-transform:uppercase;color:var(--t3);margin-bottom:14px;font-weight:600}
+.detail-row{display:flex;justify-content:space-between;align-items:flex-start;padding:8px 0;border-bottom:1px solid var(--card-b);font-size:.83rem;gap:12px}
+.detail-row:last-child{border-bottom:none}
+.dl{color:var(--t3);flex-shrink:0}
+.dv{color:var(--t1);font-weight:500;text-align:right}
+.demo-note{background:rgba(245,158,11,.06);border:1px solid rgba(245,158,11,.15);border-radius:12px;padding:14px 16px;margin-bottom:16px}
+.demo-note p{font-size:.78rem;color:rgba(245,158,11,.8);line-height:1.6}
+footer{background:#040608;border-top:1px solid rgba(255,255,255,.05);padding:40px 0 20px}
+.footer-btm{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.footer-btm p{font-size:.73rem;color:rgba(240,244,255,.18)}
+.fphase{font-size:.63rem;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);border:1px solid rgba(245,158,11,.22);padding:4px 12px;border-radius:100px}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.fa{animation:fadeUp .6s ease forwards}
+.d1{animation-delay:.05s}.d2{animation-delay:.12s}.d3{animation-delay:.2s}.d4{animation-delay:.28s}
+@media(max-width:960px){
+  .nav-links,
+  .event-top{grid-template-columns:1fr}
+  .reg-card{width:100%}
+  .main{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<nav id="nav">
+  <div class="nav-i">
+    <a href="../index.html" class="logo">
+      <div class="logo-b">AGC</div>
+      <span class="logo-t">Ambedkarite Global Council</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="../index.html#how">How It Works</a></li>
+      <li><a href="../members.html">Members</a></li>
+      <li><a href="../events.html">Events</a></li>
+      <li><a href="../mentorship.html">Mentorship</a></li>
+      <li><a href="../about.html">About</a></li>
+    </ul>
+    <a href="../register.html" class="nav-cta">Join AGC</a>
+    <button class="ham" id="ham"><span></span><span></span><span></span></button>
+  </div>
+  <div class="mob" id="mob">
+    <ul>
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="../index.html#how">How It Works</a></li>
+        <li><a href="../members.html">Members</a></li>
+        <li><a href="../events.html">Events</a></li>
+        <li><a href="../mentorship.html">Mentorship</a></li>
+        <li><a href="../about.html">About</a></li>
+    </ul>
+    <a href="../register.html" class="nav-cta">Join AGC</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="breadcrumb fa"><a href="../index.html">Home</a><span>&rsaquo;</span><a href="../events.html">Events</a><span>&rsaquo;</span><span style="color:var(--t2)">AGC Global Mixer — Online Town Hall</span></div>
+    <div class="event-top">
+      <div>
+        <div class="event-emoji fa">🌍</div>
+        <div class="cat-badge fa">Community</div>
+        <h1 class="event-title fa d1">AGC Global Mixer — Online Town Hall</h1>
+        <div class="event-meta fa d2">
+          <span class="emeta"><span class="emeta-ico">&#128197;</span>June 1, 2025</span>
+          <span class="emeta"><span class="emeta-ico">&#128336;</span>5:00 PM – 7:00 PM IST</span>
+          <span class="emeta"><span class="emeta-ico">&#127760;</span>Online — Zoom</span>
+        </div>
+        <span class="status-badge status-open fa d3">88 spots remaining</span>
+      </div>
+      <div class="reg-card fa d2">
+        <div style="font-size:.72rem;color:var(--t3);letter-spacing:.12em;text-transform:uppercase;margin-bottom:10px">Registration</div>
+        <div style="font-size:1.6rem;font-weight:800;font-family:'Sora',sans-serif;color:var(--t1)">112<span style="font-size:.9rem;color:var(--t3);font-weight:400"> / 200</span></div>
+        <div class="reg-bar-wrap"><div class="reg-bar-bg"><div class="reg-bar-fill" style="width:56%"></div></div><div class="reg-pct">56% spots filled</div></div>
+        <a href="../register.html" class="btn-g">Register Now &rarr;</a>
+        <a href="../events.html" class="btn-o">&larr; All Events</a>
+        <div class="free-badge">&#10003; Free to attend &middot; AGC community event</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="wrap">
+  <div class="main">
+    <div>
+      <div class="section fa d1">
+        <div class="stitle">About This Event</div>
+        <p class="about-text">AGC's first global town hall. Members joining from 6 countries. This is a chance to see who else is in this community, hear about where the platform is going, and contribute your voice to how AGC grows. Every member's perspective matters — especially in these early days.</p>
+      </div>
+      <div class="section fa d2">
+        <div class="stitle">Agenda</div>
+        <ul class="agenda-list"><li class="agenda-item"><div class="ag-num">1</div><div class="ag-text">Welcome from AGC Core Team (15 min)</div></li><li class="agenda-item"><div class="ag-num">2</div><div class="ag-text">Community Stats & Milestone Celebration (20 min)</div></li><li class="agenda-item"><div class="ag-num">3</div><div class="ag-text">Member Introductions by Country (30 min)</div></li><li class="agenda-item"><div class="ag-num">4</div><div class="ag-text">Platform Roadmap: What is Coming (25 min)</div></li><li class="agenda-item"><div class="ag-num">5</div><div class="ag-text">Open Discussion: What Members Want (25 min)</div></li><li class="agenda-item"><div class="ag-num">6</div><div class="ag-text">Closing (5 min)</div></li></ul>
+      </div>
+      <div class="section fa d3">
+        <div class="stitle">Hosted By</div>
+        <div class="host-card">
+          <div class="hav" style="background:linear-gradient(135deg,#2563EB,#6366F1)">AGC</div>
+          <div><div class="hname">AGC Core Team</div><div class="hrole">Ambedkarite Global Council</div></div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="sidebar-card fa d2">
+        <h4>Event Details</h4>
+        <div class="detail-row"><span class="dl">Date</span><span class="dv">June 1, 2025</span></div>
+        <div class="detail-row"><span class="dl">Time</span><span class="dv">5:00 PM – 7:00 PM IST</span></div>
+        <div class="detail-row"><span class="dl">Format</span><span class="dv">Online</span></div>
+        <div class="detail-row"><span class="dl">Venue</span><span class="dv">Link sent after registration</span></div>
+        <div class="detail-row"><span class="dl">Category</span><span class="dv">Community</span></div>
+        <div class="detail-row"><span class="dl">Cost</span><span class="dv">Free</span></div>
+      </div>
+      <div class="demo-note fa d3"><p>&#9888;&#65039; This is a demo event to showcase the AGC platform. Real events will be listed here once the community launches.</p></div>
+      <div class="sidebar-card fa d3">
+        <h4>Not a Member Yet?</h4>
+        <p style="font-size:.82rem;color:var(--t2);line-height:1.65;margin-bottom:14px">Join AGC free to register for events and connect with community members.</p>
+        <a href="../register.html" class="btn-g">Join AGC Free</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="wrap footer-btm">
+    <p>&copy; 2025 Ambedkarite Global Council. Inspired by Dr. B.R. Ambedkar.</p>
+    <span class="fphase">Demo Data</span>
+  </div>
+</footer>
+<script>
+window.addEventListener('scroll',()=>
+// Nav scroll
+window.addEventListener('scroll',()=>{
+  document.getElementById('nav').classList.toggle('solid',window.scrollY>20);
+});
+// Ham toggle
+document.getElementById('ham').addEventListener('click',()=>{
+  document.getElementById('mob').classList.toggle('open');
+});
+</script>
+</body>
+</html>
