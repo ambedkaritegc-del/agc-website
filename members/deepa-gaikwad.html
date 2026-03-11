@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Deepa Gaikwad — AGC Member Profile</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>nav{position:fixed;top:0;width:100%;z-index:100;transition:background .3s,border .3s}
+nav.solid{background:rgba(7,9,15,.97);backdrop-filter:blur(20px);border-bottom:1px solid rgba(59,130,246,.1)}
+.nav-i{max-width:1200px;margin:0 auto;padding:0 32px;display:flex;align-items:center;justify-content:space-between;height:68px}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.logo-b{width:36px;height:36px;background:linear-gradient(135deg,#2563EB,#6366F1);border-radius:10px;display:grid;place-items:center;font-family:'Sora',sans-serif;font-weight:800;font-size:.72rem;color:#fff;box-shadow:0 0 18px rgba(37,99,235,.4);flex-shrink:0}
+.logo-t{font-family:'Sora',sans-serif;font-weight:700;font-size:.88rem;color:#F1F5F9}
+.nav-links{display:flex;align-items:center;gap:28px;list-style:none}
+.nav-links a{font-size:.85rem;color:#94A3B8;text-decoration:none;transition:color .2s;font-family:'DM Sans',sans-serif}
+.nav-links a:hover,.nav-links a.active{color:#F1F5F9}
+.nav-cta{background:linear-gradient(135deg,#2563EB,#4F46E5);color:#fff;padding:9px 20px;border-radius:10px;font-size:.82rem;font-weight:600;font-family:'Sora',sans-serif;text-decoration:none;transition:all .25s;white-space:nowrap}
+.nav-cta:hover{box-shadow:0 0 24px rgba(37,99,235,.5);transform:translateY(-1px)}
+.ham{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px}
+.ham span{display:block;width:22px;height:2px;background:#F1F5F9;border-radius:2px}
+.mob{display:none;position:fixed;top:68px;left:0;right:0;background:rgba(7,9,15,.98);backdrop-filter:blur(20px);padding:20px 24px;border-top:1px solid rgba(255,255,255,.08);z-index:99}
+.mob.open{display:block}
+.mob ul{list-style:none;display:flex;flex-direction:column;gap:2px;margin-bottom:14px}
+.mob ul li a{display:block;padding:11px 0;color:#94A3B8;font-size:.9rem;border-bottom:1px solid rgba(255,255,255,.06);text-decoration:none;font-family:'DM Sans',sans-serif;transition:color .2s}
+.mob ul li a:hover{color:#F1F5F9}
+.mob .nav-cta{display:block;text-align:center;margin-top:8px}
+.mob-close{display:none}
+@media(max-width:960px){.nav-links,.nav-cta{display:none}.ham{display:flex}}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#07090F;--bg2:#0D1117;--bg3:#111827;--blue:#3B82F6;--blue-d:#2563EB;--blue-glow:rgba(59,130,246,0.35);--gold:#F59E0B;--card:rgba(255,255,255,0.04);--card-b:rgba(255,255,255,0.08);--t1:#F0F4FF;--t2:rgba(240,244,255,0.6);--t3:rgba(240,244,255,0.32)}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--t1);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+h1,h2,h3,h4{font-family:'Sora',sans-serif}
+a{text-decoration:none;color:inherit}
+.wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+.hero{padding:110px 0 64px;position:relative;overflow:hidden;background:var(--bg2);border-bottom:1px solid var(--card-b)}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 80% at 70% 50%,rgba(37,99,235,.1) 0%,transparent 65%);pointer-events:none}
+.breadcrumb{display:flex;align-items:center;gap:8px;font-size:.72rem;color:var(--t3);margin-bottom:28px}
+.breadcrumb a{color:var(--t3);transition:color .2s}
+.breadcrumb a:hover{color:var(--t1)}
+.breadcrumb span{color:var(--t3)}
+.profile-top{display:grid;grid-template-columns:auto 1fr auto;gap:32px;align-items:start;position:relative;z-index:1}
+.av-big{width:96px;height:96px;border-radius:22px;background:linear-gradient(135deg,#2563EB,#10B981);display:grid;place-items:center;font-family:'Sora',sans-serif;font-weight:800;font-size:2rem;color:#fff;box-shadow:0 0 32px rgba(37,99,235,.3);flex-shrink:0}
+.profile-name{font-size:clamp(1.8rem,3vw,2.6rem);font-weight:800;color:var(--t1);margin-bottom:6px;line-height:1.1}
+.profile-role{font-size:1rem;color:var(--t2);margin-bottom:12px}
+.profile-meta{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:16px}
+.pmeta{display:flex;align-items:center;gap:6px;font-size:.8rem;color:var(--t3)}
+.pmeta-ico{font-size:.9rem}
+.demo-badge{background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.2);color:var(--gold);font-size:.62rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:4px 12px;border-radius:100px}
+.profile-actions{display:flex;flex-direction:column;gap:10px;flex-shrink:0}
+.btn-g{background:linear-gradient(135deg,var(--blue-d),#4F46E5);color:#fff;padding:11px 22px;border-radius:10px;font-size:.85rem;font-weight:700;font-family:'Sora',sans-serif;display:inline-flex;align-items:center;gap:7px;transition:all .25s;white-space:nowrap}
+.btn-g:hover{transform:translateY(-2px);box-shadow:0 8px 28px var(--blue-glow)}
+.btn-o{border:1px solid rgba(255,255,255,.14);color:var(--t2);padding:11px 22px;border-radius:10px;font-size:.85rem;font-weight:500;display:inline-flex;align-items:center;gap:7px;transition:all .25s;white-space:nowrap}
+.btn-o:hover{border-color:rgba(255,255,255,.3);color:var(--t1)}
+.focus-tags{display:flex;flex-wrap:wrap;gap:6px}
+.ftag{font-size:.7rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:4px 12px;border-radius:100px}
+.ftag.career{background:rgba(245,158,11,.1);color:var(--gold);border:1px solid rgba(245,158,11,.2)}
+.ftag.education{background:rgba(59,130,246,.1);color:var(--blue);border:1px solid rgba(59,130,246,.2)}
+.ftag.business{background:rgba(139,92,246,.1);color:#A78BFA;border:1px solid rgba(139,92,246,.2)}
+.main{padding:56px 0;display:grid;grid-template-columns:2fr 1fr;gap:32px;align-items:start}
+.section{background:var(--card);border:1px solid var(--card-b);border-radius:18px;padding:28px 30px;margin-bottom:20px}
+.section-title{font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;color:var(--t3);margin-bottom:18px;font-weight:600}
+.bio-text{font-size:.95rem;color:var(--t2);line-height:1.8}
+.tag-group{display:flex;flex-wrap:wrap;gap:8px}
+.tag{background:rgba(255,255,255,.05);border:1px solid var(--card-b);color:var(--t2);font-size:.78rem;padding:5px 13px;border-radius:100px}
+.tag.offer{background:rgba(16,185,129,.06);border-color:rgba(16,185,129,.18);color:#6EE7B7}
+.tag.need{background:rgba(245,158,11,.06);border-color:rgba(245,158,11,.18);color:#FCD34D}
+.mentorship-box{background:linear-gradient(135deg,rgba(37,99,235,.08),rgba(99,102,241,.05));border:1px solid rgba(59,130,246,.18);border-radius:18px;padding:28px 30px;margin-bottom:20px}
+.mentorship-box h3{font-size:.95rem;font-weight:700;color:var(--t1);margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.mentorship-box p{font-size:.88rem;color:var(--t2);line-height:1.75;margin-bottom:18px}
+.sidebar-card{background:var(--card);border:1px solid var(--card-b);border-radius:16px;padding:22px;margin-bottom:16px}
+.sidebar-card h4{font-size:.65rem;letter-spacing:.18em;text-transform:uppercase;color:var(--t3);margin-bottom:14px;font-weight:600}
+.stat-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--card-b);font-size:.83rem}
+.stat-row:last-child{border-bottom:none}
+.stat-label{color:var(--t3)}
+.stat-val{color:var(--t1);font-weight:600}
+.mem-card{background:var(--card);border:1px solid var(--card-b);border-radius:14px;padding:16px 18px;display:flex;gap:12px;align-items:flex-start;margin-bottom:10px;transition:all .3s}
+.mem-card:hover{border-color:rgba(59,130,246,.3);transform:translateX(4px)}
+.mem-av{width:38px;height:38px;border-radius:10px;display:grid;place-items:center;font-family:'Sora',sans-serif;font-weight:700;font-size:.75rem;color:#fff;flex-shrink:0}
+.mem-name{font-size:.85rem;font-weight:600;color:var(--t1);margin-bottom:2px}
+.mem-role{font-size:.72rem;color:var(--t3)}
+footer{background:#040608;border-top:1px solid rgba(255,255,255,.05);padding:40px 0 20px}
+.footer-btm{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.footer-btm p{font-size:.73rem;color:rgba(240,244,255,.18)}
+.fphase{font-size:.63rem;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);border:1px solid rgba(245,158,11,.22);padding:4px 12px;border-radius:100px}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.fa{animation:fadeUp .6s ease forwards}
+.d1{animation-delay:.05s}.d2{animation-delay:.12s}.d3{animation-delay:.2s}.d4{animation-delay:.28s}
+@media(max-width:960px){
+  .nav-links,
+  .profile-top{grid-template-columns:auto 1fr;gap:20px}
+  .profile-actions{display:none}
+  .main{grid-template-columns:1fr}
+}
+@media(max-width:600px){
+  .profile-top{grid-template-columns:1fr;text-align:center}
+  .av-big{margin:0 auto}
+  .profile-meta{justify-content:center}
+  .focus-tags{justify-content:center}
+}
+
+/* Role Badges */
+.role-badge{display:inline-flex;align-items:center;gap:6px;font-size:.68rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:5px 14px;border-radius:100px;margin-bottom:14px}
+.role-badge .rb-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+.rb-founder{background:rgba(245,158,11,.12);color:#F59E0B;border:1px solid rgba(245,158,11,.3)}
+.rb-founder .rb-dot{background:#F59E0B;box-shadow:0 0 6px #F59E0B}
+.rb-council{background:rgba(59,130,246,.1);color:#60A5FA;border:1px solid rgba(59,130,246,.25)}
+.rb-council .rb-dot{background:#3B82F6;box-shadow:0 0 6px #3B82F6}
+.rb-mentor{background:rgba(139,92,246,.1);color:#A78BFA;border:1px solid rgba(139,92,246,.25)}
+.rb-mentor .rb-dot{background:#8B5CF6;box-shadow:0 0 6px #8B5CF6}
+.rb-host{background:rgba(16,185,129,.1);color:#6EE7B7;border:1px solid rgba(16,185,129,.25)}
+.rb-host .rb-dot{background:#10B981;box-shadow:0 0 6px #10B981}
+.rb-member{background:rgba(255,255,255,.05);color:rgba(240,244,255,.45);border:1px solid rgba(255,255,255,.1)}
+.rb-member .rb-dot{background:rgba(240,244,255,.3)}
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <div class="nav-i">
+    <a href="../index.html" class="logo">
+      <div class="logo-b">AGC</div>
+      <span class="logo-t">Ambedkarite Global Council</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="../index.html#how">How It Works</a></li>
+      <li><a href="../members.html">Members</a></li>
+      <li><a href="../events.html">Events</a></li>
+      <li><a href="../mentorship.html">Mentorship</a></li>
+      <li><a href="../about.html">About</a></li>
+    </ul>
+    <a href="../register.html" class="nav-cta">Join AGC</a>
+    <button class="ham" id="ham"><span></span><span></span><span></span></button>
+  </div>
+  <div class="mob" id="mob">
+    <ul>
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="../index.html#how">How It Works</a></li>
+        <li><a href="../members.html">Members</a></li>
+        <li><a href="../events.html">Events</a></li>
+        <li><a href="../mentorship.html">Mentorship</a></li>
+        <li><a href="../about.html">About</a></li>
+    </ul>
+    <a href="../register.html" class="nav-cta">Join AGC</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="breadcrumb fa">
+      <a href="../index.html">Home</a>
+      <span>&rsaquo;</span>
+      <a href="../members.html">Members</a>
+      <span>&rsaquo;</span>
+      <span style="color:var(--t2)">Deepa Gaikwad</span>
+    </div>
+    <div class="profile-top">
+      <div class="av-big fa d1">DG</div>
+      <div class="fa d2">
+        <h1 class="profile-name">Deepa Gaikwad</h1>
+        <span class="role-badge rb-mentor"><span class="rb-dot"></span>◈ Education Mentor</span>
+        <p class="profile-role">PhD Researcher &middot; Munich, Germany 🇩🇪</p>
+        <div class="profile-meta">
+          <span class="pmeta"><span class="pmeta-ico">📍</span>Munich, Germany</span>
+          <span class="pmeta"><span class="pmeta-ico">📅</span>Member since Jan 2025</span>
+          <span class="pmeta"><span class="pmeta-ico">🎯</span>Student</span>
+        </div>
+        <div class="focus-tags"><span class="ftag education">Education</span></div>
+      </div>
+      <div class="profile-actions fa d3">
+        <a href="../register.html" class="btn-g">Connect with Deepa &rarr;</a>
+        <a href="../members.html" class="btn-o">&larr; All Members</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="wrap">
+  <div class="main">
+    <div>
+      <div class="section fa d2">
+        <div class="section-title">About Deepa</div>
+        <p class="bio-text">Doing PhD in biochemistry at TU Munich on a DAAD scholarship. First in my family to go abroad for higher education. Went through the entire process alone — now wants to make it easier for others.</p>
+      </div>
+
+      <div class="mentorship-box fa d3">
+        <h3>&#129309; Mentorship &amp; Help Offered</h3>
+        <p>Helps with DAAD and other Germany scholarship applications, PhD application process, and adjusting to life in Germany.</p>
+        <a href="../register.html" class="btn-g">Join AGC to Connect &rarr;</a>
+      </div>
+
+      <div class="section fa d3">
+        <div class="section-title">What Deepa Offers the Community</div>
+        <div class="tag-group"><span class="tag offer">Scholarship Guidance</span><span class="tag offer">PhD Application Help</span><span class="tag offer">Germany Tips</span></div>
+      </div>
+
+      <div class="section fa d4">
+        <div class="section-title">What Deepa is Looking For</div>
+        <div class="tag-group"><span class="tag need">Career Mentor</span><span class="tag need">Networking</span></div>
+      </div>
+
+      <div class="section fa d4">
+        <div class="section-title">Skills &amp; Expertise</div>
+        <div class="tag-group"><span class="tag">Research</span><span class="tag">Biochemistry</span><span class="tag">Academic Writing</span><span class="tag">Lab Work</span></div>
+      </div>
+    </div>
+
+    <div>
+      <div class="sidebar-card fa d2">
+        <h4>Member Details</h4>
+        <div class="stat-row"><span class="stat-label">Location</span><span class="stat-val">Munich, Germany</span></div>
+        <div class="stat-row"><span class="stat-label">Type</span><span class="stat-val">Student</span></div>
+        <div class="stat-row"><span class="stat-label">Member Since</span><span class="stat-val">Jan 2025</span></div>
+        <div class="stat-row"><span class="stat-label">Based Abroad</span><span class="stat-val">Yes</span></div>
+        <div class="stat-row"><span class="stat-label">Focus</span><span class="stat-val">Education</span></div>
+      </div>
+
+      <div class="sidebar-card fa d3">
+        <h4>Demo Member</h4>
+        <p style="font-size:.78rem;color:var(--t3);line-height:1.65">This is sample data to demonstrate the AGC platform. Real member profiles will appear here after launch.</p>
+      </div>
+
+      <div class="sidebar-card fa d4">
+        <h4>Become a Member</h4>
+        <p style="font-size:.82rem;color:var(--t2);line-height:1.65;margin-bottom:14px">Join AGC to connect with Deepa and 1000+ community members.</p>
+        <a href="../register.html" class="btn-g" style="width:100%;justify-content:center">Join AGC Free</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="wrap footer-btm">
+    <p>&copy; 2025 Ambedkarite Global Council. Inspired by Dr. B.R. Ambedkar.</p>
+    <span class="fphase">Demo Data</span>
+  </div>
+</footer>
+
+<script>
+window.addEventListener('scroll',()=>
+// Nav scroll
+window.addEventListener('scroll',()=>{
+  document.getElementById('nav').classList.toggle('solid',window.scrollY>20);
+});
+// Ham toggle
+document.getElementById('ham').addEventListener('click',()=>{
+  document.getElementById('mob').classList.toggle('open');
+});
+</script>
+</body>
+</html>
