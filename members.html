@@ -167,6 +167,20 @@ nav{position:fixed;top:0;width:100%;z-index:100;background:rgba(7,9,15,.97);back
   .fb-inner{flex-direction:column}
   .search-box{min-width:100%}
 }
+
+/* Role badges on cards */
+.mrole{display:inline-flex;align-items:center;gap:5px;font-size:.62rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:3px 10px;border-radius:100px;margin-bottom:8px}
+.mrole .rd{width:5px;height:5px;border-radius:50%;flex-shrink:0}
+.mrole-founder{background:rgba(245,158,11,.12);color:#F59E0B;border:1px solid rgba(245,158,11,.28)}
+.mrole-founder .rd{background:#F59E0B;box-shadow:0 0 5px #F59E0B}
+.mrole-council{background:rgba(59,130,246,.1);color:#60A5FA;border:1px solid rgba(59,130,246,.22)}
+.mrole-council .rd{background:#3B82F6;box-shadow:0 0 5px #3B82F6}
+.mrole-mentor{background:rgba(139,92,246,.1);color:#A78BFA;border:1px solid rgba(139,92,246,.22)}
+.mrole-mentor .rd{background:#8B5CF6;box-shadow:0 0 5px #8B5CF6}
+.mrole-host{background:rgba(16,185,129,.1);color:#6EE7B7;border:1px solid rgba(16,185,129,.22)}
+.mrole-host .rd{background:#10B981;box-shadow:0 0 5px #10B981}
+.mrole-member{background:rgba(255,255,255,.04);color:rgba(240,244,255,.35);border:1px solid rgba(255,255,255,.08)}
+.mrole-member .rd{background:rgba(240,244,255,.25)}
 </style>
 </head>
 <body>
@@ -294,7 +308,7 @@ const MEMBERS = [
     offers:['Resume Review','Career Guidance','Product Mentoring'], needs:['Business Partner','Investor Connections'], skills:['Marketing','Tech'] },
   { id:4, name:'Sunita Rathod', role:'Lawyer', country:'United Kingdom', city:'London', type:'professional', abroad:true, focus:['career'], avatar:'SR', color:'linear-gradient(135deg,#8B5CF6,#EC4899)', flag:'🇬🇧', joined:'Feb 2025',
     offers:['Legal Guidance','UK Visa Help','Advocacy Support'], needs:['Community Network','Events'], skills:['Law'] },
-  { id:5, name:'Vijay Meshram', role:'Founder & CEO', country:'India', city:'Mumbai', type:'entrepreneur', abroad:false, focus:['business'], avatar:'VM', color:'linear-gradient(135deg,#F59E0B,#10B981)', flag:'🇮🇳', joined:'Mar 2025',
+  { id:5, name:'Sanghrtna More', role:'Founder & CEO', country:'India', city:'Mumbai', type:'entrepreneur', abroad:false, focus:['business'], avatar:'SM', color:'linear-gradient(135deg,#F59E0B,#10B981)', flag:'🇮🇳', joined:'Mar 2025',
     offers:['Startup Mentoring','Business Networking','Fundraising Advice'], needs:['Tech Co-founder','Legal Help'], skills:['Finance','Marketing'] },
   { id:6, name:'Deepa Gaikwad', role:'PhD Researcher', country:'Germany', city:'Munich', type:'student', abroad:true, focus:['education'], avatar:'DG', color:'linear-gradient(135deg,#2563EB,#10B981)', flag:'🇩🇪', joined:'Jan 2025',
     offers:['Scholarship Guidance','PhD Application Help','Germany Tips'], needs:['Career Mentor','Networking'], skills:['Research','Science'] },
@@ -334,6 +348,19 @@ const MEMBERS = [
     offers:['Australia Healthcare Jobs','Nursing Career Guidance','PR Process Help'], needs:['Community Network','Cultural Support'], skills:['Medicine'] },
   { id:24, name:'Tejas Jagtap', role:'Open Source Developer', country:'Germany', city:'Berlin', type:'professional', abroad:true, focus:['career','business'], avatar:'TJ', color:'linear-gradient(135deg,#7C3AED,#F59E0B)', flag:'🇩🇪', joined:'Jan 2025',
     offers:['Open Source Mentoring','GitHub Portfolio Reviews','Tech Startup Advice'], needs:['Business Co-founder','Funding Guidance'], skills:['Programming','Tech'] },
+  { id:25, name:'Suman Dhangar', role:'Pharmacist', country:'Canada', city:'Toronto', type:'professional', abroad:true, focus:['career'], avatar:'SD2', color:'linear-gradient(135deg,#10B981,#2563EB)', flag:'🇨🇦', joined:'Mar 2025',
+    offers:['Canada PR Guidance','Pharmacy Career Help','Healthcare Networking'], needs:['Community Network','Cultural Support'], skills:['Medicine','Science'] },
+  { id:26, name:'Ganesh Patil', role:'Civil Services Aspirant', country:'India', city:'Aurangabad', type:'student', abroad:false, focus:['education'], avatar:'GP', color:'linear-gradient(135deg,#F59E0B,#7C3AED)', flag:'🇮🇳', joined:'Feb 2025',
+    offers:['MPSC Guidance','Study Material Sharing','Peer Support'], needs:['UPSC Mentor','Study Group'], skills:['Research','Writing'] },
+  { id:27, name:'Rekha Suryawanshi', role:'UX Designer', country:'India', city:'Hyderabad', type:'professional', abroad:false, focus:['career','business'], avatar:'RS', color:'linear-gradient(135deg,#EC4899,#10B981)', flag:'🇮🇳', joined:'Jan 2025',
+    offers:['UX Portfolio Reviews','Design Career Guidance','Figma Workshops'], needs:['Freelance Clients','Business Partner'], skills:['Design','Tech'] },
+  { id:28, name:'Balu Kamble', role:'Agricultural Scientist', country:'India', city:'Latur', type:'professional', abroad:false, focus:['education','career'], avatar:'BK', color:'linear-gradient(135deg,#10B981,#F59E0B)', flag:'🇮🇳', joined:'Mar 2025',
+    offers:['Agriculture Career Guidance','Government Job Tips','Rural Community Support'], needs:['Research Partner','Funding Connections'], skills:['Science','Research'] },
+  { id:29, name:'Divya Meshram', role:'Content Creator', country:'India', city:'Nagpur', type:'professional', abroad:false, focus:['career','business'], avatar:'DM', color:'linear-gradient(135deg,#8B5CF6,#F59E0B)', flag:'🇮🇳', joined:'Feb 2025',
+    offers:['Content Strategy','Social Media Growth','YouTube Guidance'], needs:['Brand Partnerships','Tech Help'], skills:['Writing','Marketing'] },
+  { id:30, name:'Sachin Ukey', role:'Software Engineer', country:'Australia', city:'Sydney', type:'professional', abroad:true, focus:['career'], avatar:'SU', color:'linear-gradient(135deg,#2563EB,#10B981)', flag:'🇦🇺', joined:'Jan 2025',
+    offers:['Australia Job Referrals','Tech Interview Prep','PR Process Guidance'], needs:['India Startup Network','Business Idea Partners'], skills:['Programming','Tech'] },
+
 ];
 
 // ── STATE ──
@@ -349,6 +376,72 @@ const STRIPES = {
 };
 
 // ── RENDER ──
+const MEMBER_ROLES = {
+  5: {label:"Founder", type:"founder"},
+  22: {label:"Council Member", type:"council"},
+  4: {label:"Council Member", type:"council"},
+  17: {label:"Council Member", type:"council"},
+  19: {label:"Community Admin", type:"council"},
+  1: {label:"Tech Mentor", type:"mentor"},
+  6: {label:"Education Mentor", type:"mentor"},
+  9: {label:"Career Mentor", type:"mentor"},
+  15: {label:"Career Mentor", type:"mentor"},
+  12: {label:"Tech Mentor", type:"mentor"},
+  16: {label:"Startup Mentor", type:"mentor"},
+  23: {label:"Migration Mentor", type:"mentor"},
+  25: {label:"Migration Mentor", type:"mentor"},
+  21: {label:"Business Mentor", type:"mentor"},
+  3: {label:"Event Host", type:"host"},
+  8: {label:"Event Host", type:"host"},
+  11: {label:"Event Host", type:"host"},
+  20: {label:"Event Host", type:"host"},
+  24: {label:"Event Host", type:"host"},
+  2: {label:"Member", type:"member"},
+  7: {label:"Member", type:"member"},
+  10: {label:"Member", type:"member"},
+  13: {label:"Member", type:"member"},
+  14: {label:"Member", type:"member"},
+  18: {label:"Member", type:"member"},
+  26: {label:"Member", type:"member"},
+  27: {label:"Member", type:"member"},
+  28: {label:"Member", type:"member"},
+  29: {label:"Member", type:"member"},
+  30: {label:"Member", type:"member"}
+};
+const MEMBER_SLUGS = {
+  1: "members/rahul-kamble.html",
+  2: "members/priya-jadhav.html",
+  3: "members/amit-sonawane.html",
+  4: "members/sunita-rathod.html",
+  5: "members/sanghrtna-more.html",
+  6: "members/deepa-gaikwad.html",
+  7: "members/rohan-bhagat.html",
+  8: "members/meena-chavhan.html",
+  9: "members/kiran-waghmare.html",
+  10: "members/sanjay-dongre.html",
+  11: "members/anita-pawar.html",
+  12: "members/nitin-shinde.html",
+  13: "members/pooja-kamble.html",
+  14: "members/akash-mane.html",
+  15: "members/rashmi-tekade.html",
+  16: "members/suresh-salve.html",
+  17: "members/lata-bansode.html",
+  18: "members/arun-khobragade.html",
+  19: "members/nisha-fulzele.html",
+  20: "members/prakash-gopal.html",
+  21: "members/kavita-wankhede.html",
+  22: "members/mahesh-tupe.html",
+  23: "members/shobha-nimkar.html",
+  24: "members/tejas-jagtap.html",
+  25: "members/suman-dhangar.html",
+  26: "members/ganesh-patil.html",
+  27: "members/rekha-suryawanshi.html",
+  28: "members/balu-kamble.html",
+  29: "members/divya-meshram.html",
+  30: "members/sachin-ukey.html",
+};
+
+
 function renderCards() {
   const grid = document.getElementById('membersGrid');
   const noRes = document.getElementById('noResults');
@@ -374,9 +467,13 @@ function renderCards() {
       : m.type === 'student' ? `<span class="mbadge mb-edu">🎓 Student</span>`
       : m.type === 'entrepreneur' ? `<span class="mbadge mb-biz">🚀 Entrepreneur</span>`
       : `<span class="mbadge mb-car">💼 Professional</span>`;
+    const roleData = MEMBER_ROLES[m.id] || {label:'Member', type:'member'};
+    const roleIcons = {founder:'★',council:'◆',mentor:'◈',host:'◉',member:'○'};
+    const roleIcon = roleIcons[roleData.type] || '○';
+    const roleBadge = `<span class="mrole mrole-${roleData.type}"><span class="rd"></span>${roleIcon} ${roleData.label}</span>`;
 
     return `
-    <div class="mcard fu" style="--stripe:${stripe};animation-delay:${i*0.04}s" onclick="openModal(${m.id})">
+    <div class="mcard fu" style="--stripe:${stripe};animation-delay:${i*0.04}s" data-memberid="${m.id}" style="cursor:pointer">
       <div class="mcard-top">
         <div class="mavatar" style="background:${m.color}">
           ${m.avatar}
@@ -388,6 +485,7 @@ function renderCards() {
           <div class="mcard-loc">📍 ${m.city}, ${m.country}</div>
         </div>
       </div>
+      <div style="margin-bottom:4px">${roleBadge}</div>
       <div class="mcard-badges">${badge}</div>
       <div class="mcard-section">
         <div class="ms-label give">🎁 Offers</div>
@@ -494,7 +592,8 @@ function openModal(id) {
     </div>
     <div class="modal-divider"></div>
     <div class="modal-actions">
-      <a href="register.html" class="btn-connect">Join AGC to Connect</a>
+      <a href="member-profile.html?id=${m.id}" class="btn-connect">View Full Profile</a>
+      <a href="register.html" class="btn-connect" style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12)">Join AGC to Connect</a>
       <button class="btn-close-modal" onclick="closeModalDirect()">Close</button>
     </div>`;
   document.getElementById('modal').classList.add('open');
@@ -528,6 +627,19 @@ function updateCounts() {
 // ── INIT ──
 updateCounts();
 renderCards();
+
+// ── CARD CLICK DELEGATION ──
+document.getElementById('membersGrid').addEventListener('click', function(e) {
+  const connect = e.target.closest('.mcard-connect');
+  if (connect) { window.location = 'register.html'; return; }
+  const card = e.target.closest('.mcard');
+  if (card) {
+    const id = parseInt(card.dataset.memberid);
+    const slug = MEMBER_SLUGS[id];
+    if (slug) window.location = slug;
+  }
+});
+
 </script>
 
 <!-- FOOTER -->

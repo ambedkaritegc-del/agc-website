@@ -171,6 +171,46 @@ nav{position:fixed;top:0;width:100%;z-index:100;background:rgba(7,9,15,.97);back
   .host-steps{gap:16px}
 }
 @media(max-width:560px){.ph-inner{flex-direction:column;align-items:flex-start}}
+
+/* Search bar */
+.ev-search-wrap{max-width:560px;margin:0 auto 28px;position:relative}
+.ev-search-ico{position:absolute;left:16px;top:50%;transform:translateY(-50%);font-size:1rem;color:var(--t3);pointer-events:none}
+.ev-search-input{width:100%;background:var(--card);border:1.5px solid var(--card-b);border-radius:12px;padding:13px 16px 13px 44px;font-size:.9rem;color:var(--t1);font-family:'DM Sans',sans-serif;outline:none;transition:border-color .25s}
+.ev-search-input::placeholder{color:var(--t3)}
+.ev-search-input:focus{border-color:rgba(59,130,246,.45);background:rgba(255,255,255,.05)}
+.ev-search-clear{position:absolute;right:14px;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.08);border:none;color:var(--t2);width:22px;height:22px;border-radius:50%;cursor:pointer;font-size:.75rem;display:none;align-items:center;justify-content:center}
+.ev-search-clear.show{display:flex}
+
+/* Inline search above grid */
+.sec-header-row{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:20px;flex-wrap:wrap}
+.sec-header-row .sec-title{margin-bottom:0}
+.ev-search-inline{position:relative;flex:1;max-width:360px}
+.ev-search-inline .ev-search-ico{position:absolute;left:12px;top:50%;transform:translateY(-50%);font-size:.9rem;color:var(--t3);pointer-events:none}
+.ev-search-inline .ev-search-input{width:100%;background:var(--card);border:1.5px solid var(--card-b);border-radius:10px;padding:10px 36px 10px 36px;font-size:.82rem;color:var(--t1);font-family:'DM Sans',sans-serif;outline:none;transition:border-color .25s}
+.ev-search-inline .ev-search-input::placeholder{color:var(--t3)}
+.ev-search-inline .ev-search-input:focus{border-color:rgba(59,130,246,.45)}
+.ev-search-inline .ev-search-clear{position:absolute;right:10px;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.08);border:none;color:var(--t2);width:20px;height:20px;border-radius:50%;cursor:pointer;font-size:.7rem;display:none;align-items:center;justify-content:center}
+.ev-search-inline .ev-search-clear.show{display:flex}
+@media(max-width:600px){.ev-search-inline{max-width:100%;width:100%}}
+
+/* ── Smart Search Bar ── */
+.smart-search-wrap{margin-bottom:28px}
+.smart-search-inner{position:relative}
+.ss-ico{position:absolute;left:18px;top:50%;transform:translateY(-50%);font-size:1.1rem;pointer-events:none;z-index:1}
+.smart-search-input{width:100%;background:rgba(255,255,255,.04);border:1.5px solid rgba(59,130,246,.25);border-radius:14px;padding:15px 48px 15px 50px;font-size:.95rem;color:var(--t1);font-family:'DM Sans',sans-serif;outline:none;transition:all .25s;box-sizing:border-box}
+.smart-search-input::placeholder{color:rgba(240,244,255,.28);font-size:.85rem}
+.smart-search-input:focus{border-color:rgba(59,130,246,.6);background:rgba(59,130,246,.05);box-shadow:0 0 0 3px rgba(59,130,246,.1)}
+.ss-clear{position:absolute;right:14px;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.1);border:none;color:var(--t2);width:26px;height:26px;border-radius:50%;cursor:pointer;font-size:.75rem;display:none;align-items:center;justify-content:center;transition:background .2s}
+.ss-clear:hover{background:rgba(255,255,255,.2)}
+.ss-clear.show{display:flex}
+.ss-hints{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.ss-hint{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:4px 12px;font-size:.75rem;color:rgba(240,244,255,.5);cursor:pointer;transition:all .2s;font-family:'DM Sans',sans-serif}
+.ss-hint:hover{background:rgba(59,130,246,.15);border-color:rgba(59,130,246,.4);color:var(--blue)}
+.results-badge{font-size:.78rem;color:var(--t3);font-family:'DM Sans',sans-serif}
+/* keep old inline search CSS working */
+.ev-search-inline, .ev-search-wrap{display:none}
+
+.search-section{padding:24px 0 0}
 </style>
 </head>
 <body>
@@ -231,6 +271,30 @@ nav{position:fixed;top:0;width:100%;z-index:100;background:rgba(7,9,15,.97);back
   </div>
 </div>
 
+
+<div class="search-section">
+  <div class="wrap">
+<!-- SMART SEARCH BAR -->
+    <div class="smart-search-wrap fu">
+      <div class="smart-search-inner">
+        <span class="ss-ico">🔍</span>
+        <input type="text" class="smart-search-input" id="evSearch"
+          placeholder="Search events… try 'ambedkar jayanti', 'career berlin', 'online free'"
+          autocomplete="off"/>
+        <button class="ss-clear" id="evSearchClear" onclick="clearEvSearch()">✕</button>
+      </div>
+      <div class="ss-hints" id="ssHints">
+        <span class="ss-hint" onclick="setSearch('ambedkar')">ambedkar</span>
+        <span class="ss-hint" onclick="setSearch('career')">career</span>
+        <span class="ss-hint" onclick="setSearch('online')">online</span>
+        <span class="ss-hint" onclick="setSearch('scholarship')">scholarship</span>
+        <span class="ss-hint" onclick="setSearch('abroad')">study abroad</span>
+        <span class="ss-hint" onclick="setSearch('startup')">startup</span>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="main">
   <div class="wrap">
 
@@ -255,11 +319,15 @@ nav{position:fixed;top:0;width:100%;z-index:100;background:rgba(7,9,15,.97);back
     </div>
 
     <!-- UPCOMING -->
-    <div class="sec-title fu">Upcoming Events</div>
+
+    <div class="sec-header-row">
+      <div class="sec-title fu">Upcoming Events</div>
+      <span class="results-badge" id="resultsCountBadge"></span>
+    </div>
     <div class="events-grid" id="eventsGrid"></div>
     <div class="no-results" id="noResults" style="display:none">
-      <h3>No events found for this filter</h3>
-      <p>Try a different category or check back soon.</p>
+      <h3 id="noResTitle">No events found</h3>
+      <p id="noResMsg">Try different keywords or clear the search.</p>
     </div>
 
     <!-- PAST -->
@@ -371,24 +439,260 @@ const EVENTS = [
     host:{name:'Vijay Meshram', role:'Founder & CEO · Mumbai', av:'VM', color:'linear-gradient(135deg,#F59E0B,#10B981)'},
     stripe:'#8B5CF6', tags:['business']
   },
+    {
+    id:7, title:'Ambedkar Philosophy Discussion Circle', emoji:'📖',
+    category:'community', online:true,
+    date:'May 3, 2025', time:'6:00 PM – 8:00 PM IST',
+    location:'Online — Google Meet', venue:'Link sent after registration',
+    desc:'A deep-dive reading circle on Dr. Ambedkar writings — Annihilation of Caste, Buddha and his Dhamma, and more. Open discussion format with community members from across the world.',
+    spots:60, registered:34, free:true,
+    host:{name:'Mahesh Tupe', role:'Civil Services Officer · Pune', av:'MT', color:'linear-gradient(135deg,#2563EB,#F59E0B)'},
+    stripe:'#10B981', tags:['community','online']
+  },
+  {
+    id:8, title:'Women in Leadership Summit', emoji:'👩',
+    category:'career', online:false,
+    date:'May 10, 2025', time:'10:00 AM – 3:00 PM IST',
+    location:'Mumbai, India', venue:'YMCA, Colaba',
+    desc:'A full-day summit celebrating and empowering women professionals in the AGC community. Panel discussions, keynotes, and networking with senior women leaders across industries.',
+    spots:80, registered:55, free:true,
+    host:{name:'Rashmi Tekade', role:'HR Manager · Chennai', av:'RT', color:'linear-gradient(135deg,#F59E0B,#8B5CF6)'},
+    stripe:'#EC4899', tags:['career']
+  },
+  {
+    id:9, title:'Australia & Canada PR Guidance Session', emoji:'🌏',
+    category:'education', online:true,
+    date:'May 15, 2025', time:'7:30 PM – 9:30 PM IST',
+    location:'Online — Zoom', venue:'Link sent after registration',
+    desc:'AGC members living in Australia and Canada walk through the PR process, point systems, job search, and settlement tips. Q&A with real community members who successfully got PR.',
+    spots:100, registered:71, free:true,
+    host:{name:'Shobha Nimkar', role:'Nurse · Melbourne, Australia', av:'SN', color:'linear-gradient(135deg,#10B981,#7C3AED)'},
+    stripe:'#3B82F6', tags:['education','online']
+  },
+  {
+    id:10, title:'First-Generation Professionals Meetup', emoji:'🤝',
+    category:'community', online:false,
+    date:'May 18, 2025', time:'4:00 PM – 7:00 PM IST',
+    location:'Bangalore, India', venue:'Koramangala Social',
+    desc:'A meetup for first-generation professionals — those who are the first in their family to enter corporate, tech or professional careers. Share your journey, challenges, and wins.',
+    spots:45, registered:38, free:true,
+    host:{name:'Kiran Waghmare', role:'Data Scientist · San Francisco', av:'KW', color:'linear-gradient(135deg,#2563EB,#F59E0B)'},
+    stripe:'#F59E0B', tags:['community']
+  },
+  {
+    id:11, title:'UPSC & Civil Services Strategy Workshop', emoji:'🏛',
+    category:'education', online:false,
+    date:'May 24, 2025', time:'9:00 AM – 1:00 PM IST',
+    location:'Delhi, India', venue:'Constitution Club of India',
+    desc:'A structured half-day workshop by AGC members who cleared UPSC and state-level civil services exams. Covers study strategy, optional subject selection, interview prep and mental health.',
+    spots:75, registered:60, free:true,
+    host:{name:'Mahesh Tupe', role:'Civil Services Officer · Pune', av:'MT', color:'linear-gradient(135deg,#2563EB,#F59E0B)'},
+    stripe:'#3B82F6', tags:['education']
+  },
+  {
+    id:12, title:'AGC Global Mixer — Online Town Hall', emoji:'🌍',
+    category:'community', online:true,
+    date:'June 1, 2025', time:'5:00 PM – 7:00 PM IST',
+    location:'Online — Zoom', venue:'Link sent after registration',
+    desc:'AGC first global town hall bringing together members from India, Germany, UK, USA, Canada, and Australia. Introductions, community updates, and open discussion on the platform future.',
+    spots:200, registered:112, free:true,
+    host:{name:'AGC Core Team', role:'Ambedkarite Global Council', av:'AGC', color:'linear-gradient(135deg,#2563EB,#6366F1)'},
+    stripe:'#6366F1', tags:['community','online']
+  }
+
 ];
 
 let activeFilter = 'all';
+let evSearchQ = '';
+
+// ── SMART SEARCH ENGINE ──
+function smartScore(event, query) {
+  if (!query) return 1;
+
+  // ── SYNONYM / ALIAS MAP ──
+  // Maps common search terms to what they should also match
+  const SYNONYMS = {
+    'jayanti': ['celebration', 'anniversary', 'ambedkar', 'birthday'],
+    'birthday': ['jayanti', 'celebration', 'anniversary'],
+    'celebration': ['jayanti', 'festival', 'event'],
+    'ambedkar': ['babasaheb', 'baba saheb', 'br ambedkar', 'bhim', 'jayanti', 'philosophy'],
+    'babasaheb': ['ambedkar', 'bhim', 'jayanti'],
+    'bhim': ['ambedkar', 'babasaheb'],
+    'phule': ['jyotirao', 'savitribai', 'community'],
+    'career': ['job', 'professional', 'work', 'employment', 'mentorship', 'placement'],
+    'job': ['career', 'employment', 'professional', 'placement', 'mentorship'],
+    'jobs': ['career', 'employment', 'professional', 'placement'],
+    'employment': ['career', 'job', 'professional'],
+    'study': ['education', 'scholarship', 'abroad', 'university', 'college', 'academic'],
+    'abroad': ['international', 'overseas', 'foreign', 'study', 'migration', 'pr', 'visa'],
+    'overseas': ['abroad', 'international', 'migration'],
+    'foreign': ['abroad', 'international', 'overseas'],
+    'scholarship': ['study', 'education', 'funding', 'grant'],
+    'mentor': ['mentorship', 'guidance', 'coach', 'career', 'advice'],
+    'mentorship': ['mentor', 'guidance', 'career', 'coaching'],
+    'startup': ['entrepreneur', 'business', 'founder', 'venture'],
+    'entrepreneur': ['startup', 'business', 'founder'],
+    'business': ['startup', 'entrepreneur', 'networking'],
+    'networking': ['meetup', 'connect', 'professional', 'community'],
+    'meetup': ['networking', 'gathering', 'event', 'meet'],
+    'online': ['virtual', 'webinar', 'zoom', 'remote', 'digital'],
+    'virtual': ['online', 'webinar', 'remote'],
+    'webinar': ['online', 'virtual', 'talk', 'session'],
+    'community': ['social', 'gathering', 'network', 'group'],
+    'germany': ['berlin', 'munich', 'europe', 'german', 'deutschland'],
+    'berlin': ['germany', 'europe', 'german'],
+    'europe': ['germany', 'uk', 'france', 'abroad', 'international'],
+    'australia': ['sydney', 'melbourne', 'pr', 'abroad', 'migration'],
+    'canada': ['toronto', 'vancouver', 'pr', 'abroad', 'migration'],
+    'uk': ['london', 'britain', 'england', 'abroad'],
+    'usa': ['america', 'us', 'united states', 'abroad'],
+    'india': ['indian', 'desi'],
+    'mumbai': ['bombay', 'india', 'maharashtra'],
+    'pune': ['india', 'maharashtra'],
+    'delhi': ['india', 'new delhi'],
+    'nagpur': ['india', 'maharashtra'],
+    'pr': ['permanent residency', 'migration', 'abroad', 'australia', 'canada'],
+    'visa': ['immigration', 'abroad', 'migration', 'pr'],
+    'migration': ['abroad', 'pr', 'visa', 'immigration'],
+    'upsc': ['civil services', 'ias', 'ips', 'government'],
+    'ias': ['upsc', 'civil services', 'government'],
+    'women': ['woman', 'female', 'leadership', 'gender'],
+    'leadership': ['women', 'professional', 'management'],
+    'philosophy': ['ambedkar', 'discussion', 'circle', 'thought'],
+    'tech': ['technology', 'software', 'it', 'engineering', 'coding'],
+    'it': ['tech', 'technology', 'software', 'engineering'],
+    'free': ['no cost', 'gratis', 'no fee'],
+    'global': ['international', 'worldwide', 'online'],
+    'mixer': ['networking', 'social', 'meetup', 'townhall'],
+    'townhall': ['mixer', 'community', 'meeting'],
+  };
+
+  const q = query.toLowerCase().trim();
+  const words = q.split(/\s+/).filter(Boolean);
+
+  // Expand words with synonyms
+  const expandedWords = new Set(words);
+  words.forEach(w => {
+    (SYNONYMS[w] || []).forEach(s => expandedWords.add(s));
+  });
+  const allWords = [...expandedWords];
+
+  // Build searchable text fields with weights
+  const fields = [
+    { text: event.title.toLowerCase(),          weight: 6 },
+    { text: event.category.toLowerCase(),       weight: 4 },
+    { text: (event.tags||[]).join(' ').toLowerCase(), weight: 4 },
+    { text: event.location.toLowerCase(),       weight: 3 },
+    { text: (event.venue||'').toLowerCase(),    weight: 3 },
+    { text: event.host.name.toLowerCase(),      weight: 2 },
+    { text: event.desc.toLowerCase(),           weight: 2 },
+    { text: event.date.toLowerCase(),           weight: 1 },
+    { text: event.online ? 'online virtual webinar' : 'offline in person', weight: 2 },
+    { text: event.free ? 'free no cost' : 'paid', weight: 1 },
+  ];
+
+  // Fuzzy single-char tolerance
+  function fuzzy(a, b) {
+    if (b.includes(a)) return true;
+    if (Math.abs(a.length - b.length) > 2) return false;
+    const len = Math.min(a.length, b.length);
+    let diff = Math.abs(a.length - b.length);
+    for (let i = 0; i < len && diff <= 1; i++) {
+      if (a[i] !== b[i]) diff++;
+    }
+    return diff <= 1;
+  }
+
+  // Score original query words (higher priority than synonyms)
+  let totalScore = 0;
+  let originalWordsMatched = 0;
+
+  for (const word of words) {
+    let wordScore = 0;
+    const isSynExpanded = false;
+    for (const field of fields) {
+      if (field.text.includes(word)) {
+        wordScore += field.weight * 3;
+        continue;
+      }
+      const fw = field.text.split(/\s+/);
+      for (const f of fw) {
+        if (fuzzy(word, f)) { wordScore += field.weight; break; }
+      }
+    }
+    if (wordScore > 0) originalWordsMatched++;
+    totalScore += wordScore;
+  }
+
+  // Score synonym-expanded words (lower priority)
+  const synonymWords = allWords.filter(w => !words.includes(w));
+  for (const word of synonymWords) {
+    let wordScore = 0;
+    for (const field of fields) {
+      if (field.text.includes(word)) {
+        wordScore += field.weight * 1.5; // lower weight for synonym matches
+        break;
+      }
+    }
+    totalScore += wordScore;
+  }
+
+  // Must match at least one original word (or have strong synonym match)
+  if (originalWordsMatched === 0 && totalScore < 3) return 0;
+
+  // Bonus: all original words matched
+  if (originalWordsMatched === words.length && words.length > 1) totalScore *= 1.6;
+
+  return totalScore;
+}
+
 let filtered = [...EVENTS];
 
 const STRIPE_COLORS = {career:'#F59E0B', education:'#3B82F6', business:'#8B5CF6', community:'#10B981'};
 
+const EVENT_SLUGS = {
+  1: "events/career-mentorship-meetup.html",
+  2: "events/study-abroad-guidance-webinar.html",
+  3: "events/ambedkar-jayanti-celebration.html",
+  4: "events/scholarship-discovery-workshop.html",
+  5: "events/tech-jobs-in-germany-community-session.html",
+  6: "events/startup-and-entrepreneur-networking.html",
+  7: "events/ambedkar-philosophy-discussion-circle.html",
+  8: "events/women-in-leadership-summit.html",
+  9: "events/australia-and-canada-pr-guidance-session.html",
+  10: "events/first-generation-professionals-meetup.html",
+  11: "events/upsc-and-civil-services-strategy-workshop.html",
+  12: "events/agc-global-mixer-online-town-hall.html",
+};
+
+
 function renderEvents() {
+  // Hide featured event when searching or filtering
+  const featured = document.getElementById('featuredEvent');
+  const secTitle = document.querySelector('.sec-header-row');
+  if (featured) featured.style.display = (evSearchQ || activeFilter !== 'all') ? 'none' : '';
   const grid = document.getElementById('eventsGrid');
   const noRes = document.getElementById('noResults');
 
-  filtered = EVENTS.filter(e => {
+  // Smart search: score, filter, sort by relevance
+  const q = evSearchQ.trim();
+  let pool = EVENTS.filter(e => {
     if (activeFilter === 'all') return true;
     if (activeFilter === 'online') return e.online;
     return e.tags.includes(activeFilter);
   });
+  if (q) {
+    pool = pool
+      .map(e => ({ e, score: smartScore(e, q) }))
+      .filter(x => x.score > 0)
+      .sort((a, b) => b.score - a.score)
+      .map(x => x.e);
+  }
+  filtered = pool;
 
   document.getElementById('resultsCount').textContent = `${filtered.length} upcoming event${filtered.length !== 1 ? 's' : ''}`;
+  const badge = document.getElementById('resultsCountBadge');
+  if (badge) badge.textContent = evSearchQ ? `${filtered.length} result${filtered.length !== 1 ? 's' : ''} for "${evSearchQ}"` : '';
   document.getElementById('upcomingCount').textContent = filtered.length;
 
   if (!filtered.length) {
@@ -397,6 +701,18 @@ function renderEvents() {
     return;
   }
   noRes.style.display = 'none';
+  // Update no-results message based on context
+  const nrTitle = document.getElementById('noResTitle');
+  const nrMsg = document.getElementById('noResMsg');
+  if (nrTitle) {
+    if (evSearchQ) {
+      nrTitle.textContent = 'No results for "' + evSearchQ + '"';
+      nrMsg.textContent = 'Try different keywords — e.g. "career", "online", "Delhi"';
+    } else {
+      nrTitle.textContent = 'No events found';
+      nrMsg.textContent = 'Try a different category or check back soon.';
+    }
+  }
 
   grid.innerHTML = filtered.map((e, i) => {
     const isFull = e.registered >= e.spots;
@@ -406,7 +722,7 @@ function renderEvents() {
     const catLabel = {career:'💼 Career', education:'📚 Education', business:'🚀 Business', community:'🤝 Community'};
 
     return `
-    <div class="ev-card fu" style="animation-delay:${i*0.06}s" onclick="openModal(${e.id})">
+    <div class="ev-card fu" style="animation-delay:${i*0.06}s" data-eventid="${e.id}" style="cursor:pointer">
       <div class="ev-stripe" style="background:${e.stripe}"></div>
       <div class="ev-body">
         <div class="ev-badges">
@@ -424,7 +740,7 @@ function renderEvents() {
       </div>
       <div class="ev-footer">
         <div class="ev-spots">${isFull ? '<span style="color:#F87171">Fully Booked</span>' : `<span>${e.spots - e.registered}</span> spots left`}</div>
-        <span class="ev-btn${isFull?' full':''}" onclick="event.stopPropagation();${isFull?'':\"openModal(\"+e.id+\")\"}">${isFull ? 'Waitlist' : 'Register'}</span>
+        <span class="ev-btn${isFull?' full':''}" data-eventbtn="${e.id}">${isFull ? 'Waitlist' : 'Register'}</span>
       </div>
     </div>`;
   }).join('');
@@ -485,6 +801,54 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModalDi
 document.getElementById('ham').addEventListener('click', () => document.getElementById('mob').classList.toggle('open'));
 
 renderEvents();
+
+// ── EVENT CARD CLICK DELEGATION ──
+document.getElementById('eventsGrid').addEventListener('click', function(e) {
+  const btn = e.target.closest('[data-eventbtn]');
+  if (btn) {
+    e.stopPropagation();
+    const id = parseInt(btn.dataset.eventbtn);
+    const slug = EVENT_SLUGS[id];
+    if (slug) window.location = slug;
+    return;
+  }
+  const card = e.target.closest('.ev-card');
+  if (card) {
+    const id = parseInt(card.dataset.eventid);
+    const slug = EVENT_SLUGS[id];
+    if (slug) window.location = slug;
+  }
+});
+
+
+// ── EVENT SEARCH ──
+const evSearchInput = document.getElementById('evSearch');
+const evSearchClear = document.getElementById('evSearchClear');
+
+evSearchInput.addEventListener('input', function() {
+  evSearchQ = this.value.trim();
+  evSearchClear.classList.toggle('show', evSearchQ.length > 0);
+  document.getElementById('ssHints').style.display = evSearchQ ? 'none' : 'flex';
+  renderEvents();
+});
+
+function clearEvSearch() {
+  evSearchQ = '';
+  evSearchInput.value = '';
+  evSearchClear.classList.remove('show');
+  document.getElementById('ssHints').style.display = 'flex';
+  document.getElementById('resultsCountBadge').textContent = '';
+  renderEvents();
+}
+function setSearch(val) {
+  evSearchQ = val;
+  evSearchInput.value = val;
+  evSearchClear.classList.add('show');
+  document.getElementById('ssHints').style.display = 'none';
+  renderEvents();
+  evSearchInput.focus();
+}
+
 </script>
 
 <!-- FOOTER -->

@@ -90,6 +90,77 @@ nav.solid{background:rgba(7,9,15,.97);backdrop-filter:blur(20px);border-bottom:1
 .hero-img-fallback span{font-family:'Sora',sans-serif;font-weight:800;font-size:4rem;color:rgba(255,255,255,.1)}
 .hero-img-fallback p{font-size:.8rem;color:var(--t3)}
 @media(max-width:960px){.hero-img-wrap{display:none}}
+
+/* ── ACTIVITY SECTIONS ── */
+#recent-members{padding:96px 0;background:var(--bg)}
+#upcoming-events{padding:96px 0;background:var(--bg2)}
+#mentors{padding:96px 0;background:var(--bg)}
+
+/* Recent Members strip */
+.rm-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:48px}
+.rm-card{background:var(--card);border:1px solid var(--card-b);border-radius:18px;padding:22px 20px;transition:all .35s;cursor:pointer;position:relative;overflow:hidden}
+.rm-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--rm-stripe,var(--blue));transform:scaleX(0);transform-origin:left;transition:transform .35s}
+.rm-card:hover{transform:translateY(-5px);border-color:rgba(59,130,246,.25);box-shadow:0 16px 40px rgba(0,0,0,.25)}
+.rm-card:hover::before{transform:scaleX(1)}
+.rm-top{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.rm-av{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;font-family:'Sora',sans-serif;font-weight:800;font-size:.85rem;color:#fff;flex-shrink:0}
+.rm-name{font-size:.9rem;font-weight:700;color:var(--t1);margin-bottom:2px}
+.rm-role{font-size:.72rem;color:var(--t3)}
+.rm-flag{margin-left:auto;font-size:1.2rem}
+.rm-tags{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:12px}
+.rm-tag{background:rgba(255,255,255,.05);color:rgba(240,244,255,.45);font-size:.67rem;padding:3px 9px;border-radius:100px;border:1px solid var(--card-b)}
+.rm-joined{font-size:.67rem;color:var(--t3);display:flex;align-items:center;gap:5px}
+.rm-joined::before{content:'';width:4px;height:4px;border-radius:50%;background:var(--blue);flex-shrink:0}
+.rm-view-all{display:flex;justify-content:center;margin-top:32px}
+
+/* Upcoming Events strip */
+.ue-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:48px}
+.ue-card{background:var(--card);border:1px solid var(--card-b);border-radius:18px;overflow:hidden;transition:all .35s;cursor:pointer}
+.ue-card:hover{transform:translateY(-5px);box-shadow:0 16px 40px rgba(0,0,0,.25)}
+.ue-stripe{height:3px;width:100%}
+.ue-body{padding:22px 22px 20px}
+.ue-badges{display:flex;gap:7px;margin-bottom:12px;flex-wrap:wrap}
+.ue-cat{font-size:.63rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:3px 10px;border-radius:100px}
+.ue-cat.career{background:rgba(245,158,11,.1);color:var(--gold);border:1px solid rgba(245,158,11,.2)}
+.ue-cat.education{background:rgba(59,130,246,.1);color:var(--blue);border:1px solid rgba(59,130,246,.2)}
+.ue-cat.business{background:rgba(139,92,246,.1);color:#A78BFA;border:1px solid rgba(139,92,246,.2)}
+.ue-cat.community{background:rgba(16,185,129,.1);color:#6EE7B7;border:1px solid rgba(16,185,129,.2)}
+.ue-online{background:rgba(255,255,255,.05);color:var(--t3);font-size:.63rem;font-weight:500;padding:3px 10px;border-radius:100px;border:1px solid var(--card-b)}
+.ue-title{font-family:'Sora',sans-serif;font-size:.98rem;font-weight:700;color:var(--t1);margin-bottom:8px;line-height:1.35}
+.ue-meta{display:flex;flex-direction:column;gap:5px;margin-bottom:14px}
+.ue-m{display:flex;align-items:center;gap:7px;font-size:.78rem;color:var(--t3)}
+.ue-bar-wrap{margin-bottom:14px}
+.ue-bar-bg{background:rgba(255,255,255,.06);border-radius:100px;height:4px}
+.ue-bar-fill{height:4px;border-radius:100px}
+.ue-bar-label{font-size:.67rem;color:var(--t3);margin-top:4px}
+.ue-host{display:flex;align-items:center;gap:8px}
+.ue-hav{width:28px;height:28px;border-radius:8px;display:grid;place-items:center;font-family:'Sora',sans-serif;font-weight:700;font-size:.6rem;color:#fff;flex-shrink:0}
+.ue-hname{font-size:.75rem;color:var(--t2)}
+
+/* Mentors section */
+.mentors-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:48px}
+.mentor-card{background:var(--card);border:1px solid var(--card-b);border-radius:18px;padding:26px 24px;transition:all .35s;cursor:pointer;position:relative;overflow:hidden}
+.mentor-card:hover{transform:translateY(-5px);border-color:rgba(59,130,246,.25);box-shadow:0 16px 40px rgba(0,0,0,.25)}
+.mentor-top{display:flex;align-items:flex-start;gap:14px;margin-bottom:16px}
+.mentor-av{width:52px;height:52px;border-radius:14px;display:grid;place-items:center;font-family:'Sora',sans-serif;font-weight:800;font-size:.95rem;color:#fff;flex-shrink:0;box-shadow:0 0 20px rgba(37,99,235,.2)}
+.mentor-name{font-size:.95rem;font-weight:700;color:var(--t1);margin-bottom:3px}
+.mentor-role{font-size:.75rem;color:var(--t3);margin-bottom:6px}
+.mentor-loc{font-size:.72rem;color:var(--t3);display:flex;align-items:center;gap:5px}
+.mentor-avail{display:inline-flex;align-items:center;gap:5px;font-size:.65rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:3px 10px;border-radius:100px;background:rgba(16,185,129,.08);color:#6EE7B7;border:1px solid rgba(16,185,129,.18);margin-left:auto;flex-shrink:0}
+.mentor-avail::before{content:'';width:5px;height:5px;border-radius:50%;background:#10B981;box-shadow:0 0 6px #10B981}
+.mentor-expertise{margin-bottom:14px}
+.mentor-expertise-label{font-size:.62rem;letter-spacing:.15em;text-transform:uppercase;color:var(--t3);margin-bottom:7px;font-weight:600}
+.mentor-tags{display:flex;flex-wrap:wrap;gap:5px}
+.mentor-tag{background:rgba(59,130,246,.07);color:rgba(59,130,246,.8);font-size:.7rem;padding:3px 10px;border-radius:100px;border:1px solid rgba(59,130,246,.15)}
+.mentor-quote{font-size:.82rem;font-style:italic;color:var(--t2);line-height:1.65;border-left:2px solid var(--blue);padding-left:12px}
+
+@media(max-width:960px){
+  .rm-grid{grid-template-columns:repeat(2,1fr)}
+  .ue-grid,.mentors-grid{grid-template-columns:1fr}
+}
+@media(max-width:560px){
+  .rm-grid{grid-template-columns:1fr}
+}
 #how{padding:96px 0;background:var(--bg2)}
 .sc{text-align:center;margin-bottom:56px}
 .sh2{font-size:clamp(1.9rem,3.5vw,2.8rem);font-weight:700;line-height:1.12;margin-bottom:12px}
@@ -310,7 +381,7 @@ footer{background:#040608;border-top:1px solid rgba(255,255,255,.05);padding:56p
       <div class="hero-img-wrap ha6">
         <div class="hero-img-frame">
           <img
-            src="ambedkar-hero.jpg"
+            src="images/ambedkar-hero.jpg"
             alt="Dr. B.R. Ambedkar"
             class="hero-ambedkar-img"
             onerror="this.parentElement.innerHTML='<div class=hero-img-fallback><span>BR</span><p>Dr. B.R. Ambedkar</p></div>'"
@@ -353,31 +424,31 @@ footer{background:#040608;border-top:1px solid rgba(255,255,255,.05);padding:56p
     </div>
     <div class="inspired-grid">
       <div class="insp-card fu d1">
-        <img class="insp-img" src="ambedkar-portrait.jpg" alt="Dr. B.R. Ambedkar" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+        <img class="insp-img" src="images/ambedkar-portrait.jpg" alt="Dr. B.R. Ambedkar" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
         <div class="insp-ph" style="display:none"><span class="insp-init">BA</span></div>
         <div class="insp-info"><div class="insp-name">Dr. B.R. Ambedkar</div><div class="insp-years">1891 &ndash; 1956</div></div>
         <div class="insp-quote"><div><p>"Education is the most powerful weapon which you can use to change the world."</p><cite>&mdash; Dr. B.R. Ambedkar</cite></div></div>
       </div>
       <div class="insp-card fu d2">
-        <img class="insp-img" src="jyotirao-phule.jpg" alt="Jyotirao Phule" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+        <img class="insp-img" src="images/jyotirao-phule.jpg" alt="Jyotirao Phule" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
         <div class="insp-ph" style="display:none"><span class="insp-init">JP</span></div>
         <div class="insp-info"><div class="insp-name">Jyotirao Phule</div><div class="insp-years">1827 &ndash; 1890</div></div>
         <div class="insp-quote"><div><p>"Without education, wisdom is lost; without wisdom, morals are lost; without morals, society is lost."</p><cite>&mdash; Jyotirao Phule</cite></div></div>
       </div>
       <div class="insp-card fu d3">
-        <img class="insp-img" src="savitribai-phule.jpg" alt="Savitribai Phule" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+        <img class="insp-img" src="images/savitribai-phule.jpg" alt="Savitribai Phule" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
         <div class="insp-ph" style="display:none"><span class="insp-init">SP</span></div>
         <div class="insp-info"><div class="insp-name">Savitribai Phule</div><div class="insp-years">1831 &ndash; 1897</div></div>
         <div class="insp-quote"><div><p>"Go, get education. Be self-reliant, be industrious. Work, gather wisdom and riches."</p><cite>&mdash; Savitribai Phule</cite></div></div>
       </div>
       <div class="insp-card fu d4">
-        <img class="insp-img" src="shahu-maharaj.jpg" alt="Shahu Maharaj" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+        <img class="insp-img" src="images/shahu-maharaj.jpg" alt="Shahu Maharaj" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
         <div class="insp-ph" style="display:none"><span class="insp-init">SM</span></div>
         <div class="insp-info"><div class="insp-name">Shahu Maharaj</div><div class="insp-years">1874 &ndash; 1922</div></div>
         <div class="insp-quote"><div><p>"My kingdom is for all &mdash; where every person shall have equal rights and opportunities."</p><cite>&mdash; Shahu Maharaj</cite></div></div>
       </div>
       <div class="insp-card fu d5">
-        <img class="insp-img" src="gautama-buddha.jpg" alt="Gautama Buddha" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+        <img class="insp-img" src="images/gautama-buddha.jpg" alt="Gautama Buddha" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
         <div class="insp-ph" style="display:none"><span class="insp-init">GB</span></div>
         <div class="insp-info"><div class="insp-name">Gautama Buddha</div><div class="insp-years">563 BC &ndash; 483 BC</div></div>
         <div class="insp-quote"><div><p>"No one saves us but ourselves. No one can and no one may. We ourselves must walk the path."</p><cite>&mdash; Gautama Buddha</cite></div></div>
@@ -468,6 +539,259 @@ footer{background:#040608;border-top:1px solid rgba(255,255,255,.05);padding:56p
   </div>
 </section>
 
+<!-- RECENT MEMBERS -->
+<section id="recent-members">
+  <div class="wrap">
+    <div class="sc">
+      <div class="stag fu" style="color:var(--blue);justify-content:center">Community</div>
+      <h2 class="sh2 fu d1">Recently Joined <span style="color:var(--blue)">Members</span></h2>
+      <p class="sp fu d2">Professionals, students, and entrepreneurs from across the world — all part of AGC.</p>
+    </div>
+    <div class="rm-grid">
+
+      <div class="rm-card fu d1" style="--rm-stripe:var(--blue)" onclick="window.location='members/rahul-kamble.html'">
+        <div class="rm-top">
+          <div class="rm-av" style="background:linear-gradient(135deg,#2563EB,#7C3AED)">RK</div>
+          <div><div class="rm-name">Rahul Kamble</div><div class="rm-role">Software Engineer</div></div>
+          <div class="rm-flag">&#127465;&#127466;</div>
+        </div>
+        <div class="rm-tags"><span class="rm-tag">Job Referrals</span><span class="rm-tag">Tech Mentoring</span><span class="rm-tag">Germany Visa</span></div>
+        <div class="rm-joined">Joined Jan 2025 &middot; Berlin, Germany</div>
+      </div>
+
+      <div class="rm-card fu d2" style="--rm-stripe:var(--gold)" onclick="window.location='members/deepa-gaikwad.html'">
+        <div class="rm-top">
+          <div class="rm-av" style="background:linear-gradient(135deg,#2563EB,#10B981)">DG</div>
+          <div><div class="rm-name">Deepa Gaikwad</div><div class="rm-role">PhD Researcher</div></div>
+          <div class="rm-flag">&#127465;&#127466;</div>
+        </div>
+        <div class="rm-tags"><span class="rm-tag">DAAD Scholarships</span><span class="rm-tag">PhD Guidance</span><span class="rm-tag">Germany Tips</span></div>
+        <div class="rm-joined">Joined Jan 2025 &middot; Munich, Germany</div>
+      </div>
+
+      <div class="rm-card fu d3" style="--rm-stripe:#A78BFA" onclick="window.location='members/kiran-waghmare.html'">
+        <div class="rm-top">
+          <div class="rm-av" style="background:linear-gradient(135deg,#2563EB,#F59E0B)">KW</div>
+          <div><div class="rm-name">Kiran Waghmare</div><div class="rm-role">Data Scientist</div></div>
+          <div class="rm-flag">&#127482;&#127480;</div>
+        </div>
+        <div class="rm-tags"><span class="rm-tag">US Job Referrals</span><span class="rm-tag">Data Science</span><span class="rm-tag">H1B Guidance</span></div>
+        <div class="rm-joined">Joined Jan 2025 &middot; San Francisco, USA</div>
+      </div>
+
+      <div class="rm-card fu d4" style="--rm-stripe:#10B981" onclick="window.location='members/shobha-nimkar.html'">
+        <div class="rm-top">
+          <div class="rm-av" style="background:linear-gradient(135deg,#10B981,#7C3AED)">SN</div>
+          <div><div class="rm-name">Shobha Nimkar</div><div class="rm-role">Nursing Professional</div></div>
+          <div class="rm-flag">&#127462;&#127482;</div>
+        </div>
+        <div class="rm-tags"><span class="rm-tag">Australia PR</span><span class="rm-tag">Healthcare Jobs</span><span class="rm-tag">AHPRA Help</span></div>
+        <div class="rm-joined">Joined Mar 2025 &middot; Melbourne, Australia</div>
+      </div>
+
+    </div>
+    <div class="rm-view-all fu">
+      <a href="members.html" class="btn-g">View All 30 Members &rarr;</a>
+    </div>
+  </div>
+</section>
+
+<!-- UPCOMING EVENTS -->
+<section id="upcoming-events">
+  <div class="wrap">
+    <div class="sc">
+      <div class="stag fu" style="color:var(--gold);justify-content:center">Events</div>
+      <h2 class="sh2 fu d1">Upcoming <span style="color:var(--gold)">Community Events</span></h2>
+      <p class="sp fu d2">Free events organized by and for AGC members — online and in-person.</p>
+    </div>
+    <div class="ue-grid">
+
+      <div class="ue-card fu d1" onclick="window.location='events/ambedkar-jayanti-celebration.html'">
+        <div class="ue-stripe" style="background:#10B981"></div>
+        <div class="ue-body">
+          <div class="ue-badges"><span class="ue-cat community">&#129309; Community</span></div>
+          <div class="ue-title">Ambedkar Jayanti Celebration</div>
+          <div class="ue-meta">
+            <div class="ue-m">&#128197; April 14, 2025 &middot; 10:00 AM – 4:00 PM IST</div>
+            <div class="ue-m">&#128205; Dr. Ambedkar Bhavan, Nagpur</div>
+          </div>
+          <div class="ue-bar-wrap">
+            <div class="ue-bar-bg"><div class="ue-bar-fill" style="width:44%;background:#10B981"></div></div>
+            <div class="ue-bar-label">87 / 200 registered</div>
+          </div>
+          <div class="ue-host">
+            <div class="ue-hav" style="background:linear-gradient(135deg,#2563EB,#6366F1)">AGC</div>
+            <span class="ue-hname">Hosted by AGC Core Team</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="ue-card fu d2" onclick="window.location='events/study-abroad-guidance-webinar.html'">
+        <div class="ue-stripe" style="background:#3B82F6"></div>
+        <div class="ue-body">
+          <div class="ue-badges"><span class="ue-cat education">&#128218; Education</span><span class="ue-online">&#127760; Online</span></div>
+          <div class="ue-title">Study Abroad Guidance Webinar</div>
+          <div class="ue-meta">
+            <div class="ue-m">&#128197; April 10, 2025 &middot; 7:00 PM – 9:00 PM IST</div>
+            <div class="ue-m">&#127760; Online — Zoom</div>
+          </div>
+          <div class="ue-bar-wrap">
+            <div class="ue-bar-bg"><div class="ue-bar-fill" style="width:63%;background:#3B82F6"></div></div>
+            <div class="ue-bar-label">63 / 100 registered</div>
+          </div>
+          <div class="ue-host">
+            <div class="ue-hav" style="background:linear-gradient(135deg,#2563EB,#10B981)">DG</div>
+            <span class="ue-hname">Deepa Gaikwad &middot; Munich, Germany</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="ue-card fu d3" onclick="window.location='events/career-mentorship-meetup.html'">
+        <div class="ue-stripe" style="background:#F59E0B"></div>
+        <div class="ue-body">
+          <div class="ue-badges"><span class="ue-cat career">&#128188; Career</span></div>
+          <div class="ue-title">Career Mentorship Meetup</div>
+          <div class="ue-meta">
+            <div class="ue-m">&#128197; April 5, 2025 &middot; 3:00 PM – 6:00 PM IST</div>
+            <div class="ue-m">&#128205; Community Hall, Dadar, Mumbai</div>
+          </div>
+          <div class="ue-bar-wrap">
+            <div class="ue-bar-bg"><div class="ue-bar-fill" style="width:70%;background:#F59E0B"></div></div>
+            <div class="ue-bar-label">28 / 40 registered</div>
+          </div>
+          <div class="ue-host">
+            <div class="ue-hav" style="background:linear-gradient(135deg,#10B981,#2563EB)">AS</div>
+            <span class="ue-hname">Amit Sonawane &middot; Bangalore</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="rm-view-all fu">
+      <a href="events.html" class="btn-g">View All 12 Events &rarr;</a>
+    </div>
+  </div>
+</section>
+
+<!-- ACTIVE MENTORS -->
+<section id="mentors">
+  <div class="wrap">
+    <div class="sc">
+      <div class="stag fu" style="color:#10B981;justify-content:center">Mentorship</div>
+      <h2 class="sh2 fu d1">Members <span style="color:#10B981">Available to Help</span></h2>
+      <p class="sp fu d2">These members have offered to guide, advise, and mentor. Join AGC to connect with them.</p>
+    </div>
+    <div class="mentors-grid">
+
+      <div class="mentor-card fu d1" onclick="window.location='members/mahesh-tupe.html'">
+        <div class="mentor-top">
+          <div class="mentor-av" style="background:linear-gradient(135deg,#2563EB,#F59E0B)">MT</div>
+          <div>
+            <div class="mentor-name">Mahesh Tupe</div>
+            <div class="mentor-role"><span style="color:#F59E0B;font-size:.65rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;background:rgba(59,130,246,.1);border:1px solid rgba(59,130,246,.22);padding:2px 8px;border-radius:100px;color:#60A5FA;margin-right:6px">◆ Council</span>IAS Officer &middot; Pune</div>
+            <div class="mentor-loc">&#127470;&#127475; India</div>
+          </div>
+          <div class="mentor-avail">Available</div>
+        </div>
+        <div class="mentor-expertise">
+          <div class="mentor-expertise-label">Mentors On</div>
+          <div class="mentor-tags"><span class="mentor-tag">UPSC Strategy</span><span class="mentor-tag">Civil Services</span><span class="mentor-tag">Public Policy</span></div>
+        </div>
+        <div class="mentor-quote">"Cleared UPSC on first attempt. Happy to guide anyone who is serious about civil services."</div>
+      </div>
+
+      <div class="mentor-card fu d2" onclick="window.location='members/rahul-kamble.html'">
+        <div class="mentor-top">
+          <div class="mentor-av" style="background:linear-gradient(135deg,#2563EB,#7C3AED)">RK</div>
+          <div>
+            <div class="mentor-name">Rahul Kamble</div>
+            <div class="mentor-role"><span style="font-size:.65rem;font-weight:700;letter-spacing:.1em;background:rgba(139,92,246,.1);border:1px solid rgba(139,92,246,.22);padding:2px 8px;border-radius:100px;color:#A78BFA;margin-right:6px">◈ Mentor</span>Software Engineer &middot; Berlin</div>
+            <div class="mentor-loc">&#127465;&#127466; Germany</div>
+          </div>
+          <div class="mentor-avail">Available</div>
+        </div>
+        <div class="mentor-expertise">
+          <div class="mentor-expertise-label">Mentors On</div>
+          <div class="mentor-tags"><span class="mentor-tag">Tech Careers in Germany</span><span class="mentor-tag">Job Applications</span><span class="mentor-tag">Visa Process</span></div>
+        </div>
+        <div class="mentor-quote">"Moved from Pune to Berlin in 2021. I know the exact steps — happy to share them."</div>
+      </div>
+
+      <div class="mentor-card fu d3" onclick="window.location='members/deepa-gaikwad.html'">
+        <div class="mentor-top">
+          <div class="mentor-av" style="background:linear-gradient(135deg,#2563EB,#10B981)">DG</div>
+          <div>
+            <div class="mentor-name">Deepa Gaikwad</div>
+            <div class="mentor-role"><span style="font-size:.65rem;font-weight:700;letter-spacing:.1em;background:rgba(139,92,246,.1);border:1px solid rgba(139,92,246,.22);padding:2px 8px;border-radius:100px;color:#A78BFA;margin-right:6px">◈ Mentor</span>PhD Researcher &middot; Munich</div>
+            <div class="mentor-loc">&#127465;&#127466; Germany</div>
+          </div>
+          <div class="mentor-avail">Available</div>
+        </div>
+        <div class="mentor-expertise">
+          <div class="mentor-expertise-label">Mentors On</div>
+          <div class="mentor-tags"><span class="mentor-tag">DAAD Scholarships</span><span class="mentor-tag">PhD Applications</span><span class="mentor-tag">Germany Admission</span></div>
+        </div>
+        <div class="mentor-quote">"Got a DAAD scholarship and came alone. I want to make that path easier for the next person."</div>
+      </div>
+
+      <div class="mentor-card fu d1" onclick="window.location='members/rashmi-tekade.html'">
+        <div class="mentor-top">
+          <div class="mentor-av" style="background:linear-gradient(135deg,#F59E0B,#8B5CF6)">RT</div>
+          <div>
+            <div class="mentor-name">Rashmi Tekade</div>
+            <div class="mentor-role"><span style="font-size:.65rem;font-weight:700;letter-spacing:.1em;background:rgba(139,92,246,.1);border:1px solid rgba(139,92,246,.22);padding:2px 8px;border-radius:100px;color:#A78BFA;margin-right:6px">◈ Mentor</span>HR Manager &middot; Chennai</div>
+            <div class="mentor-loc">&#127470;&#127475; India</div>
+          </div>
+          <div class="mentor-avail">Available</div>
+        </div>
+        <div class="mentor-expertise">
+          <div class="mentor-expertise-label">Mentors On</div>
+          <div class="mentor-tags"><span class="mentor-tag">Resume Building</span><span class="mentor-tag">Interview Prep</span><span class="mentor-tag">Salary Negotiation</span></div>
+        </div>
+        <div class="mentor-quote">"10 years in HR. I know exactly what gets resumes noticed and what kills applications."</div>
+      </div>
+
+      <div class="mentor-card fu d2" onclick="window.location='members/sanghrtna-more.html'">
+        <div class="mentor-top">
+          <div class="mentor-av" style="background:linear-gradient(135deg,#F59E0B,#10B981)">SM</div>
+          <div>
+            <div class="mentor-name">Sanghrtna More</div>
+            <div class="mentor-role"><span style="font-size:.65rem;font-weight:700;letter-spacing:.1em;background:rgba(245,158,11,.12);border:1px solid rgba(245,158,11,.28);padding:2px 8px;border-radius:100px;color:#F59E0B;margin-right:6px">★ Founder</span>Founder & CEO &middot; Mumbai</div>
+            <div class="mentor-loc">&#127470;&#127475; India</div>
+          </div>
+          <div class="mentor-avail">Available</div>
+        </div>
+        <div class="mentor-expertise">
+          <div class="mentor-expertise-label">Mentors On</div>
+          <div class="mentor-tags"><span class="mentor-tag">Startup Building</span><span class="mentor-tag">Fundraising</span><span class="mentor-tag">Co-founder Search</span></div>
+        </div>
+        <div class="mentor-quote">"Built two companies from zero. The first one failed. The second is raising seed. Both taught me everything."</div>
+      </div>
+
+      <div class="mentor-card fu d3" onclick="window.location='members/shobha-nimkar.html'">
+        <div class="mentor-top">
+          <div class="mentor-av" style="background:linear-gradient(135deg,#10B981,#7C3AED)">SN</div>
+          <div>
+            <div class="mentor-name">Shobha Nimkar</div>
+            <div class="mentor-role"><span style="font-size:.65rem;font-weight:700;letter-spacing:.1em;background:rgba(139,92,246,.1);border:1px solid rgba(139,92,246,.22);padding:2px 8px;border-radius:100px;color:#A78BFA;margin-right:6px">◈ Mentor</span>Nurse &middot; Melbourne</div>
+            <div class="mentor-loc">&#127462;&#127482; Australia</div>
+          </div>
+          <div class="mentor-avail">Available</div>
+        </div>
+        <div class="mentor-expertise">
+          <div class="mentor-expertise-label">Mentors On</div>
+          <div class="mentor-tags"><span class="mentor-tag">Australia PR</span><span class="mentor-tag">AHPRA Registration</span><span class="mentor-tag">Healthcare Jobs</span></div>
+        </div>
+        <div class="mentor-quote">"Did the entire AHPRA and PR process myself. No consultant. I'll walk you through every step."</div>
+      </div>
+
+    </div>
+    <div class="rm-view-all fu">
+      <a href="members.html" class="btn-g">Find More Mentors &rarr;</a>
+    </div>
+  </div>
+</section>
+
 <section id="opps">
   <div class="wrap" style="padding:96px 0">
     <div class="sc">
@@ -534,7 +858,7 @@ footer{background:#040608;border-top:1px solid rgba(255,255,255,.05);padding:56p
       </div>
       <div class="fcol"><h5>Community</h5><ul><li><a href="#how">How It Works</a></li><li><a href="#focus">Programs</a></li><li><a href="#stories">Stories</a></li><li><a href="events.html">Events</a></li></ul></div>
       <div class="fcol"><h5>About</h5><ul><li><a href="#why">Why AGC</a></li><li><a href="#inspired">Our Inspiration</a></li><li><a href="about.html#values">Code of Conduct</a></li><li><a href="about.html">About AGC</a></li></ul></div>
-      <div class="fcol"><h5>Connect</h5><ul><li><a href="https://instagram.com">Instagram</a></li><li><a href="https://wa.me/">WhatsApp</a></li><li><a href="mailto:info@agc.community">Email</a></li><li><a href="register.html">Join AGC</a></li></ul></div>
+      <div class="fcol"><h5>Connect</h5><ul><li><a href="https://instagram.com">Instagram</a></li><li><a href="https://wa.me/">WhatsApp</a></li><li><a href="/cdn-cgi/l/email-protection#b7ded9d1d8f7d6d0d499d4d8dadac2d9dec3ce">Email</a></li><li><a href="register.html">Join AGC</a></li></ul></div>
     </div>
     <div class="footer-btm">
       <p>&copy; 2025 Ambedkarite Global Council. All rights reserved. Inspired by Dr. B.R. Ambedkar &middot; Jyotirao Phule &middot; Savitribai Phule &middot; Shahu Maharaj</p>
@@ -543,7 +867,7 @@ footer{background:#040608;border-top:1px solid rgba(255,255,255,.05);padding:56p
   </div>
 </footer>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 window.addEventListener('scroll',()=>document.getElementById('nav').classList.toggle('solid',scrollY>40))
 document.getElementById('ham').addEventListener('click',()=>document.getElementById('mob').classList.toggle('open'))
 const obs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('vis')}),{threshold:.1})
