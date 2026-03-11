@@ -693,6 +693,19 @@ const eventsByRegion = {
 };
 
 // ── SUBMIT ──
+function showFormError(msg) {
+  let el = document.getElementById('formError');
+  if (!el) {
+    el = document.createElement('div');
+    el.id = 'formError';
+    el.style.cssText = 'background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.3);color:#F87171;padding:14px 18px;border-radius:10px;font-size:.85rem;margin-bottom:16px;text-align:center';
+    document.getElementById('submitBtn').before(el);
+  }
+  el.textContent = msg;
+  el.style.display = 'block';
+  setTimeout(() => { el.style.display = 'none'; }, 6000);
+}
+
 function submitForm() {
   if (!validate(4)) return;
 
@@ -712,37 +725,95 @@ function submitForm() {
   btn.textContent = 'Submitting...';
   btn.style.opacity = '.7';
 
-  // Simulate brief processing then show success
-  setTimeout(() => {
-    const name = document.getElementById('fname').value.trim();
-    const country = document.getElementById('fcountry').value || 'your region';
-    const role = document.getElementById('frole').value;
+  // ── COLLECT ALL FORM DATA ──
+  const name     = document.getElementById('fname').value.trim();
+  const email    = document.getElementById('femail').value.trim();
+  const phone    = document.getElementById('fphone').value.trim();
+  const country  = document.getElementById('fcountry').value || 'Not specified';
+  const city     = document.getElementById('fcity').value.trim();
+  const role     = document.getElementById('frole').value;
+  const prof     = document.getElementById('fprof').value.trim();
+  const edu      = document.getElementById('fedu').value;
+  const exp      = document.getElementById('fexp').value;
+  const linkedin = document.getElementById('flinkedin').value.trim();
+  const twitter  = document.getElementById('ftwitter').value.trim();
+  const website  = document.getElementById('fwebsite').value.trim();
+  const hear     = document.getElementById('fhear').value;
+  const msg      = document.getElementById('fmsg').value.trim();
+  const skills   = document.getElementById('fskills').value;
+  const interests = document.getElementById('finterests').value;
 
-    const offerTags = [...document.querySelectorAll('#offerTags .on-tag.sel-give')].map(t=>t.textContent.trim()).join(', ');
-    const needTags = [...document.querySelectorAll('#needTags .on-tag.sel-recv')].map(t=>t.textContent.trim()).join(', ');
-    const offerText = document.getElementById('foffer').value.trim();
-    const needText = document.getElementById('fneed').value.trim();
+  const offerTags = [...document.querySelectorAll('#offerTags .on-tag.sel-give')].map(t=>t.textContent.trim()).join(', ');
+  const needTags  = [...document.querySelectorAll('#needTags .on-tag.sel-recv')].map(t=>t.textContent.trim()).join(', ');
+  const offerText = document.getElementById('foffer').value.trim();
+  const needText  = document.getElementById('fneed').value.trim();
+  const offerSummary = [offerTags, offerText].filter(Boolean).join(' | ') || '—';
+  const needSummary  = [needTags, needText].filter(Boolean).join(' | ') || '—';
 
-    const offerSummary = [offerTags, offerText].filter(Boolean).join(' · ') || '—';
-    const needSummary = [needTags, needText].filter(Boolean).join(' · ') || '—';
+  // ── SEND TO FORMSPREE ──
+  // 👉 Replace YOUR_FORM_ID below with your ID from formspree.io
+  const FORMSPREE_ID = 'mqeyqylo';
 
-    document.getElementById('successDetail').innerHTML =
-      `<strong>${name}</strong> · ${role} · ${country}<br/><br/>
-      <strong>🎁 What you offer:</strong><br/>${offerSummary}<br/><br/>
-      <strong>🤲 What you need:</strong><br/>${needSummary}`;
+  fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
+    method: 'POST',
+    headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      '01_Name':        name,
+      '02_Email':       email,
+      '03_Phone':       phone,
+      '04_Country':     country,
+      '05_City':        city,
+      '06_Role':        role,
+      '07_Profession':  prof,
+      '08_Education':   edu,
+      '09_Experience':  exp,
+      '10_Skills':      skills,
+      '11_Interests':   interests,
+      '12_Offers_Help': offerSummary,
+      '13_Needs_Help':  needSummary,
+      '14_LinkedIn':    linkedin,
+      '15_Twitter':     twitter,
+      '16_Website':     website,
+      '17_Heard_Via':   hear,
+      '18_Message':     msg,
+      '_subject':       `New AGC Member: ${name} from ${country}`
+    })
+  })
+  .then(res => res.json())
+  .then(data => {
+    if (data.ok) {
+      // ── SHOW SUCCESS SCREEN ──
+      document.getElementById('successDetail').innerHTML =
+        `<strong>${name}</strong> · ${role} · ${country}<br/><br/>
+        <strong>🎁 What you offer:</strong><br/>${offerSummary}<br/><br/>
+        <strong>🤲 What you need:</strong><br/>${needSummary}`;
 
-    const evts = eventsByRegion[country] || eventsByRegion.default;
-    document.getElementById('eventsPreview').innerHTML = evts.map(e =>
-      `<div class="ev-row"><div><strong>${e.title}</strong><br/><span style="font-size:.75rem;color:var(--t3)">${e.date} · ${e.loc}</span></div></div>`
-    ).join('');
+      const evts = eventsByRegion[country] || eventsByRegion.default;
+      document.getElementById('eventsPreview').innerHTML = evts.map(e =>
+        `<div class="ev-row"><div><strong>${e.title}</strong><br/><span style="font-size:.75rem;color:var(--t3)">${e.date} · ${e.loc}</span></div></div>`
+      ).join('');
 
-    document.getElementById('regForm').style.display='none';
-    document.getElementById('stepsBar').style.display='none';
-    document.querySelector('.progress-bar').style.display='none';
-    const s = document.getElementById('success');
-    s.style.display='block';
-    s.style.animation='fadeUp .5s ease forwards';
-  }, 900);
+      document.getElementById('regForm').style.display='none';
+      document.getElementById('stepsBar').style.display='none';
+      document.querySelector('.progress-bar').style.display='none';
+      const s = document.getElementById('success');
+      s.style.display='block';
+      s.style.animation='fadeUp .5s ease forwards';
+    } else {
+      // Formspree returned an error
+      btn.disabled = false;
+      btn.textContent = '✓ Complete Registration';
+      btn.style.opacity = '1';
+      const errMsg = data.errors ? data.errors.map(e=>e.message).join(', ') : 'Submission failed.';
+      showFormError('There was a problem submitting your registration: ' + errMsg + ' Please try again.');
+    }
+  })
+  .catch(() => {
+    btn.disabled = false;
+    btn.textContent = '✓ Complete Registration';
+    btn.style.opacity = '1';
+    showFormError('Network error — please check your connection and try again.');
+  });
 }
 
 

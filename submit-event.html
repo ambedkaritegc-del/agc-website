@@ -597,14 +597,83 @@ function submitEvent() {
   }
   const btn = document.getElementById('submitBtn');
   btn.disabled = true; btn.textContent = 'Submitting...'; btn.style.opacity = '.7';
-  setTimeout(() => {
-    document.getElementById('evForm').style.display='none';
-    document.getElementById('stepsBar').style.display='none';
-    document.querySelector('.progress-bar').style.display='none';
-    const s = document.getElementById('success');
-    s.style.display='block';
-    s.style.animation='fadeUp .5s ease forwards';
-  }, 900);
+  // Collect all form data
+  const isOnline  = document.getElementById('fisOnline').value === 'true';
+  const evType    = document.getElementById('feventType').value;
+  const title     = document.getElementById('ftitle').value.trim();
+  const desc      = document.getElementById('fdesc').value.trim();
+  const audience  = document.getElementById('faudience').value;
+  const date      = document.getElementById('fdate').value;
+  const time      = document.getElementById('ftime').value;
+  const duration  = document.getElementById('fduration').value;
+  const country   = document.getElementById('fcountry').value.trim();
+  const city      = document.getElementById('fcity').value.trim();
+  const fvEl      = document.getElementById('fvenue');
+  const fpEl      = document.getElementById('fplatform');
+  const venue     = fvEl ? fvEl.value.trim() : '';
+  const platform  = fpEl ? fpEl.value.trim() : '';
+  const spots     = document.getElementById('fspots').value.trim();
+  const lang      = document.getElementById('flang').value;
+  const hostname  = document.getElementById('fhostname').value.trim();
+  const hostrole  = document.getElementById('fhostrole').value.trim();
+  const hostemail = document.getElementById('fhostemail').value.trim();
+  const whatsapp  = document.getElementById('fhostwhatsapp').value.trim();
+  const hostbio   = document.getElementById('fhostbio').value.trim();
+  const notes     = document.getElementById('fnotes').value.trim();
+
+  // Send to Formspree
+  // Replace YOUR_EVENT_FORM_ID with your ID from formspree.io
+  const FORMSPREE_ID = 'xgonknno';
+
+  fetch('https://formspree.io/f/' + FORMSPREE_ID, {
+    method: 'POST',
+    headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      '01_Event_Title':    title,
+      '02_Type':           evType,
+      '03_Format':         isOnline ? 'Online' : 'In-Person',
+      '04_Description':    desc,
+      '05_Audience':       audience,
+      '06_Date':           date,
+      '07_Time':           time,
+      '08_Duration':       duration,
+      '09_Country':        country,
+      '10_City':           city,
+      '11_Venue_Platform': isOnline ? platform : venue,
+      '12_Max_Spots':      spots,
+      '13_Language':       lang,
+      '14_Host_Name':      hostname,
+      '15_Host_Role':      hostrole,
+      '16_Host_Email':     hostemail,
+      '17_Host_WhatsApp':  whatsapp,
+      '18_Host_Bio':       hostbio,
+      '19_Notes':          notes,
+      '_subject':          'New AGC Event: ' + title + ' — ' + city + ', ' + country
+    })
+  })
+  .then(function(res) { return res.json(); })
+  .then(function(data) {
+    if (data.ok) {
+      document.getElementById('evForm').style.display='none';
+      document.getElementById('stepsBar').style.display='none';
+      document.querySelector('.progress-bar').style.display='none';
+      const s = document.getElementById('success');
+      s.style.display='block';
+      s.style.animation='fadeUp .5s ease forwards';
+    } else {
+      btn.disabled = false;
+      btn.textContent = 'Submit Event';
+      btn.style.opacity = '1';
+      const msg = data.errors ? data.errors.map(function(e){return e.message;}).join(', ') : 'Submission failed.';
+      alert('Problem submitting: ' + msg + '. Please try again.');
+    }
+  })
+  .catch(function() {
+    btn.disabled = false;
+    btn.textContent = 'Submit Event';
+    btn.style.opacity = '1';
+    alert('Network error — check your connection and try again.');
+  });
 }
 
 // Nav scroll
