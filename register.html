@@ -5,7 +5,27 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Join AGC — Ambedkarite Global Council</title>
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
-<style>
+<style>nav{position:fixed;top:0;width:100%;z-index:100;transition:background .3s,border .3s}
+nav.solid{background:rgba(7,9,15,.97);backdrop-filter:blur(20px);border-bottom:1px solid rgba(59,130,246,.1)}
+.nav-i{max-width:1200px;margin:0 auto;padding:0 32px;display:flex;align-items:center;justify-content:space-between;height:68px}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.logo-b{width:36px;height:36px;background:linear-gradient(135deg,#2563EB,#6366F1);border-radius:10px;display:grid;place-items:center;font-family:'Sora',sans-serif;font-weight:800;font-size:.72rem;color:#fff;box-shadow:0 0 18px rgba(37,99,235,.4);flex-shrink:0}
+.logo-t{font-family:'Sora',sans-serif;font-weight:700;font-size:.88rem;color:#F1F5F9}
+.nav-links{display:flex;align-items:center;gap:28px;list-style:none}
+.nav-links a{font-size:.85rem;color:#94A3B8;text-decoration:none;transition:color .2s;font-family:'DM Sans',sans-serif}
+.nav-links a:hover,.nav-links a.active{color:#F1F5F9}
+.nav-cta{background:linear-gradient(135deg,#2563EB,#4F46E5);color:#fff;padding:9px 20px;border-radius:10px;font-size:.82rem;font-weight:600;font-family:'Sora',sans-serif;text-decoration:none;transition:all .25s;white-space:nowrap}
+.nav-cta:hover{box-shadow:0 0 24px rgba(37,99,235,.5);transform:translateY(-1px)}
+.ham{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px}
+.ham span{display:block;width:22px;height:2px;background:#F1F5F9;border-radius:2px}
+.mob{display:none;position:fixed;top:68px;left:0;right:0;background:rgba(7,9,15,.98);backdrop-filter:blur(20px);padding:20px 24px;border-top:1px solid rgba(255,255,255,.08);z-index:99}
+.mob.open{display:block}
+.mob ul{list-style:none;display:flex;flex-direction:column;gap:2px;margin-bottom:14px}
+.mob ul li a{display:block;padding:11px 0;color:#94A3B8;font-size:.9rem;border-bottom:1px solid rgba(255,255,255,.06);text-decoration:none;font-family:'DM Sans',sans-serif;transition:color .2s}
+.mob ul li a:hover{color:#F1F5F9}
+.mob .nav-cta{display:block;text-align:center;margin-top:8px}
+.mob-close{display:none}
+@media(max-width:960px){.nav-links,.nav-cta{display:none}.ham{display:flex}}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
   --bg:#07090F;--bg2:#0D1117;--bg3:#111827;
@@ -19,26 +39,8 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--t1);-webk
 h1,h2,h3,h4{font-family:'Sora',sans-serif}
 a{text-decoration:none;color:inherit}
 
-nav{position:fixed;top:0;width:100%;z-index:100;transition:background .3s,border .3s}
-nav.solid{background:rgba(7,9,15,.97);backdrop-filter:blur(20px);border-bottom:1px solid rgba(59,130,246,.1)}
-.nav-i{display:flex;align-items:center;justify-content:space-between;height:68px;max-width:1180px;margin:0 auto;padding:0 24px}
-.logo{display:flex;align-items:center;gap:10px}
-.logo-b{width:36px;height:36px;background:linear-gradient(135deg,var(--blue-d),#6366F1);border-radius:10px;display:grid;place-items:center;font-family:'Sora',sans-serif;font-weight:800;font-size:.72rem;color:#fff;box-shadow:0 0 16px rgba(37,99,235,.35)}
-.logo-t{font-family:'Sora',sans-serif;font-weight:700;font-size:.88rem;color:var(--t1)}
-.nav-back{display:flex;align-items:center;gap:6px;font-size:.82rem;color:var(--t2);border:1px solid var(--card-b);padding:8px 16px;border-radius:9px;transition:all .2s}
 .nav-back:hover{color:var(--t1);border-color:rgba(255,255,255,.2)}
-.nav-links{display:flex;align-items:center;gap:28px;list-style:none}
-.nav-links a{font-size:.82rem;color:var(--t2);transition:color .2s}
-.nav-links a:hover,.nav-links a.active{color:var(--t1)}
-.nav-cta{background:linear-gradient(135deg,var(--blue-d),#4F46E5);color:#fff;padding:9px 20px;border-radius:10px;font-size:.82rem;font-weight:600;font-family:'Sora',sans-serif;transition:all .25s}
-.nav-cta:hover{box-shadow:0 0 24px rgba(59,130,246,.35);transform:translateY(-1px)}
-.ham{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px}
-.ham span{display:block;width:22px;height:2px;background:var(--t1);border-radius:2px}
-.mob{display:none;position:fixed;top:68px;left:0;right:0;background:rgba(7,9,15,.98);backdrop-filter:blur(20px);padding:20px 24px;border-top:1px solid var(--card-b);z-index:99}
-.mob.open{display:block}
-.mob ul{list-style:none;display:flex;flex-direction:column;gap:2px;margin-bottom:14px}
-.mob a{display:block;padding:11px 0;color:var(--t2);font-size:.9rem;border-bottom:1px solid var(--card-b)}
-@media(max-width:960px){.nav-links,.nav-back,.nav-cta{display:none}.ham{display:flex}}
+@media(max-width:960px){.nav-links,.nav-back,}
 
 .page{display:grid;grid-template-columns:1fr 1fr;min-height:100vh;padding-top:68px}
 
@@ -205,24 +207,31 @@ nav.solid{background:rgba(7,9,15,.97);backdrop-filter:blur(20px);border-bottom:1
 
 <nav id="nav">
   <div class="nav-i">
-    <a href="index.html" class="logo"><div class="logo-b">AGC</div><span class="logo-t">Ambedkarite Global Council</span></a>
+    <a href="index.html" class="logo">
+      <div class="logo-b">AGC</div>
+      <span class="logo-t">Ambedkarite Global Council</span>
+    </a>
     <ul class="nav-links">
       <li><a href="index.html">Home</a></li>
+      <li><a href="index.html#how">How It Works</a></li>
       <li><a href="members.html">Members</a></li>
       <li><a href="events.html">Events</a></li>
+      <li><a href="mentorship.html">Mentorship</a></li>
       <li><a href="about.html">About</a></li>
     </ul>
     <a href="register.html" class="nav-cta">Join AGC</a>
-    <div class="ham" id="ham"><span></span><span></span><span></span></div>
+    <button class="ham" id="ham"><span></span><span></span><span></span></button>
   </div>
   <div class="mob" id="mob">
     <ul>
-      <li><a href="index.html">Home</a></li>
-      <li><a href="members.html">Members</a></li>
-      <li><a href="events.html">Events</a></li>
-      <li><a href="about.html">About</a></li>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="index.html#how">How It Works</a></li>
+        <li><a href="members.html">Members</a></li>
+        <li><a href="events.html">Events</a></li>
+        <li><a href="mentorship.html">Mentorship</a></li>
+        <li><a href="about.html">About</a></li>
     </ul>
-    <a href="register.html" class="nav-cta" style="display:block;text-align:center;margin-top:8px">Join AGC</a>
+    <a href="register.html" class="nav-cta">Join AGC</a>
   </div>
 </nav>
 
@@ -735,8 +744,16 @@ function submitForm() {
     s.style.animation='fadeUp .5s ease forwards';
   }, 900);
 }
-window.addEventListener('scroll',()=>document.getElementById('nav').classList.toggle('solid',scrollY>40));
-document.getElementById('ham').addEventListener('click', () => document.getElementById('mob').classList.toggle('open'));
+
+
+// Nav scroll
+window.addEventListener('scroll',()=>{
+  document.getElementById('nav').classList.toggle('solid',window.scrollY>20);
+});
+// Ham toggle
+document.getElementById('ham').addEventListener('click',()=>{
+  document.getElementById('mob').classList.toggle('open');
+});
 </script>
 
 <!-- FOOTER -->

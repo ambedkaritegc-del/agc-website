@@ -5,7 +5,27 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Ambedkarite Global Council — A Global Community Built on Mutual Support</title>
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
-<style>
+<style>nav{position:fixed;top:0;width:100%;z-index:100;transition:background .3s,border .3s}
+nav.solid{background:rgba(7,9,15,.97);backdrop-filter:blur(20px);border-bottom:1px solid rgba(59,130,246,.1)}
+.nav-i{max-width:1200px;margin:0 auto;padding:0 32px;display:flex;align-items:center;justify-content:space-between;height:68px}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.logo-b{width:36px;height:36px;background:linear-gradient(135deg,#2563EB,#6366F1);border-radius:10px;display:grid;place-items:center;font-family:'Sora',sans-serif;font-weight:800;font-size:.72rem;color:#fff;box-shadow:0 0 18px rgba(37,99,235,.4);flex-shrink:0}
+.logo-t{font-family:'Sora',sans-serif;font-weight:700;font-size:.88rem;color:#F1F5F9}
+.nav-links{display:flex;align-items:center;gap:28px;list-style:none}
+.nav-links a{font-size:.85rem;color:#94A3B8;text-decoration:none;transition:color .2s;font-family:'DM Sans',sans-serif}
+.nav-links a:hover,.nav-links a.active{color:#F1F5F9}
+.nav-cta{background:linear-gradient(135deg,#2563EB,#4F46E5);color:#fff;padding:9px 20px;border-radius:10px;font-size:.82rem;font-weight:600;font-family:'Sora',sans-serif;text-decoration:none;transition:all .25s;white-space:nowrap}
+.nav-cta:hover{box-shadow:0 0 24px rgba(37,99,235,.5);transform:translateY(-1px)}
+.ham{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px}
+.ham span{display:block;width:22px;height:2px;background:#F1F5F9;border-radius:2px}
+.mob{display:none;position:fixed;top:68px;left:0;right:0;background:rgba(7,9,15,.98);backdrop-filter:blur(20px);padding:20px 24px;border-top:1px solid rgba(255,255,255,.08);z-index:99}
+.mob.open{display:block}
+.mob ul{list-style:none;display:flex;flex-direction:column;gap:2px;margin-bottom:14px}
+.mob ul li a{display:block;padding:11px 0;color:#94A3B8;font-size:.9rem;border-bottom:1px solid rgba(255,255,255,.06);text-decoration:none;font-family:'DM Sans',sans-serif;transition:color .2s}
+.mob ul li a:hover{color:#F1F5F9}
+.mob .nav-cta{display:block;text-align:center;margin-top:8px}
+.mob-close{display:none}
+@media(max-width:960px){.nav-links,.nav-cta{display:none}.ham{display:flex}}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{--bg:#07090F;--bg2:#0D1117;--bg3:#111827;--blue:#3B82F6;--blue-d:#2563EB;--blue-glow:rgba(59,130,246,0.35);--gold:#F59E0B;--card:rgba(255,255,255,0.04);--card-b:rgba(255,255,255,0.08);--t1:#F0F4FF;--t2:rgba(240,244,255,0.6);--t3:rgba(240,244,255,0.32)}
 html{scroll-behavior:smooth}
@@ -15,23 +35,6 @@ a{text-decoration:none;color:inherit}
 .wrap{max-width:1180px;margin:0 auto;padding:0 24px}
 .stag{display:inline-flex;align-items:center;gap:8px;font-size:.68rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase}
 .stag::before{content:'';width:22px;height:2px;background:currentColor;border-radius:2px}
-nav{position:fixed;top:0;width:100%;z-index:100;transition:background .3s,border .3s}
-nav.solid{background:rgba(7,9,15,.97);backdrop-filter:blur(20px);border-bottom:1px solid rgba(59,130,246,.1)}
-.nav-i{display:flex;align-items:center;justify-content:space-between;height:68px}
-.logo{display:flex;align-items:center;gap:10px}
-.logo-b{width:36px;height:36px;background:linear-gradient(135deg,var(--blue-d),#6366F1);border-radius:10px;display:grid;place-items:center;font-family:'Sora',sans-serif;font-weight:800;font-size:.72rem;color:#fff;box-shadow:0 0 18px rgba(37,99,235,.4)}
-.logo-t{font-family:'Sora',sans-serif;font-weight:700;font-size:.88rem;color:var(--t1)}
-.nav-links{display:flex;align-items:center;gap:28px;list-style:none}
-.nav-links a{font-size:.82rem;color:var(--t2);transition:color .2s}
-.nav-links a:hover,.nav-links a.active{color:var(--t1)}
-.nav-cta{background:linear-gradient(135deg,var(--blue-d),#4F46E5);color:#fff;padding:9px 20px;border-radius:10px;font-size:.82rem;font-weight:600;font-family:'Sora',sans-serif;transition:all .25s}
-.nav-cta:hover{box-shadow:0 0 24px var(--blue-glow);transform:translateY(-1px)}
-.ham{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px}
-.ham span{display:block;width:22px;height:2px;background:var(--t1);border-radius:2px}
-.mob{display:none;position:fixed;top:68px;left:0;right:0;background:rgba(7,9,15,.98);backdrop-filter:blur(20px);padding:20px 24px;border-top:1px solid var(--card-b)}
-.mob.open{display:block}
-.mob ul{list-style:none;display:flex;flex-direction:column;gap:2px;margin-bottom:14px}
-.mob a{display:block;padding:11px 0;color:var(--t2);font-size:.9rem;border-bottom:1px solid var(--card-b)}
 #hero{min-height:100vh;display:flex;align-items:center;position:relative;overflow:hidden;padding:100px 0 80px}
 .orb{position:absolute;border-radius:50%}
 .o1{width:700px;height:700px;background:radial-gradient(circle,rgba(37,99,235,.16) 0%,transparent 65%);top:-200px;left:-100px;animation:fl1 9s ease-in-out infinite}
@@ -97,7 +100,7 @@ nav.solid{background:rgba(7,9,15,.97);backdrop-filter:blur(20px);border-bottom:1
 #mentors{padding:96px 0;background:var(--bg)}
 
 /* Recent Members strip */
-.rm-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:48px}
+.rm-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:48px}
 .rm-card{background:var(--card);border:1px solid var(--card-b);border-radius:18px;padding:22px 20px;transition:all .35s;cursor:pointer;position:relative;overflow:hidden}
 .rm-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--rm-stripe,var(--blue));transform:scaleX(0);transform-origin:left;transition:transform .35s}
 .rm-card:hover{transform:translateY(-5px);border-color:rgba(59,130,246,.25);box-shadow:0 16px 40px rgba(0,0,0,.25)}
@@ -307,8 +310,8 @@ footer{background:#040608;border-top:1px solid rgba(255,255,255,.05);padding:56p
 .ha5{opacity:0;animation:fadeUp .7s .64s forwards}
 .ha6{opacity:0;animation:fadeUp .7s .78s forwards}
 @media(max-width:960px){
-  .nav-links,.nav-cta{display:none}
-  .ham{display:flex}
+  .nav-links,
+  
   .hero-in{grid-template-columns:1fr}
   .xwrap{display:none}
   .steps{grid-template-columns:1fr 1fr}
@@ -330,28 +333,32 @@ footer{background:#040608;border-top:1px solid rgba(255,255,255,.05);padding:56p
 <body>
 
 <nav id="nav">
-  <div class="wrap nav-i">
+  <div class="nav-i">
     <a href="index.html" class="logo">
       <div class="logo-b">AGC</div>
       <span class="logo-t">Ambedkarite Global Council</span>
     </a>
     <ul class="nav-links">
-      <li><a href="#how">How It Works</a></li>
+      <li><a href="index.html" class="active">Home</a></li>
+      <li><a href="index.html#how">How It Works</a></li>
       <li><a href="members.html">Members</a></li>
       <li><a href="events.html">Events</a></li>
+      <li><a href="mentorship.html">Mentorship</a></li>
       <li><a href="about.html">About</a></li>
     </ul>
     <a href="register.html" class="nav-cta">Join AGC</a>
-    <div class="ham" id="ham"><span></span><span></span><span></span></div>
+    <button class="ham" id="ham"><span></span><span></span><span></span></button>
   </div>
   <div class="mob" id="mob">
     <ul>
-      <li><a href="#how">How It Works</a></li>
-      <li><a href="members.html">Members</a></li>
-      <li><a href="events.html">Events</a></li>
-      <li><a href="about.html">About</a></li>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="index.html#how">How It Works</a></li>
+        <li><a href="members.html">Members</a></li>
+        <li><a href="events.html">Events</a></li>
+        <li><a href="mentorship.html">Mentorship</a></li>
+        <li><a href="about.html">About</a></li>
     </ul>
-    <a href="register.html" class="nav-cta" style="display:block;text-align:center;margin-top:8px">Join AGC</a>
+    <a href="register.html" class="nav-cta">Join AGC</a>
   </div>
 </nav>
 
@@ -556,6 +563,7 @@ footer{background:#040608;border-top:1px solid rgba(255,255,255,.05);padding:56p
           <div class="rm-flag">&#127465;&#127466;</div>
         </div>
         <div class="rm-tags"><span class="rm-tag">Job Referrals</span><span class="rm-tag">Tech Mentoring</span><span class="rm-tag">Germany Visa</span></div>
+        <div class="rm-tags" style="margin-top:5px"><span class="rm-tag" style="background:rgba(16,185,129,.07);border-color:rgba(16,185,129,.2);color:#10B981">🤲 Startup Advice</span></div>
         <div class="rm-joined">Joined Jan 2025 &middot; Berlin, Germany</div>
       </div>
 
@@ -566,6 +574,7 @@ footer{background:#040608;border-top:1px solid rgba(255,255,255,.05);padding:56p
           <div class="rm-flag">&#127465;&#127466;</div>
         </div>
         <div class="rm-tags"><span class="rm-tag">DAAD Scholarships</span><span class="rm-tag">PhD Guidance</span><span class="rm-tag">Germany Tips</span></div>
+        <div class="rm-tags" style="margin-top:5px"><span class="rm-tag" style="background:rgba(16,185,129,.07);border-color:rgba(16,185,129,.2);color:#10B981">🤲 Job Referrals Germany</span></div>
         <div class="rm-joined">Joined Jan 2025 &middot; Munich, Germany</div>
       </div>
 
@@ -576,6 +585,7 @@ footer{background:#040608;border-top:1px solid rgba(255,255,255,.05);padding:56p
           <div class="rm-flag">&#127482;&#127480;</div>
         </div>
         <div class="rm-tags"><span class="rm-tag">US Job Referrals</span><span class="rm-tag">Data Science</span><span class="rm-tag">H1B Guidance</span></div>
+        <div class="rm-tags" style="margin-top:5px"><span class="rm-tag" style="background:rgba(16,185,129,.07);border-color:rgba(16,185,129,.2);color:#10B981">🤲 Leadership Coaching</span></div>
         <div class="rm-joined">Joined Jan 2025 &middot; San Francisco, USA</div>
       </div>
 
@@ -594,6 +604,9 @@ footer{background:#040608;border-top:1px solid rgba(255,255,255,.05);padding:56p
       <a href="members.html" class="btn-g">View All 30 Members &rarr;</a>
     </div>
   </div>
+    <div style="text-align:center;margin-top:32px">
+      <a href="members.html" style="display:inline-flex;align-items:center;gap:8px;background:rgba(59,130,246,.08);border:1px solid rgba(59,130,246,.2);color:var(--blue);padding:11px 24px;border-radius:10px;font-size:.85rem;font-weight:700;font-family:'Sora',sans-serif;text-decoration:none;transition:all .2s" onmouseover="this.style.background='rgba(59,130,246,.15)'" onmouseout="this.style.background='rgba(59,130,246,.08)'">View All 30 Members →</a>
+    </div>
 </section>
 
 <!-- UPCOMING EVENTS -->
@@ -671,6 +684,9 @@ footer{background:#040608;border-top:1px solid rgba(255,255,255,.05);padding:56p
       <a href="events.html" class="btn-g">View All 12 Events &rarr;</a>
     </div>
   </div>
+    <div style="text-align:center;margin-top:32px">
+      <a href="events.html" style="display:inline-flex;align-items:center;gap:8px;background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.2);color:var(--gold);padding:11px 24px;border-radius:10px;font-size:.85rem;font-weight:700;font-family:'Sora',sans-serif;text-decoration:none;transition:all .2s" onmouseover="this.style.background='rgba(245,158,11,.15)'" onmouseout="this.style.background='rgba(245,158,11,.08)'">View All 12 Events →</a>
+    </div>
 </section>
 
 <!-- ACTIVE MENTORS -->
@@ -678,8 +694,8 @@ footer{background:#040608;border-top:1px solid rgba(255,255,255,.05);padding:56p
   <div class="wrap">
     <div class="sc">
       <div class="stag fu" style="color:#10B981;justify-content:center">Mentorship</div>
-      <h2 class="sh2 fu d1">Members <span style="color:#10B981">Available to Help</span></h2>
-      <p class="sp fu d2">These members have offered to guide, advise, and mentor. Join AGC to connect with them.</p>
+      <h2 class="sh2 fu d1">Help Exchange <span style="color:#10B981">Give ↔ Receive</span></h2>
+      <p class="sp fu d2">Members who both offer help and are looking for support. Everyone gives. Everyone receives.</p>
     </div>
     <div class="mentors-grid">
 
@@ -790,6 +806,9 @@ footer{background:#040608;border-top:1px solid rgba(255,255,255,.05);padding:56p
       <a href="members.html" class="btn-g">Find More Mentors &rarr;</a>
     </div>
   </div>
+    <div style="text-align:center;margin-top:32px">
+      <a href="mentorship.html" style="display:inline-flex;align-items:center;gap:8px;background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.2);color:#10B981;padding:11px 24px;border-radius:10px;font-size:.85rem;font-weight:700;font-family:'Sora',sans-serif;text-decoration:none;transition:all .2s" onmouseover="this.style.background='rgba(16,185,129,.15)'" onmouseout="this.style.background='rgba(16,185,129,.08)'">Explore Help Exchange →</a>
+    </div>
 </section>
 
 <section id="opps">
@@ -856,7 +875,8 @@ footer{background:#040608;border-top:1px solid rgba(255,255,255,.05);padding:56p
         <div class="logo"><div class="logo-b">AGC</div><span class="logo-t">Ambedkarite Global Council</span></div>
         <p class="ftag">A global community where members help each other grow through education, careers, and opportunity &mdash; inspired by Dr. B.R. Ambedkar.</p>
       </div>
-      <div class="fcol"><h5>Community</h5><ul><li><a href="#how">How It Works</a></li><li><a href="#focus">Programs</a></li><li><a href="#stories">Stories</a></li><li><a href="events.html">Events</a></li></ul></div>
+      <div class="fcol"><h5>Community</h5><ul><li><a href="#how">How It Works</a></li><li><a href="#focus">Programs</a></li><li><a href="#stories">Stories</a></li><li><a href="events.html">Events</a></li>
+    <li><a href="mentorship.html">Mentorship</a></li></ul></div>
       <div class="fcol"><h5>About</h5><ul><li><a href="#why">Why AGC</a></li><li><a href="#inspired">Our Inspiration</a></li><li><a href="about.html#values">Code of Conduct</a></li><li><a href="about.html">About AGC</a></li></ul></div>
       <div class="fcol"><h5>Connect</h5><ul><li><a href="https://instagram.com">Instagram</a></li><li><a href="https://wa.me/">WhatsApp</a></li><li><a href="/cdn-cgi/l/email-protection#b7ded9d1d8f7d6d0d499d4d8dadac2d9dec3ce">Email</a></li><li><a href="register.html">Join AGC</a></li></ul></div>
     </div>
@@ -867,11 +887,23 @@ footer{background:#040608;border-top:1px solid rgba(255,255,255,.05);padding:56p
   </div>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-window.addEventListener('scroll',()=>document.getElementById('nav').classList.toggle('solid',scrollY>40))
-document.getElementById('ham').addEventListener('click',()=>document.getElementById('mob').classList.toggle('open'))
-const obs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('vis')}),{threshold:.1})
-document.querySelectorAll('.fu').forEach(el=>obs.observe(el))
+
+<script>
+// Nav scroll
+window.addEventListener('scroll', () => {
+  document.getElementById('nav').classList.toggle('solid', window.scrollY > 20);
+});
+
+// Ham toggle
+document.getElementById('ham').addEventListener('click', () => {
+  document.getElementById('mob').classList.toggle('open');
+});
+
+// Fade-up IntersectionObserver
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('vis'); obs.unobserve(e.target); } });
+}, { threshold: 0.08 });
+document.querySelectorAll('.fu').forEach(el => obs.observe(el));
 </script>
 </body>
 </html>
