@@ -882,6 +882,80 @@ function submitForm() {
 
 
 // Nav scroll
+
+// ── ENTER KEY NAVIGATION ──
+// Panel 1: name → email → phone → country → city → next step
+// Panel 2: prof → linkedin → twitter → website → next step
+// Panel 3: offer textarea → need textarea → next step
+// Panel 4: msg → submit
+// select/custom pickers: Enter moves to next focusable field
+
+const FIELD_FLOW = {
+  'fname':         () => focus('femail'),
+  'femail':        () => focus('fphone'),
+  'fphone':        () => focus('fcountrySearch'),
+  'fcountrySearch':() => focus('fcity'),
+  'fcity':         () => goStep(2),
+  'fprof':         () => focus('flinkedin'),
+  'flinkedin':     () => focus('ftwitter'),
+  'ftwitter':      () => focus('fwebsite'),
+  'fwebsite':      () => goStep(3),
+  'foffer':        () => focus('fneed'),
+  'fneed':         () => goStep(4),
+  'fmsg':          () => submitForm(),
+};
+
+function focus(id) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.focus();
+  // Scroll field into view smoothly
+  el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  // If it's the country search, open the dropdown
+  if (id === 'fcountrySearch') openDrop();
+}
+
+document.addEventListener('keydown', function(e) {
+  if (e.key !== 'Enter') return;
+  const active = document.activeElement;
+  if (!active) return;
+  const id = active.id;
+
+  // Never submit on Enter inside textarea (allow newlines) — only move on Shift+Enter
+  if (active.tagName === 'TEXTAREA') {
+    if (!e.shiftKey) return; // let Enter add newline in textarea
+    e.preventDefault();
+    if (FIELD_FLOW[id]) FIELD_FLOW[id]();
+    return;
+  }
+
+  // For country search: pick first option if dropdown open, then move to city
+  if (id === 'fcountrySearch') {
+    const firstOpt = document.querySelector('.country-opt');
+    if (firstOpt && document.getElementById('countryDrop').classList.contains('open')) {
+      e.preventDefault();
+      firstOpt.dispatchEvent(new MouseEvent('mousedown'));
+      setTimeout(() => focus('fcity'), 50);
+      return;
+    }
+  }
+
+  // For select dropdowns: let browser handle selection, then move to next
+  if (active.tagName === 'SELECT') {
+    // fedu → fexp → flinkedin (after exp)
+    if (id === 'fedu') { setTimeout(() => focus('fexp'), 50); }
+    else if (id === 'fexp') { setTimeout(() => focus('flinkedin'), 50); }
+    else if (id === 'fhear') { setTimeout(() => focus('fmsg'), 50); }
+    return; // don't preventDefault on select
+  }
+
+  // For all other inputs
+  if (FIELD_FLOW[id]) {
+    e.preventDefault();
+    FIELD_FLOW[id]();
+  }
+});
+
 window.addEventListener('scroll',()=>{
   document.getElementById('nav').classList.toggle('solid',window.scrollY>20);
 });
