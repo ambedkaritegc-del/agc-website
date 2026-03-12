@@ -390,7 +390,11 @@ a{text-decoration:none;color:inherit}
   </div>
 </div>
 
-<script>
+<script>// ── SUPABASE CONFIG ──
+const SUPABASE_URL      = 'YOUR_SUPABASE_URL';
+const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY';
+
+
 const EVENTS = [];
 
 let activeFilter = 'all';
@@ -706,16 +710,14 @@ document.getElementById('eventsGrid').addEventListener('click', function(e) {
   const btn = e.target.closest('[data-eventbtn]');
   if (btn) {
     e.stopPropagation();
-    const id = parseInt(btn.dataset.eventbtn);
-    const slug = EVENT_SLUGS[id];
-    if (slug) window.location = slug;
+    const id = btn.dataset.eventbtn;
+    window.location = 'event-profile.html?id=' + id;
     return;
   }
   const card = e.target.closest('.ev-card');
   if (card) {
-    const id = parseInt(card.dataset.eventid);
-    const slug = EVENT_SLUGS[id];
-    if (slug) window.location = slug;
+    const id = card.dataset.eventid;
+    window.location = 'event-profile.html?id=' + id;
   }
 });
 

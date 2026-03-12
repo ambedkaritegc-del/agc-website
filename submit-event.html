@@ -469,7 +469,11 @@ a{text-decoration:none;color:inherit}
   </div>
 </div>
 
-<script>
+<script>// ── SUPABASE CONFIG ──
+const SUPABASE_URL = 'https://tvkphfmbeliqnkpmoamb.supabase.co';
+const SUPABASE_ANON_KEY = 'sb_publishable_QdkB2Ig1Wi9yLPCqM3KA2Q_ImP2HdC-';
+
+
 let currentStep = 1;
 const progress = {1:25,2:50,3:75,4:100};
 
@@ -623,7 +627,33 @@ function submitEvent() {
 
   // Send to Formspree
   // Replace YOUR_EVENT_FORM_ID with your ID from formspree.io
-  const FORMSPREE_ID = 'YOUR_EVENT_FORM_ID';
+  const FORMSPREE_ID = 'xgonknno';
+
+
+  // ── ALSO SAVE TO SUPABASE ──
+  const supabaseEvent = {
+    title, description: desc, type: evType,
+    online: isOnline, audience, date, time, duration,
+    country, city,
+    venue: isOnline ? platform : venue,
+    spots: parseInt(spots)||0, language: lang,
+    host_name: hostname, host_role: hostrole,
+    host_email: hostemail, host_whatsapp: whatsapp,
+    host_bio: hostbio, notes,
+    registered: 0, status: 'active',
+  };
+  const supabaseEventPromise = SUPABASE_URL !== 'YOUR_SUPABASE_URL'
+    ? fetch(SUPABASE_URL + '/rest/v1/events', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'apikey': SUPABASE_ANON_KEY,
+          'Authorization': 'Bearer ' + SUPABASE_ANON_KEY,
+          'Prefer': 'return=minimal'
+        },
+        body: JSON.stringify(supabaseEvent)
+      })
+    : Promise.resolve({ ok: true });
 
   fetch('https://formspree.io/f/' + FORMSPREE_ID, {
     method: 'POST',
@@ -653,6 +683,7 @@ function submitEvent() {
   })
   .then(function(res) { return res.json(); })
   .then(function(data) {
+    supabaseEventPromise.catch(e => console.warn('Supabase event error:', e));
     if (data.ok) {
       document.getElementById('evForm').style.display='none';
       document.getElementById('stepsBar').style.display='none';

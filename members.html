@@ -709,8 +709,7 @@ document.getElementById('membersGrid').addEventListener('click', function(e) {
   const card = e.target.closest('.mcard');
   if (card) {
     const id = parseInt(card.dataset.memberid);
-    const slug = MEMBER_SLUGS[id];
-    if (slug) window.location = slug;
+    window.location = 'member-profile.html?id=' + id;
   }
 });
 
