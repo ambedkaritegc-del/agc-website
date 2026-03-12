@@ -310,8 +310,8 @@ a{text-decoration:none;color:inherit}
 
 <script>// ── SUPABASE CONFIG ──
 // 👉 Replace these after creating your Supabase project
-const SUPABASE_URL = 'https://tvkphfmbeliqnkpmoamb.supabase.co';
-const SUPABASE_ANON_KEY = 'sb_publishable_QdkB2Ig1Wi9yLPCqM3KA2Q_ImP2HdC-';
+const SUPABASE_URL = 'YOUR_SUPABASE_URL';
+const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY';
 
 
 // ── MEMBER DATA ──
@@ -662,13 +662,8 @@ async function loadMembers() {
     );
     if (!res.ok) throw new Error('fetch failed');
     const rows = await res.json();
-    if (!rows || !rows.length) {
-      // No real members yet — fall back to demo data
-      filtered = [...MEMBERS];
-      updateCounts();
-      renderCards();
-      return;
-    }
+    const REAL_THRESHOLD = 10; // hide dummies once we have this many real members
+
     // Map Supabase columns → members.html data shape
     const live = rows.map((r, i) => ({
       id:      r.id     || (1000 + i),
@@ -687,9 +682,14 @@ async function loadMembers() {
       needs:   Array.isArray(r.needs)  ? r.needs  : String(r.needs ||'').split(',').map(s=>s.trim()).filter(Boolean),
       skills:  Array.isArray(r.skills) ? r.skills : String(r.skills||'').split(',').map(s=>s.trim()).filter(Boolean),
     }));
+    // If fewer than 10 real members, pad with dummy data
+    const combined = live.length < REAL_THRESHOLD
+      ? [...live, ...MEMBERS.slice(0, REAL_THRESHOLD - live.length + 20)]
+      : live;
+
     // Replace global MEMBERS so filters and counts work correctly
     MEMBERS.length = 0;
-    live.forEach(m => MEMBERS.push(m));
+    combined.forEach(m => MEMBERS.push(m));
     filtered = [...MEMBERS];
     updateCounts();
     renderCards();

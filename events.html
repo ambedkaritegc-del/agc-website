@@ -336,13 +336,15 @@ a{text-decoration:none;color:inherit}
       <span class="results-badge" id="resultsCountBadge"></span>
     </div>
     <div class="events-grid" id="eventsGrid"></div>
-    <div class="no-results" id="noResults" style="display:none">
-      <h3 id="noResTitle">No events found</h3>
-      <p id="noResMsg">Try different keywords or clear the search.</p>
+    <div class="no-results" id="noResults" style="display:block">
+      <div style="font-size:2.5rem;margin-bottom:16px">📅</div>
+      <h3 id="noResTitle" style="font-size:1.3rem;color:#F3F4F6;margin-bottom:8px">No events yet</h3>
+      <p id="noResMsg" style="color:#6B7280;font-size:.95rem;max-width:420px;margin:0 auto 24px">We're planning our first events. Check back soon or submit an event idea.</p>
+      <a href="submit-event.html" style="display:inline-block;background:#3B82F6;color:#fff;padding:10px 24px;border-radius:8px;font-weight:600;font-size:.9rem;text-decoration:none">Submit an Event</a>
     </div>
 
     <!-- PAST -->
-    <div class="sec-title fu" style="margin-top:12px">Past Events</div>
+    <div class="sec-title fu" style="margin-top:12px;display:none">Past Events</div>
     <div class="past-grid">
       <div class="past-card fu">
         <span class="past-badge et-car" style="font-size:.64rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:3px 9px;border-radius:100px;background:rgba(245,158,11,.08);color:var(--gold);border:1px solid rgba(245,158,11,.2)">Career</span>
@@ -389,129 +391,7 @@ a{text-decoration:none;color:inherit}
 </div>
 
 <script>
-const EVENTS = [
-  {
-    id:1, title:'Career Mentorship Meetup', emoji:'💼',
-    category:'career', online:false,
-    date:'April 5, 2025', time:'3:00 PM – 6:00 PM IST',
-    location:'Mumbai, India', venue:'Community Hall, Dadar',
-    desc:'Meet professionals, get job guidance, share referrals, and build career connections within the AGC community. Includes group networking and 1:1 introductions.',
-    spots:40, registered:28, free:true,
-    host:{name:'Amit Sonawane', role:'Product Manager · Bangalore', av:'AS', color:'linear-gradient(135deg,#10B981,#2563EB)'},
-    stripe:'#F59E0B', tags:['career']
-  },
-  {
-    id:2, title:'Study Abroad Guidance Webinar', emoji:'✈️',
-    category:'education', online:true,
-    date:'April 10, 2025', time:'7:00 PM – 9:00 PM IST',
-    location:'Online — Zoom', venue:'Link sent after registration',
-    desc:'AGC members based in Germany, UK, and Canada share their exact application process, documents needed, and tips for getting admission and scholarship abroad.',
-    spots:100, registered:63, free:true,
-    host:{name:'Deepa Gaikwad', role:'PhD Researcher · Munich, Germany', av:'DG', color:'linear-gradient(135deg,#2563EB,#10B981)'},
-    stripe:'#3B82F6', tags:['education','online']
-  },
-  {
-    id:3, title:'Ambedkar Jayanti Celebration', emoji:'🎤',
-    category:'community', online:false,
-    date:'April 14, 2025', time:'10:00 AM – 4:00 PM IST',
-    location:'Nagpur, Maharashtra', venue:'Dr. Ambedkar Bhavan, Civil Lines',
-    desc:'Celebrate Dr. B.R. Ambedkar\'s legacy with the AGC community. Speeches, knowledge sharing, panel discussion on education and social progress, and community networking.',
-    spots:200, registered:87, free:true,
-    host:{name:'AGC Core Team', role:'Ambedkarite Global Council', av:'AGC', color:'linear-gradient(135deg,#2563EB,#6366F1)'},
-    stripe:'#10B981', tags:['community']
-  },
-  {
-    id:4, title:'Scholarship Discovery Workshop', emoji:'🏆',
-    category:'education', online:false,
-    date:'April 20, 2025', time:'11:00 AM – 2:00 PM IST',
-    location:'Delhi, India', venue:'Ambedkar Bhawan, ITO',
-    desc:'Step-by-step guidance on scholarships available for Indian students — national and international. Includes live demos of scholarship portals and application tips from recipients.',
-    spots:60, registered:41, free:true,
-    host:{name:'Meena Chavhan', role:'UPSC Aspirant & Scholar · Delhi', av:'MC', color:'linear-gradient(135deg,#EC4899,#8B5CF6)'},
-    stripe:'#3B82F6', tags:['education']
-  },
-  {
-    id:5, title:'Tech Jobs in Germany — Community Session', emoji:'🇩🇪',
-    category:'career', online:true,
-    date:'April 25, 2025', time:'8:00 PM – 10:00 PM IST',
-    location:'Online — Zoom', venue:'Link sent after registration',
-    desc:'AGC members in Germany share how they found jobs, what the application process looks like, how to get referrals, and how to prepare for German work culture.',
-    spots:80, registered:52, free:true,
-    host:{name:'Rahul Kamble', role:'Software Engineer · Berlin', av:'RK', color:'linear-gradient(135deg,#2563EB,#7C3AED)'},
-    stripe:'#F59E0B', tags:['career','online']
-  },
-  {
-    id:6, title:'Startup & Entrepreneur Networking', emoji:'🚀',
-    category:'business', online:false,
-    date:'April 28, 2025', time:'4:00 PM – 7:00 PM IST',
-    location:'Pune, India', venue:'91springboard, Baner',
-    desc:'Connect with founders, find collaborators, explore partnerships, and get startup mentorship from experienced community members. Open to all stage founders and aspiring entrepreneurs.',
-    spots:50, registered:50, free:true,
-    host:{name:'Vijay Meshram', role:'Founder & CEO · Mumbai', av:'VM', color:'linear-gradient(135deg,#F59E0B,#10B981)'},
-    stripe:'#8B5CF6', tags:['business']
-  },
-    {
-    id:7, title:'Ambedkar Philosophy Discussion Circle', emoji:'📖',
-    category:'community', online:true,
-    date:'May 3, 2025', time:'6:00 PM – 8:00 PM IST',
-    location:'Online — Google Meet', venue:'Link sent after registration',
-    desc:'A deep-dive reading circle on Dr. Ambedkar writings — Annihilation of Caste, Buddha and his Dhamma, and more. Open discussion format with community members from across the world.',
-    spots:60, registered:34, free:true,
-    host:{name:'Mahesh Tupe', role:'Civil Services Officer · Pune', av:'MT', color:'linear-gradient(135deg,#2563EB,#F59E0B)'},
-    stripe:'#10B981', tags:['community','online']
-  },
-  {
-    id:8, title:'Women in Leadership Summit', emoji:'👩',
-    category:'career', online:false,
-    date:'May 10, 2025', time:'10:00 AM – 3:00 PM IST',
-    location:'Mumbai, India', venue:'YMCA, Colaba',
-    desc:'A full-day summit celebrating and empowering women professionals in the AGC community. Panel discussions, keynotes, and networking with senior women leaders across industries.',
-    spots:80, registered:55, free:true,
-    host:{name:'Rashmi Tekade', role:'HR Manager · Chennai', av:'RT', color:'linear-gradient(135deg,#F59E0B,#8B5CF6)'},
-    stripe:'#EC4899', tags:['career']
-  },
-  {
-    id:9, title:'Australia & Canada PR Guidance Session', emoji:'🌏',
-    category:'education', online:true,
-    date:'May 15, 2025', time:'7:30 PM – 9:30 PM IST',
-    location:'Online — Zoom', venue:'Link sent after registration',
-    desc:'AGC members living in Australia and Canada walk through the PR process, point systems, job search, and settlement tips. Q&A with real community members who successfully got PR.',
-    spots:100, registered:71, free:true,
-    host:{name:'Shobha Nimkar', role:'Nurse · Melbourne, Australia', av:'SN', color:'linear-gradient(135deg,#10B981,#7C3AED)'},
-    stripe:'#3B82F6', tags:['education','online']
-  },
-  {
-    id:10, title:'First-Generation Professionals Meetup', emoji:'🤝',
-    category:'community', online:false,
-    date:'May 18, 2025', time:'4:00 PM – 7:00 PM IST',
-    location:'Bangalore, India', venue:'Koramangala Social',
-    desc:'A meetup for first-generation professionals — those who are the first in their family to enter corporate, tech or professional careers. Share your journey, challenges, and wins.',
-    spots:45, registered:38, free:true,
-    host:{name:'Kiran Waghmare', role:'Data Scientist · San Francisco', av:'KW', color:'linear-gradient(135deg,#2563EB,#F59E0B)'},
-    stripe:'#F59E0B', tags:['community']
-  },
-  {
-    id:11, title:'UPSC & Civil Services Strategy Workshop', emoji:'🏛',
-    category:'education', online:false,
-    date:'May 24, 2025', time:'9:00 AM – 1:00 PM IST',
-    location:'Delhi, India', venue:'Constitution Club of India',
-    desc:'A structured half-day workshop by AGC members who cleared UPSC and state-level civil services exams. Covers study strategy, optional subject selection, interview prep and mental health.',
-    spots:75, registered:60, free:true,
-    host:{name:'Mahesh Tupe', role:'Civil Services Officer · Pune', av:'MT', color:'linear-gradient(135deg,#2563EB,#F59E0B)'},
-    stripe:'#3B82F6', tags:['education']
-  },
-  {
-    id:12, title:'AGC Global Mixer — Online Town Hall', emoji:'🌍',
-    category:'community', online:true,
-    date:'June 1, 2025', time:'5:00 PM – 7:00 PM IST',
-    location:'Online — Zoom', venue:'Link sent after registration',
-    desc:'AGC first global town hall bringing together members from India, Germany, UK, USA, Canada, and Australia. Introductions, community updates, and open discussion on the platform future.',
-    spots:200, registered:112, free:true,
-    host:{name:'AGC Core Team', role:'Ambedkarite Global Council', av:'AGC', color:'linear-gradient(135deg,#2563EB,#6366F1)'},
-    stripe:'#6366F1', tags:['community','online']
-  }
-
-];
+const EVENTS = [];
 
 let activeFilter = 'all';
 let evSearchQ = '';
@@ -811,7 +691,15 @@ function closeModalDirect() { document.getElementById('modal').classList.remove(
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModalDirect(); });
 
 
-renderEvents();
+// ── INIT ──
+(function init() {
+  // Hide featured event block — only show when real events exist
+  const featured = document.getElementById('featuredEvent');
+  const secHeader = document.querySelector('.sec-header-row');
+  if (featured) featured.style.display = 'none';
+  if (secHeader) secHeader.style.display = 'none';
+  renderEvents();
+})();
 
 // ── EVENT CARD CLICK DELEGATION ──
 document.getElementById('eventsGrid').addEventListener('click', function(e) {
