@@ -737,8 +737,58 @@ document.getElementById('mentorGroups').addEventListener('click', e => {
   if (card) window.location = card.dataset.slug;
 });
 
+// ── INIT — load from Supabase, fall back to dummy mentors ──
+async function loadMentors() {
+  const REAL_THRESHOLD = 10;
+  let realMentors = [];
+
+  if (SUPABASE_URL !== 'https://tvkphfmbeliqnkpmoamb.supabase.co') {
+    try {
+      const res = await fetch(
+        `${SUPABASE_URL}/rest/v1/members?status=eq.active&order=created_at.desc`,
+        { headers: { 'apikey': 'sb_publishable_QdkB2Ig1Wi9yLPCqM3KA2Q_ImP2HdC-' , 'Authorization': `Bearer ${SUPABASE_ANON_KEY}` } }
+      );
+      if (res.ok) {
+        const rows = await res.json();
+        // Only show members who have something to offer (they are mentors)
+        realMentors = rows
+          .filter(r => r.offers && (Array.isArray(r.offers) ? r.offers.length > 0 : r.offers.trim()))
+          .map((r, i) => ({
+            id:            r.id || (1000 + i),
+            name:          r.name || 'AGC Member',
+            role:          r.profession || r.role || 'Member',
+            city:          r.city || '',
+            country:       r.country || 'India',
+            flag:          r.flag || '🌍',
+            avatar:        r.avatar || (r.name||'M').split(' ').filter(Boolean).map(w=>w[0]).join('').slice(0,2).toUpperCase(),
+            color:         r.color || 'linear-gradient(135deg,#2563EB,#7C3AED)',
+            stripe:        '#3B82F6',
+            expertise:     Array.isArray(r.interests) ? (r.interests[0]||'all') : 'all',
+            expertiseLabel: '🤝 Community',
+            offers:        Array.isArray(r.offers) ? r.offers : String(r.offers||'').split(',').map(s=>s.trim()).filter(Boolean),
+            needs:         Array.isArray(r.needs)  ? r.needs  : String(r.needs ||'').split(',').map(s=>s.trim()).filter(Boolean),
+            badge:         r.type === 'entrepreneur' ? 'founder' : 'mentor',
+            status:        'available',
+            bio:           `${r.name ? r.name.split(' ')[0] : 'Member'} is an active AGC community member. Join AGC to connect.`,
+          }));
+      }
+    } catch(err) {
+      console.warn('Supabase load failed, using demo mentors:', err);
+    }
+  }
+
+  // Always show minimum — real first, then dummies to fill
+  const combined = realMentors.length >= REAL_THRESHOLD
+    ? realMentors
+    : [...realMentors, ...MENTORS.filter(d => !realMentors.find(r => r.name === d.name))];
+
+  MENTORS.length = 0;
+  combined.forEach(m => MENTORS.push(m));
+  renderMentors();
+}
+
 // ── INIT ──
-renderMentors();
+loadMentors();
 // Nav scroll
 window.addEventListener('scroll',()=>{
   document.getElementById('nav').classList.toggle('solid',window.scrollY>20);

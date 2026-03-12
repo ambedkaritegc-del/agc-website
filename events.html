@@ -260,7 +260,7 @@ a{text-decoration:none;color:inherit}
       </div>
       <div class="ph-stats">
         <div class="pstat"><span class="pstat-n" id="upcomingCount">6</span><span class="pstat-l">Upcoming</span></div>
-        <div class="pstat"><span class="pstat-n">3</span><span class="pstat-l">Past Events</span></div>
+        <div class="pstat" id="pastStatBlock" style="display:none"><span class="pstat-n" id="pastCount">0</span><span class="pstat-l">Past Events</span></div>
         <div class="pstat"><span class="pstat-n">🌐</span><span class="pstat-l">Online + Offline</span></div>
       </div>
     </div>
@@ -391,8 +391,8 @@ a{text-decoration:none;color:inherit}
 </div>
 
 <script>// ── SUPABASE CONFIG ──
-const SUPABASE_URL      = 'YOUR_SUPABASE_URL';
-const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY';
+const SUPABASE_URL      = 'https://tvkphfmbeliqnkpmoamb.supabase.co';
+const SUPABASE_ANON_KEY = 'sb_publishable_QdkB2Ig1Wi9yLPCqM3KA2Q_ImP2HdC-';
 
 
 const EVENTS = [];
@@ -695,15 +695,66 @@ function closeModalDirect() { document.getElementById('modal').classList.remove(
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModalDirect(); });
 
 
-// ── INIT ──
-(function init() {
-  // Hide featured event block — only show when real events exist
+// ── INIT — load from Supabase, fall back to dummy events ──
+async function loadEvents() {
+  const REAL_THRESHOLD = 4; // once we have 4+ real events, dummies disappear
+  let realEvents = [];
+
+  // Hide featured block — always (we use the grid only)
   const featured = document.getElementById('featuredEvent');
   const secHeader = document.querySelector('.sec-header-row');
   if (featured) featured.style.display = 'none';
   if (secHeader) secHeader.style.display = 'none';
+
+  if (SUPABASE_URL !== 'YOUR_SUPABASE_URL') {
+    try {
+      const res = await fetch(
+        `${SUPABASE_URL}/rest/v1/events?status=eq.active&order=created_at.desc`,
+        { headers: { 'apikey': SUPABASE_ANON_KEY, 'Authorization': `Bearer ${SUPABASE_ANON_KEY}` } }
+      );
+      if (res.ok) {
+        const rows = await res.json();
+        realEvents = rows.map((r, i) => ({
+          id:          r.id || (1000 + i),
+          title:       r.title || 'AGC Event',
+          type:        r.type || 'community',
+          emoji:       r.emoji || '📅',
+          stripe:      r.stripe || 'linear-gradient(135deg,#2563EB,#6366F1)',
+          date:        r.date || 'Coming Soon',
+          time:        r.time || 'TBD',
+          location:    r.online ? 'Online' : `${r.city ? r.city + ', ' : ''}${r.country || ''}`,
+          online:      r.online || false,
+          spots:       r.spots || 0,
+          registered:  r.registered || 0,
+          tags:        [r.type ? r.type.charAt(0).toUpperCase()+r.type.slice(1) : 'Event', r.online ? 'Online' : 'In-Person'],
+          host:        r.host_name || 'AGC Community',
+          hostAvatar:  (r.host_name||'AC').split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase(),
+          hostRole:    r.host_role || 'AGC Member',
+          desc:        r.description || '',
+        }));
+      }
+    } catch(err) {
+      console.warn('Supabase events load failed, using dummy data:', err);
+    }
+  }
+
+  // Smart merge: real first, dummies fill until threshold
+  const combined = realEvents.length >= REAL_THRESHOLD
+    ? realEvents
+    : [...realEvents, ...DUMMY_EVENTS.filter(d => !realEvents.find(r => r.title === d.title))];
+
+  EVENTS.length = 0;
+  combined.forEach(e => EVENTS.push(e));
+
+  // Update stat counter dynamically
+  const upcomingEl = document.getElementById('upcomingCount');
+  if (upcomingEl) upcomingEl.textContent = EVENTS.length;
+
   renderEvents();
-})();
+}
+
+// ── INIT ──
+loadEvents();
 
 // ── EVENT CARD CLICK DELEGATION ──
 document.getElementById('eventsGrid').addEventListener('click', function(e) {
