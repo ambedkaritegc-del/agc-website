@@ -504,7 +504,7 @@ a{text-decoration:none;color:inherit}
 <script>// ── SUPABASE CONFIG ──
 // 👉 Replace these two values after you create your Supabase project
 const SUPABASE_URL = 'https://tvkphfmbeliqnkpmoamb.supabase.co';
-const SUPABASE_ANON_KEY = 'sb_publishable_QdkB2Ig1Wi9yLPCqM3KA2Q_ImP2HdC-';
+const SUPABASE_ANON_KEY = 'sb_publishable_QdkB2Ig1Wi9yLPCqM3KA2Q_ImP2HdC';
 
 
 // ── COUNTRIES ──
@@ -865,7 +865,7 @@ function submitForm() {
     status: 'active'
   };
 
-  const supabasePromise = SUPABASE_URL !== 'YOUR_SUPABASE_URL'
+  const supabasePromise = SUPABASE_URL !== 'https://tvkphfmbeliqnkpmoamb.supabase.co'
     ? fetch(`${SUPABASE_URL}/rest/v1/members`, {
         method: 'POST',
         headers: {
