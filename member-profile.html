@@ -246,7 +246,7 @@ footer{background:#040608;border-top:1px solid rgba(255,255,255,.05);padding:40p
 
 <script>
 const SUPABASE_URL      = 'https://tvkphfmbeliqnkpmoamb.supabase.co';
-const SUPABASE_ANON_KEY = 'sb_publishable_QdkB2Ig1Wi9yLPCqM3KA2Q_ImP2HdC-';
+const SUPABASE_ANON_KEY = 'sb_publishable_QdkB2Ig1Wi9yLPCqM3KA2Q_ImP2HdC';
 
 const DUMMY_MEMBERS = [
   {id:1,name:'Rahul Kamble',profession:'Software Engineer',country:'Germany',city:'Berlin',type:'professional',abroad:true,interests:['career'],avatar:'RK',color:'linear-gradient(135deg,#2563EB,#7C3AED)',flag:'🇩🇪',joined:'Jan 2025',offers:['Job Referrals','Tech Mentoring','Germany Visa Help'],needs:['Startup Partners','Legal Advice'],skills:['Python','React','Node.js'],linkedin:'',twitter:'',website:''},
@@ -282,41 +282,90 @@ const DUMMY_MEMBERS = [
 ];
 
 async function loadProfile() {
-  const params = new URLSearchParams(window.location.search);
+  const params  = new URLSearchParams(window.location.search);
   const memberId = params.get('id');
   if (!memberId) { showError(); return; }
+
   const numId = parseInt(memberId);
+
+  // ── Check dummy members (id 1–30) ──
   if (numId >= 1 && numId <= 30) {
     const dummy = DUMMY_MEMBERS.find(m => m.id === numId);
     if (dummy) { renderProfile(dummy); return; }
   }
-  if (SUPABASE_URL === 'YOUR_SUPABASE_URL') { showError(); return; }
-  try {
-    const res = await fetch(
-      SUPABASE_URL + '/rest/v1/members?id=eq.' + memberId + '&status=eq.active&limit=1',
-      { headers: { 'apikey': SUPABASE_ANON_KEY, 'Authorization': 'Bearer ' + SUPABASE_ANON_KEY } }
-    );
-    if (!res.ok) throw new Error('fetch failed');
-    const rows = await res.json();
-    if (!rows.length) { showError(); return; }
-    const r = rows[0];
-    renderProfile({
-      id: r.id, name: r.name || 'AGC Member',
-      profession: r.profession || r.role || 'Member',
-      country: r.country || 'India', city: r.city || '',
-      type: r.type || 'professional', abroad: r.abroad || false,
-      interests: Array.isArray(r.interests) ? r.interests : [],
-      avatar: r.avatar || (r.name||'M').split(' ').filter(Boolean).map(w=>w[0]).join('').slice(0,2).toUpperCase(),
-      color: r.color || 'linear-gradient(135deg,#2563EB,#7C3AED)',
-      flag: r.flag || '🌍',
-      joined: r.joined || new Date(r.created_at||Date.now()).toLocaleDateString('en-US',{month:'short',year:'numeric'}),
-      offers: Array.isArray(r.offers) ? r.offers : String(r.offers||'').split(',').map(s=>s.trim()).filter(Boolean),
-      needs:  Array.isArray(r.needs)  ? r.needs  : String(r.needs ||'').split(',').map(s=>s.trim()).filter(Boolean),
-      skills: Array.isArray(r.skills) ? r.skills : String(r.skills||'').split(',').map(s=>s.trim()).filter(Boolean),
-      linkedin: r.linkedin||'', twitter: r.twitter||'', website: r.website||'',
-    });
-  } catch(e) { console.error(e); showError(); }
+
+  // ── Build a basic profile from URL params (passed by members.html) ──
+  // This means even without Supabase we show SOMETHING correct
+  const urlData = {
+    id:         numId,
+    name:       decodeURIComponent(params.get('name')    || 'AGC Member'),
+    avatar:     decodeURIComponent(params.get('avatar')  || '??'),
+    color:      decodeURIComponent(params.get('color')   || 'linear-gradient(135deg,#2563EB,#7C3AED)'),
+    profession: decodeURIComponent(params.get('role')    || 'Member'),
+    country:    decodeURIComponent(params.get('country') || 'India'),
+    city:       decodeURIComponent(params.get('city')    || ''),
+    flag:       decodeURIComponent(params.get('flag')    || '🌍'),
+    joined:     decodeURIComponent(params.get('joined')  || '2025'),
+    type:       decodeURIComponent(params.get('type')    || 'professional'),
+    abroad:     params.get('abroad') === '1',
+    interests:  [],
+    offers:     [],
+    needs:      [],
+    skills:     [],
+    linkedin:   '',
+    twitter:    '',
+    website:    '',
+  };
+
+  // ── Try Supabase for full data ──
+  if (SUPABASE_URL !== 'https://tvkphfmbeliqnkpmoamb.supabase.co') {
+    try {
+      const res = await fetch(
+        SUPABASE_URL + '/rest/v1/members?id=eq.' + memberId + '&status=eq.active&limit=1',
+        { headers: { 'apikey': SUPABASE_ANON_KEY, 'Authorization': 'Bearer ' + SUPABASE_ANON_KEY } }
+      );
+      if (res.ok) {
+        const rows = await res.json();
+        if (rows.length) {
+          const r = rows[0];
+          renderProfile({
+            id:          r.id,
+            name:        r.name        || urlData.name,
+            avatar:      r.avatar      || urlData.avatar,
+            color:       r.color       || urlData.color,
+            profession:  r.profession  || r.role || urlData.profession,
+            country:     r.country     || urlData.country,
+            city:        r.city        || urlData.city,
+            flag:        r.flag        || urlData.flag,
+            joined:      r.joined      || urlData.joined,
+            type:        r.type        || urlData.type,
+            abroad:      r.abroad      || urlData.abroad,
+            interests:   Array.isArray(r.interests) ? r.interests : [],
+            offers:      Array.isArray(r.offers) ? r.offers : String(r.offers||'').split(',').map(s=>s.trim()).filter(Boolean),
+            needs:       Array.isArray(r.needs)  ? r.needs  : String(r.needs ||'').split(',').map(s=>s.trim()).filter(Boolean),
+            skills:      Array.isArray(r.skills) ? r.skills : String(r.skills||'').split(',').map(s=>s.trim()).filter(Boolean),
+            linkedin:    r.linkedin    || '',
+            twitter:     r.twitter     || '',
+            website:     r.website     || '',
+          });
+          return;
+        }
+      }
+    } catch(e) {
+      console.warn('Supabase fetch failed, using URL data:', e);
+    }
+  }
+
+  // ── Fallback: render with URL param data ──
+  // Shows correct name/avatar from the card they clicked
+  // Offers/needs/skills will be empty until Supabase is connected
+  if (urlData.name && urlData.name !== 'AGC Member') {
+    renderProfile(urlData);
+  } else {
+    showError();
+  }
 }
+
 
 function renderProfile(m) {
   document.title = m.name + ' — AGC Member Profile';
