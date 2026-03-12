@@ -311,7 +311,7 @@ a{text-decoration:none;color:inherit}
 <script>// ── SUPABASE CONFIG ──
 // 👉 Replace these after creating your Supabase project
 const SUPABASE_URL = 'https://tvkphfmbeliqnkpmoamb.supabase.co';
-const SUPABASE_ANON_KEY = 'sb_publishable_QdkB2Ig1Wi9yLPCqM3KA2Q_ImP2HdC-';
+const SUPABASE_ANON_KEY = 'sb_publishable_QdkB2Ig1Wi9yLPCqM3KA2Q_ImP2HdC';
 
 
 // ── MEMBER DATA ──
@@ -646,7 +646,7 @@ async function loadMembers() {
   let realMembers = [];
 
   // Always try Supabase if configured
-  if (SUPABASE_URL !== 'YOUR_SUPABASE_URL') {
+  if (SUPABASE_URL !== 'https://tvkphfmbeliqnkpmoamb.supabase.co') {
     document.getElementById('membersGrid').innerHTML =
       '<div style="color:#6B7280;font-size:.9rem;padding:40px;text-align:center;grid-column:1/-1">Loading members...</div>';
     try {
@@ -702,8 +702,26 @@ document.getElementById('membersGrid').addEventListener('click', function(e) {
   if (connect) { window.location = 'register.html'; return; }
   const card = e.target.closest('.mcard');
   if (card) {
-    const id = parseInt(card.dataset.memberid);
-    window.location = 'member-profile.html?id=' + id;
+    const id = card.dataset.memberid;
+    const m = MEMBERS.find(x => String(x.id) === String(id));
+    if (m) {
+      const params = new URLSearchParams({
+        id,
+        name:    m.name    || '',
+        avatar:  m.avatar  || '',
+        color:   m.color   || '',
+        role:    m.role    || '',
+        country: m.country || '',
+        city:    m.city    || '',
+        flag:    m.flag    || '',
+        joined:  m.joined  || '',
+        type:    m.type    || '',
+        abroad:  m.abroad  ? '1' : '0',
+      });
+      window.location = 'member-profile.html?' + params.toString();
+    } else {
+      window.location = 'member-profile.html?id=' + id;
+    }
   }
 });
 
