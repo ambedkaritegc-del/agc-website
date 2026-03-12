@@ -325,14 +325,11 @@ footer{background:#060810;border-top:1px solid rgba(255,255,255,.06);padding:44p
   </div>
 </footer>
 
-<script>
-// Nav scroll + ham
-window.addEventListener('scroll', () => {
-  document.getElementById('nav').classList.toggle('solid', window.scrollY > 20);
-});
-document.getElementById('ham').addEventListener('click', () => {
-  document.getElementById('mob').classList.toggle('open');
-});
+<script>const SUPABASE_URL      = 'https://tvkphfmbeliqnkpmoamb.supabase.co';
+const SUPABASE_ANON_KEY = 'sb_publishable_QdkB2Ig1Wi9yLPCqM3KA2Q_ImP2HdC';
+
+
+
 
 const MENTORS = [
   {
@@ -351,7 +348,7 @@ const MENTORS = [
     needs: ['Startup Advice', 'Legal Guidance', 'Business Mentoring'],
     bio: 'Software engineer based in Berlin with 5+ years of experience. Navigated the Germany job market from India — happy to help others do the same.',
     availability: 'Available for 1:1 calls',
-    slug: 'members/rahul-kamble.html'
+    slug: 'member-profile.html?id=1'
   },
   {
     id: 12,
@@ -369,7 +366,7 @@ const MENTORS = [
     needs: ['UI/UX Feedback', 'Career Coaching', 'Business Networking'],
     bio: 'Full-stack developer in Hamburg. Helps community members break into European tech and understand the German work culture.',
     availability: 'Available on weekends',
-    slug: 'members/nitin-shinde.html'
+    slug: 'member-profile.html?id=12'
   },
   {
     id: 9,
@@ -387,7 +384,7 @@ const MENTORS = [
     needs: ['Leadership Coaching', 'Public Speaking', 'India Networking'],
     bio: 'Data scientist at a Bay Area tech company. First-generation professional who understands the unique challenges of breaking into corporate careers.',
     availability: 'Available for calls',
-    slug: 'members/kiran-waghmare.html'
+    slug: 'member-profile.html?id=9'
   },
   {
     id: 15,
@@ -405,7 +402,7 @@ const MENTORS = [
     needs: ['Tech Industry Insights', 'Study Abroad Tips', 'Data Skills'],
     bio: 'HR manager with 8 years experience across multiple industries. Knows exactly what recruiters look for and can help you get noticed.',
     availability: 'Available weekday evenings',
-    slug: 'members/rashmi-tekade.html'
+    slug: 'member-profile.html?id=15'
   },
   {
     id: 6,
@@ -423,7 +420,7 @@ const MENTORS = [
     needs: ['Job Referrals in Germany', 'Startup Guidance', 'Networking Events'],
     bio: 'PhD researcher at TU Munich on a full scholarship. Helps students navigate European university applications and scholarship programs.',
     availability: 'Available for messages',
-    slug: 'members/deepa-gaikwad.html'
+    slug: 'member-profile.html?id=6'
   },
   {
     id: 16,
@@ -441,7 +438,7 @@ const MENTORS = [
     needs: ['India Market Knowledge', 'Community Building', 'Policy Insights'],
     bio: 'Founded two startups in the US. Understands the journey from idea to investment. Passionate about helping community members build businesses.',
     availability: 'Available for 1:1 sessions',
-    slug: 'members/suresh-salve.html'
+    slug: 'member-profile.html?id=16'
   },
   {
     id: 21,
@@ -459,7 +456,7 @@ const MENTORS = [
     needs: ['Tech Mentoring', 'International Markets', 'Funding Advice'],
     bio: 'Built a profitable e-commerce brand from scratch. Helps aspiring entrepreneurs start online businesses with low capital and grow steadily.',
     availability: 'Available for calls',
-    slug: 'members/kavita-wankhede.html'
+    slug: 'member-profile.html?id=21'
   },
   {
     id: 23,
@@ -477,7 +474,7 @@ const MENTORS = [
     needs: ['Financial Planning', 'Career Transitions', 'Community Events'],
     bio: 'Registered nurse in Melbourne with Australian PR. Guides healthcare professionals and others through the Australia migration and settlement process.',
     availability: 'Available on weekends',
-    slug: 'members/shobha-nimkar.html'
+    slug: 'member-profile.html?id=23'
   },
   {
     id: 25,
@@ -495,7 +492,7 @@ const MENTORS = [
     needs: ['Tech Career Tips', 'Startup Knowledge', 'Investment Guidance'],
     bio: 'Pharmacist in Toronto who navigated Canada\'s Express Entry and PR process. Helps community members understand the Canadian immigration pathway.',
     availability: 'Available evenings IST',
-    slug: 'members/suman-dhangar.html'
+    slug: 'member-profile.html?id=25'
   }
 ];
 
@@ -678,7 +675,7 @@ function mentorCard(m, i) {
       </div>`
     : '';
   return `
-  <div class="mtor-card" style="--stripe:${m.stripe};animation-delay:${i * 0.06}s" data-slug="${m.slug}">
+  <div class="mtor-card" style="--stripe:${m.stripe};animation-delay:${i * 0.06}s" data-slug="${m.slug}" data-id="${m.id}">
     <div class="mtor-top">
       <div class="mtor-av" style="background:${m.color}">${m.avatar}</div>
       <div class="mtor-info">
@@ -734,7 +731,20 @@ document.getElementById('mentorGroups').addEventListener('click', e => {
   const btn = e.target.closest('.mtor-btn');
   if (btn) return; // let <a> handle it
   const card = e.target.closest('.mtor-card');
-  if (card) window.location = card.dataset.slug;
+  if (card) {
+    const m = MENTORS.find(x => String(x.id) === String(card.dataset.id));
+    if (m) {
+      const params = new URLSearchParams({
+        id: m.id, name: m.name||'', avatar: m.avatar||'', color: m.color||'',
+        role: m.role||'', country: m.country||'', city: m.city||'',
+        flag: m.flag||'', joined: m.joined||'', type: m.type||'professional',
+        abroad: m.abroad ? '1' : '0',
+      });
+      window.location = 'member-profile.html?' + params.toString();
+    } else {
+      window.location = card.dataset.slug || 'members.html';
+    }
+  }
 });
 
 // ── INIT — load from Supabase, fall back to dummy mentors ──
@@ -746,7 +756,7 @@ async function loadMentors() {
     try {
       const res = await fetch(
         `${SUPABASE_URL}/rest/v1/members?status=eq.active&order=created_at.desc`,
-        { headers: { 'apikey': 'sb_publishable_QdkB2Ig1Wi9yLPCqM3KA2Q_ImP2HdC-' , 'Authorization': `Bearer ${SUPABASE_ANON_KEY}` } }
+        { headers: { 'apikey': SUPABASE_ANON_KEY, 'Authorization': `Bearer ${SUPABASE_ANON_KEY}` } }
       );
       if (res.ok) {
         const rows = await res.json();
@@ -770,6 +780,7 @@ async function loadMentors() {
             badge:         r.type === 'entrepreneur' ? 'founder' : 'mentor',
             status:        'available',
             bio:           `${r.name ? r.name.split(' ')[0] : 'Member'} is an active AGC community member. Join AGC to connect.`,
+            slug:          `member-profile.html?id=${r.id}`,
           }));
       }
     } catch(err) {
